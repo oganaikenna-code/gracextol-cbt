@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Results | Gracextol CBT</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         RESULT PAGE CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/result-page.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="results-page">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="results-header">
+
+            <div class="brand">
+
+                <div class="brand-logo">
+                    G
+                </div>
+
+                <div class="brand-text">
+
+                    <h1>
+                        Gracextol <span>CBT</span>
+                    </h1>
+
+                    <p>
+                        Student Results
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="goBackToDashboard()"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Dashboard
+
+            </button>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE HEADING
+        ================================================== -->
+
+        <section class="page-heading">
+
+            <div>
+
+                <span class="page-label">
+                    TEACHER PORTAL
+                </span>
+
+                <h2>
+                    Examination Results
+                </h2>
+
+                <p>
+                    View and monitor your students'
+                    examination performance.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="result-stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+
+                    <i class="fa-solid fa-file-circle-check"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Results
+                    </span>
+
+                    <strong id="totalResults">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+
+                    <i class="fa-solid fa-user-graduate"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Students
+                    </span>
+
+                    <strong id="totalStudents">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Average Score
+                    </span>
+
+                    <strong id="averageScore">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+
+                    <i class="fa-solid fa-trophy"></i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Best Score
+                    </span>
+
+                    <strong id="bestScore">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RESULTS CARD
+        ================================================== -->
+
+        <section class="results-card">
+
+
+            <div class="results-toolbar">
+
+                <div class="toolbar-title">
+
+                    <h3>
+                        Student Results
+                    </h3>
+
+                    <span id="resultCount">
+                        0 results
+                    </span>
+
+                </div>
+
+
+                <div class="toolbar-actions">
+
+                    <div class="search-box">
+
+                        <i class="fa-solid fa-search"></i>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search student or exam..."
+                        >
+
+                    </div>
+
+
+                    <select id="examFilter">
+
+                        <option value="">
+                            All Examinations
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TABLE
+            ================================================== -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Student</th>
+
+                            <th>Examination</th>
+
+                            <th>Score</th>
+
+                            <th>Percentage</th>
+
+                            <th>Performance</th>
+
+                            <th>Submitted</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="resultsTableBody"></tbody>
+
+                </table>
+
+
+                <!-- EMPTY -->
+
+                <div
+                    class="empty-state"
+                    id="emptyState"
+                >
+
+                    <div class="empty-icon">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                    </div>
+
+                    <h3>
+                        No Results Yet
+                    </h3>
+
+                    <p>
+                        Students' examination results
+                        will appear here after they
+                        submit an examination.
+                    </p>
+
+                </div>
+
+
+                <!-- LOADING -->
+
+                <div
+                    class="loading-state"
+                    id="loadingState"
+                >
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    <p>
+                        Loading examination results...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DETAILED RESULT MODAL
+        ================================================== -->
+
+        <div
+            class="result-modal"
+            id="resultModal"
+        >
+
+            <div
+                class="modal-overlay"
+                onclick="closeResultModal()"
+            ></div>
+
+
+            <div class="modal-card">
+
+
+                <!-- MODAL HEADER -->
+
+                <div class="modal-header">
+
+                    <div class="modal-icon">
+
+                        <i class="fa-solid fa-user-graduate"></i>
+
+                    </div>
+
+
+                    <div class="modal-heading">
+
+                        <span>
+                            STUDENT RESULT
+                        </span>
+
+                        <h3 id="modalStudentName">
+                            Student
+                        </h3>
+
+                        <p id="modalExamName">
+                            Examination
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="modal-close"
+                        onclick="closeResultModal()"
+                    >
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- SUMMARY -->
+
+                <div class="modal-summary">
+
+                    <div>
+
+                        <span>
+                            Score
+                        </span>
+
+                        <strong id="modalScore">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Percentage
+                        </span>
+
+                        <strong id="modalPercentage">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Performance
+                        </span>
+
+                        <strong id="modalPerformance">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Submitted
+                        </span>
+
+                        <strong id="modalDate">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ANSWERS TITLE -->
+
+                <div class="answers-heading">
+
+                    <div>
+
+                        <h3>
+                            Answer Review
+                        </h3>
+
+                        <p>
+                            Review how the student answered
+                            each question.
+                        </p>
+
+                    </div>
+
+
+                    <span id="answerCount">
+                        0 Questions
+                    </span>
+
+                </div>
+
+
+
+                <!-- ANSWERS -->
+
+                <div
+                    class="answers-list"
+                    id="answersList"
+                ></div>
+
+
+
+                <!-- CLOSE -->
+
+                <button
+                    type="button"
+                    class="modal-done"
+                    onclick="closeResultModal()"
+                >
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer>
+
+            © 2026 Gracextol CBT
+
+            <span>•</span>
+
+            Learn • Practice • Excel
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- =====================================================
+         GRACEXTOL SUPABASE CLIENT
+    ====================================================== -->
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <!-- =====================================================
+         RESULT JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="../js/result-page.js"
+    ></script>
+
+
+</body>
+
+</html>

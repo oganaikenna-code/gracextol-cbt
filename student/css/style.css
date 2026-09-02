@@ -1,0 +1,1604 @@
+/* =========================================================
+   GRACEXTOL CBT
+   STUDENT EXAMINATION PORTAL
+   DARK PREMIUM LANDING-PAGE THEME
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root {
+
+    --primary: #8b5cf6;
+    --primary-dark: #7c3aed;
+    --primary-light: #a78bfa;
+
+    --blue: #3b82f6;
+    --blue-light: #60a5fa;
+
+    --background: #11162a;
+    --background-dark: #0c1121;
+
+    --surface: #181f36;
+    --surface-light: #202944;
+
+    --navy: #f8fafc;
+
+    --text: #e5eaf5;
+    --muted: #9aa6bf;
+    --muted-light: #71809c;
+
+    --border: rgba(148, 163, 184, 0.15);
+
+    --white: #ffffff;
+
+    --success: #22c55e;
+    --success-soft: rgba(34, 197, 94, 0.10);
+
+}
+
+
+/* =========================================================
+   HTML / BODY
+========================================================= */
+
+html,
+body {
+
+    width: 100%;
+    min-height: 100%;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family: "Inter", sans-serif;
+
+    color: var(--text);
+
+    overflow-x: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 8% 8%,
+            rgba(124, 58, 237, 0.22),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            circle at 92% 82%,
+            rgba(37, 99, 235, 0.14),
+            transparent 32%
+        ),
+
+        linear-gradient(
+            135deg,
+            #0f1427 0%,
+            #151a31 50%,
+            #10172c 100%
+        );
+
+}
+
+
+/* =========================================================
+   BACKGROUND SHAPES
+========================================================= */
+
+.bg-shape {
+
+    position: fixed;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+}
+
+
+.shape-one {
+
+    width: 480px;
+    height: 480px;
+
+    left: -310px;
+    bottom: -300px;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(124, 58, 237, 0.18),
+            transparent 68%
+        );
+
+}
+
+
+.shape-two {
+
+    width: 430px;
+    height: 430px;
+
+    right: -250px;
+    top: -180px;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(37, 99, 235, 0.14),
+            transparent 68%
+        );
+
+}
+
+
+/* =========================================================
+   MAIN LANDING PAGE
+========================================================= */
+
+.landing-page {
+
+    width: min(1160px, 92%);
+
+    min-height: calc(100vh - 30px);
+
+    margin: 0 auto;
+
+    padding: 25px 10px 15px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 0.95fr)
+        minmax(0, 1.05fr);
+
+    align-items: center;
+
+    gap: 55px;
+
+}
+
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.hero-section {
+
+    position: relative;
+
+    min-height: 520px;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 10px;
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.brand-logo {
+
+    width: 72px;
+
+    height: 72px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.06
+    );
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.08
+    );
+
+    box-shadow:
+
+        0 15px 35px
+        rgba(
+            0,
+            0,
+            0,
+            0.20
+        );
+
+}
+
+
+.brand-logo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+}
+
+
+/* =========================================================
+   BRAND NAME
+========================================================= */
+
+.brand-name h2 {
+
+    color: #f8fafc;
+
+    font-size: 25px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    letter-spacing: -0.7px;
+
+}
+
+
+.brand-name h2 span {
+
+    color: var(--primary-light);
+
+}
+
+
+.brand-name p {
+
+    margin-top: 6px;
+
+    color: #7f8ba7;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 2.3px;
+
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero-section::after {
+
+    content: "STUDENT EXAMINATION PORTAL";
+
+    display: block;
+
+    max-width: 510px;
+
+    margin-top: 62px;
+
+    color: #f8fafc;
+
+    font-size: clamp(
+        42px,
+        4.4vw,
+        57px
+    );
+
+    line-height: 1.05;
+
+    font-weight: 800;
+
+    letter-spacing: -2.8px;
+
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.hero-section::before {
+
+    content:
+        "Enter the details provided by your teacher and securely access your examination.";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 360px;
+
+    max-width: 440px;
+
+    color: #9aa6bf;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   HIDE UNUSED CONTENT
+========================================================= */
+
+.hero-content,
+.features,
+.student-illustration,
+.quote-card {
+
+    display: none !important;
+
+}
+
+
+/* =========================================================
+   LOGIN SECTION
+========================================================= */
+
+.login-section {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   DATE / TIME
+========================================================= */
+
+.datetime {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+
+    padding: 9px 18px;
+
+    background:
+
+        rgba(
+            24,
+            31,
+            54,
+            0.88
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 30px;
+
+    box-shadow:
+
+        0 10px 28px
+        rgba(
+            0,
+            0,
+            0,
+            0.18
+        );
+
+    backdrop-filter: blur(12px);
+
+    color: #9ba7bf;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+.datetime div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+.datetime i {
+
+    color: var(--primary-light);
+
+    font-size: 13px;
+
+}
+
+
+.divider {
+
+    width: 1px;
+
+    height: 18px;
+
+    background: #35405a;
+
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.login-card {
+
+    width: 100%;
+
+    max-width: 560px;
+
+    padding: 38px 40px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(29, 37, 63, 0.98),
+            rgba(22, 29, 50, 0.98)
+        );
+
+    border: 1px solid
+        rgba(
+            148,
+            163,
+            184,
+            0.14
+        );
+
+    border-radius: 24px;
+
+    box-shadow:
+
+        0 30px 75px
+        rgba(
+            0,
+            0,
+            0,
+            0.32
+        );
+
+    backdrop-filter: blur(15px);
+
+}
+
+
+/* =========================================================
+   WELCOME TEXT
+========================================================= */
+
+.welcome-text {
+
+    text-align: center;
+
+}
+
+
+.welcome-text > span {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #8996b1;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+}
+
+
+.welcome-text h2 {
+
+    color: #f8fafc;
+
+    font-size: 32px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    letter-spacing: -1.2px;
+
+}
+
+
+.welcome-text h2 strong {
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #a78bfa,
+            #60a5fa
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+}
+
+
+.title-line {
+
+    width: 42px;
+
+    height: 3px;
+
+    margin: 13px auto 11px;
+
+    border-radius: 10px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #8b5cf6,
+            #3b82f6
+        );
+
+}
+
+
+.welcome-text p {
+
+    color: #8996b1;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+
+}
+
+
+/* =========================================================
+   INFORMATION MESSAGE
+========================================================= */
+
+.start-message {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin: 25px 0;
+
+    padding: 15px;
+
+    border: 1px solid
+        rgba(
+            139,
+            92,
+            246,
+            0.18
+        );
+
+    border-radius: 14px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(
+                124,
+                58,
+                237,
+                0.10
+            ),
+            rgba(
+                37,
+                99,
+                235,
+                0.06
+            )
+        );
+
+}
+
+
+.message-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #2563eb
+        );
+
+    box-shadow:
+
+        0 8px 20px
+        rgba(
+            124,
+            58,
+            237,
+            0.25
+        );
+
+}
+
+
+.start-message h4 {
+
+    margin-bottom: 4px;
+
+    color: #e7ebf5;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.start-message p {
+
+    color: #8996b1;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+.form-group label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+
+    color: #dce2ef;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+.form-group label i {
+
+    color: var(--primary-light);
+
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+========================================================= */
+
+.input-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+}
+
+
+.input-wrapper > i:first-child {
+
+    position: absolute;
+
+    left: 16px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #77839d;
+
+    font-size: 14px;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+input {
+
+    width: 100%;
+
+    height: 53px;
+
+    padding:
+        0
+        16px
+        0
+        45px;
+
+    border: 1px solid
+        rgba(
+            148,
+            163,
+            184,
+            0.17
+        );
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #11182c;
+
+    color: #eef2f8;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    transition:
+
+        border-color 0.2s ease,
+
+        box-shadow 0.2s ease,
+
+        background 0.2s ease;
+
+}
+
+
+input::placeholder {
+
+    color: #66738f;
+
+}
+
+
+input:hover {
+
+    border-color:
+        rgba(
+            167,
+            139,
+            250,
+            0.30
+        );
+
+}
+
+
+input:focus {
+
+    background: #131b31;
+
+    border-color: var(--primary);
+
+    box-shadow:
+
+        0 0 0 4px
+        rgba(
+            124,
+            58,
+            237,
+            0.10
+        );
+
+}
+
+
+/* =========================================================
+   ACCESS CODE
+========================================================= */
+
+#accessCode {
+
+    text-transform: uppercase;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+}
+
+
+#accessCode::placeholder {
+
+    letter-spacing: 0;
+
+    font-weight: 400;
+
+}
+
+
+.access-code-hint {
+
+    display: block;
+
+    margin-top: 7px;
+
+    color: #73809b;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   EXAM PREVIEW
+========================================================= */
+
+.exam-preview {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin: 20px 0;
+
+    padding: 15px;
+
+    border: 1px solid
+        rgba(
+            34,
+            197,
+            94,
+            0.20
+        );
+
+    border-radius: 14px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(
+                34,
+                197,
+                94,
+                0.08
+            ),
+            rgba(
+                16,
+                185,
+                129,
+                0.04
+            )
+        );
+
+}
+
+
+.exam-preview-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(
+            34,
+            197,
+            94,
+            0.12
+        );
+
+    color: #4ade80;
+
+    font-size: 18px;
+
+}
+
+
+.exam-preview span {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #82918a;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+}
+
+
+.exam-preview strong {
+
+    display: block;
+
+    color: #dcefe3;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+
+    font-weight: 800;
+
+}
+
+
+.exam-preview small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: #82968a;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   STATUS MESSAGE
+========================================================= */
+
+.start-message-status {
+
+    min-height: 20px;
+
+    margin: 7px 0;
+
+    text-align: center;
+
+    color: #8996b1;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   START EXAMINATION BUTTON
+========================================================= */
+
+.start-btn {
+
+    width: 100%;
+
+    height: 55px;
+
+    margin-top: 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 11px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #6d28d9
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+
+        0 12px 28px
+        rgba(
+            124,
+            58,
+            237,
+            0.25
+        );
+
+    transition:
+
+        transform 0.2s ease,
+
+        box-shadow 0.2s ease,
+
+        opacity 0.2s ease;
+
+}
+
+
+.start-btn span {
+
+    width: 28px;
+
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.16
+        );
+
+}
+
+
+.start-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+
+        0 16px 34px
+        rgba(
+            124,
+            58,
+            237,
+            0.33
+        );
+
+}
+
+
+.start-btn:active {
+
+    transform: translateY(0);
+
+}
+
+
+.start-btn:disabled {
+
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.security {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    margin-top: 20px;
+
+    color: #74809b;
+
+    font-size: 10px;
+
+}
+
+
+.security span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+}
+
+
+.security i {
+
+    color: #4ade80;
+
+}
+
+
+.security b {
+
+    color: #3c465c;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    width: 100%;
+
+    padding:
+        5px
+        20px
+        15px;
+
+    text-align: center;
+
+    color: #71809b;
+
+    font-size: 10px;
+
+    line-height: 1.6;
+
+}
+
+
+footer span {
+
+    margin: 0 5px;
+
+    color: #3e485e;
+
+}
+
+
+/* =========================================================
+   INPUT ERROR
+========================================================= */
+
+.input-error {
+
+    border-color: #ef4444 !important;
+
+    box-shadow:
+
+        0 0 0 4px
+        rgba(
+            239,
+            68,
+            68,
+            0.09
+        ) !important;
+
+}
+
+
+/* =========================================================
+   INPUT SUCCESS
+========================================================= */
+
+.input-success {
+
+    border-color: #22c55e !important;
+
+    box-shadow:
+
+        0 0 0 4px
+        rgba(
+            34,
+            197,
+            94,
+            0.09
+        ) !important;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .landing-page {
+
+        width: min(720px, 92%);
+
+        min-height: auto;
+
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+        padding:
+            30px
+            10px
+            20px;
+
+    }
+
+
+    .hero-section {
+
+        min-height: auto;
+
+        align-items: center;
+
+        text-align: center;
+
+    }
+
+
+    .brand {
+
+        justify-content: center;
+
+        margin-top: 0;
+
+    }
+
+
+    .hero-section::after {
+
+        margin-top: 35px;
+
+        font-size:
+            clamp(
+                37px,
+                7vw,
+                52px
+            );
+
+        text-align: center;
+
+    }
+
+
+    .hero-section::before {
+
+        position: static;
+
+        max-width: 500px;
+
+        margin-top: 14px;
+
+        text-align: center;
+
+        font-size: 13px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .landing-page {
+
+        width: 94%;
+
+        min-height: auto;
+
+        padding:
+            18px
+            5px
+            15px;
+
+        gap: 22px;
+
+    }
+
+
+    .brand {
+
+        gap: 12px;
+
+    }
+
+
+    .brand-logo {
+
+        width: 60px;
+
+        height: 60px;
+
+        border-radius: 17px;
+
+    }
+
+
+    .brand-name h2 {
+
+        font-size: 21px;
+
+    }
+
+
+    .brand-name p {
+
+        font-size: 9px;
+
+        letter-spacing: 2px;
+
+    }
+
+
+    .hero-section::after {
+
+        margin-top: 28px;
+
+        font-size: 37px;
+
+        letter-spacing: -2px;
+
+    }
+
+
+    .hero-section::before {
+
+        max-width: 360px;
+
+        font-size: 12px;
+
+    }
+
+
+    .datetime {
+
+        width: 100%;
+
+        gap: 10px;
+
+        padding:
+            8px
+            12px;
+
+        font-size: 9px;
+
+    }
+
+
+    .login-card {
+
+        padding:
+            29px
+            21px;
+
+        border-radius: 22px;
+
+    }
+
+
+    .welcome-text h2 {
+
+        font-size: 29px;
+
+    }
+
+
+    .start-message {
+
+        margin: 22px 0;
+
+        padding: 13px;
+
+    }
+
+
+    .message-icon {
+
+        width: 40px;
+
+        height: 40px;
+
+    }
+
+
+    input {
+
+        height: 52px;
+
+    }
+
+
+    .start-btn {
+
+        height: 54px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .landing-page {
+
+        width: 96%;
+
+        padding-left: 2px;
+
+        padding-right: 2px;
+
+    }
+
+
+    .login-card {
+
+        padding:
+            25px
+            17px;
+
+    }
+
+
+    .welcome-text h2 {
+
+        font-size: 26px;
+
+    }
+
+
+    .hero-section::after {
+
+        font-size: 33px;
+
+    }
+
+
+    .security {
+
+        gap: 6px;
+
+        font-size: 9px;
+
+    }
+
+
+    .datetime {
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .divider {
+
+        display: none;
+
+    }
+
+}

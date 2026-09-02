@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Teacher Dashboard | Gracextol CBT</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         TEACHER CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/teacher.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="teacher-page">
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- SIDEBAR BRAND -->
+
+            <div class="sidebar-brand">
+
+                <div class="brand-logo">
+                    G
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Gracextol <span>CBT</span>
+                    </h2>
+
+                    <p>
+                        Teacher Portal
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 NAVIGATION
+            ================================================== -->
+
+            <nav class="sidebar-nav">
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="#"
+                    class="nav-item active"
+                >
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+
+                <!-- CREATE EXAMINATION -->
+
+                <a
+                    href="create-exam.html"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-file-circle-plus"></i>
+
+                    <span>
+                        Create Examination
+                    </span>
+
+                </a>
+
+
+
+                <!-- MY EXAMINATIONS -->
+
+                <a
+                    href="./my-exams.html"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-book"></i>
+
+                    <span>
+                        My Examinations
+                    </span>
+
+                </a>
+
+
+
+                <!-- QUESTION BANK -->
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-database"></i>
+
+                    <span>
+                        Question Bank
+                    </span>
+
+                </a>
+
+
+<!-- STUDENTS -->
+
+<a
+    href="students.html"
+    class="nav-item">
+
+    <i class="fa-solid fa-users"></i>
+
+    <span>
+        Students
+    </span>
+
+</a>>
+
+
+                <!-- =================================================
+                     RESULTS
+                     CONNECTED TO RESULT PAGE
+                ================================================== -->
+
+                <a
+                    href="result-page.html"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <span>
+                        Results
+                    </span>
+
+                </a>
+
+
+            </nav>
+
+
+
+            <!-- =================================================
+                 SIDEBAR BOTTOM
+            ================================================== -->
+
+            <div class="sidebar-bottom">
+
+
+                <!-- SETTINGS -->
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </a>
+
+
+
+                <!-- EXIT PORTAL -->
+
+                <a
+                    href="index.html"
+                    class="nav-item logout"
+                >
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>
+                        Exit Portal
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =================================================
+             MAIN CONTENT
+        ================================================== -->
+
+        <main class="main-content">
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="top-header">
+
+
+                <div>
+
+                    <span class="page-label">
+                        TEACHER DASHBOARD
+                    </span>
+
+
+                    <h1>
+                        Welcome back, Teacher 👋
+                    </h1>
+
+
+                    <p>
+                        Manage your examinations, questions
+                        and student results.
+                    </p>
+
+                </div>
+
+
+
+                <!-- TEACHER PROFILE -->
+
+                <div class="teacher-profile">
+
+
+                    <div class="profile-avatar">
+                        T
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Teacher
+                        </strong>
+
+                        <span>
+                            Administrator
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </header>
+
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <section class="stats-grid">
+
+
+                <!-- TOTAL EXAMS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total Exams
+                        </span>
+
+
+                        <strong id="totalExams">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TOTAL QUESTIONS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-circle-question"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Total Questions
+                        </span>
+
+
+                        <strong id="totalQuestions">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STUDENTS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Students
+                        </span>
+
+
+                        <strong id="totalStudents">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RESULTS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-chart-simple"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Results
+                        </span>
+
+
+                        <strong id="totalResults">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 QUICK ACTIONS
+            ================================================== -->
+
+            <section class="dashboard-section">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+
+                        <p>
+                            Start managing your CBT examinations.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="action-grid">
+
+
+                    <!-- =================================================
+                         CREATE EXAMINATION
+                    ================================================== -->
+
+                    <button
+                        class="action-card"
+                        type="button"
+                        onclick="window.location.href='create-exam.html'"
+                    >
+
+                        <div class="action-icon">
+
+                            <i class="fa-solid fa-plus"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Create Examination
+                            </h3>
+
+
+                            <p>
+                                Create a new exam and add your
+                                questions.
+                            </p>
+
+                        </div>
+
+
+                        <i
+                            class="fa-solid fa-arrow-right action-arrow"
+                        ></i>
+
+                    </button>
+
+
+
+                    <!-- =================================================
+                         QUESTION BANK
+                    ================================================== -->
+
+                    <button
+                        class="action-card"
+                        type="button"
+                    >
+
+                        <div class="action-icon">
+
+                            <i class="fa-solid fa-database"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Question Bank
+                            </h3>
+
+
+                            <p>
+                                View and manage your saved
+                                questions.
+                            </p>
+
+                        </div>
+
+
+                        <i
+                            class="fa-solid fa-arrow-right action-arrow"
+                        ></i>
+
+                    </button>
+
+
+
+                    <!-- =================================================
+                         VIEW RESULTS
+                         CONNECTED TO RESULT PAGE
+                    ================================================== -->
+
+                    <button
+                        class="action-card"
+                        type="button"
+                        onclick="window.location.href='result-page.html'"
+                    >
+
+                        <div class="action-icon">
+
+                            <i class="fa-solid fa-chart-column"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                View Results
+                            </h3>
+
+
+                            <p>
+                                Check student examination
+                                performance.
+                            </p>
+
+                        </div>
+
+
+                        <i
+                            class="fa-solid fa-arrow-right action-arrow"
+                        ></i>
+
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RECENT EXAMINATIONS
+            ================================================== -->
+
+            <section class="dashboard-section">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <h2>
+                            Recent Examinations
+                        </h2>
+
+
+                        <p>
+                            Your recently created examinations.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="view-all"
+                        type="button"
+                    >
+                        View All
+                    </button>
+
+
+                </div>
+
+
+
+                <div class="exam-table">
+
+
+                    <div class="empty-state">
+
+
+                        <div class="empty-icon">
+
+                            <i
+                                class="fa-solid fa-file-circle-plus"
+                            ></i>
+
+                        </div>
+
+
+                        <h3>
+                            No examinations yet
+                        </h3>
+
+
+                        <p>
+                            Create your first examination
+                            to see it here.
+                        </p>
+
+
+                        <button
+                            class="primary-btn"
+                            type="button"
+                            onclick="window.location.href='create-exam.html'"
+                        >
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Create Examination
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="../../assets/js/supabase-client.js"></script>
+
+<!-- TEACHER DASHBOARD JAVASCRIPT -->
+<script src="../js/teacher.js"></script>
+
+
+</body>
+
+</html>

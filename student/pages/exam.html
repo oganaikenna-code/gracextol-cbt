@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Gracextol CBT | Examination</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         EXAM CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/exam.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <div class="exam-page">
+
+
+        <!-- =================================================
+             EXAM HEADER
+        ================================================== -->
+
+        <header class="exam-header">
+
+
+            <!-- =================================================
+                 BRAND
+            ================================================== -->
+
+            <div class="exam-brand">
+
+
+                <div class="exam-logo">
+                    G
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Gracextol
+                        <span>CBT</span>
+                    </h2>
+
+
+                    <p>
+                        Computer Based Testing System
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EXAM INFORMATION
+            ================================================== -->
+
+            <div class="exam-info">
+
+
+                <!-- Student -->
+
+                <div class="student-info">
+
+
+                    <i class="fa-solid fa-user"></i>
+
+
+                    <div>
+
+                        <small>
+                            Student
+                        </small>
+
+
+                        <strong id="studentName">
+
+                            Loading...
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- Timer -->
+
+                <div class="timer">
+
+
+                    <i class="fa-regular fa-clock"></i>
+
+
+                    <div>
+
+                        <small>
+                            Time Remaining
+                        </small>
+
+
+                        <strong id="timer">
+
+                            --:--
+
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             EXAM CONTENT
+        ================================================== -->
+
+        <main class="exam-container">
+
+
+            <!-- =================================================
+                 EXAM TITLE
+            ================================================== -->
+
+            <div class="exam-title">
+
+
+                <div>
+
+
+                    <span class="exam-label">
+
+                        EXAMINATION
+
+                    </span>
+
+
+                    <h1 id="examTitle">
+
+                        Loading Examination...
+
+                    </h1>
+
+
+                    <p>
+
+                        Please wait while your examination
+                        is being prepared.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <!-- Question Counter -->
+
+                <div class="question-count">
+
+
+                    <strong id="questionNumber">
+
+                        --
+
+                    </strong>
+
+
+                    <span>
+
+                        /
+
+                        <span id="totalQuestions">
+
+                            --
+
+                        </span>
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PROGRESS
+            ================================================== -->
+
+            <div class="progress-container">
+
+
+                <div class="progress-bar">
+
+
+                    <div
+                        class="progress-fill"
+                        id="progressFill"
+                    ></div>
+
+
+                </div>
+
+
+                <span id="progressText">
+
+                    Preparing examination...
+
+                </span>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUESTION CARD
+            ================================================== -->
+
+            <section class="question-card">
+
+
+                <!-- Question Type -->
+
+                <div class="question-type">
+
+
+                    <span id="questionLabel">
+
+                        Loading...
+
+                    </span>
+
+
+                    <span
+                        class="type-badge"
+                        id="questionType"
+                    >
+
+                        --
+
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- Question -->
+
+                <h2 id="questionText">
+
+                    Loading question...
+
+                </h2>
+
+
+
+                <!-- Answers -->
+
+                <div
+                    class="answers"
+                    id="answersContainer"
+                >
+
+                    <!--
+
+                        Real questions and answers
+                        will be inserted here
+                        by exam.js.
+
+                    -->
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 NAVIGATION
+            ================================================== -->
+
+            <div class="exam-navigation">
+
+
+                <!-- Previous -->
+
+                <button
+                    class="previous-btn"
+                    id="previousBtn"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Previous
+
+                </button>
+
+
+
+                <!-- Question Dots -->
+
+                <div
+                    class="question-dots"
+                    id="questionDots"
+                >
+
+                    <!-- Dots generated by exam.js -->
+
+                </div>
+
+
+
+                <!-- Next -->
+
+                <button
+                    class="next-btn"
+                    id="nextBtn"
+                    type="button"
+                >
+
+                    Next
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SUBMIT
+            ================================================== -->
+
+            <div class="submit-container">
+
+
+                <button
+                    class="submit-btn"
+                    id="submitBtn"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Submit Examination
+
+                </button>
+
+
+            </div>
+
+
+        </main>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer>
+
+            © 2026 Gracextol CBT
+
+            <span>•</span>
+
+            Learn • Practice • Excel
+
+        </footer>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUPABASE JAVASCRIPT LIBRARY
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+
+    <!-- =====================================================
+         GRACEXTOL SUPABASE CONNECTION
+    ====================================================== -->
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+
+    <!-- =====================================================
+         EXAMINATION JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="../js/exam.js"
+    ></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Examination | Gracextol CBT</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         CREATE EXAM CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/create-exam.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <div class="create-page">
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- BRAND -->
+
+            <div class="sidebar-brand">
+
+
+                <div class="brand-logo">
+                    G
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Gracextol
+                        <span>CBT</span>
+                    </h2>
+
+
+                    <p>
+                        Teacher Portal
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="sidebar-nav">
+
+
+                <!-- Dashboard -->
+
+                <a
+                    href="teacher.html"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+
+                <!-- Create Examination -->
+
+                <a
+                    href="create-exam.html"
+                    class="nav-item active"
+                >
+
+                    <i class="fa-solid fa-file-circle-plus"></i>
+
+                    <span>
+                        Create Examination
+                    </span>
+
+                </a>
+
+
+
+                <!-- My Examinations -->
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-book"></i>
+
+                    <span>
+                        My Examinations
+                    </span>
+
+                </a>
+
+
+
+                <!-- Question Bank -->
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-database"></i>
+
+                    <span>
+                        Question Bank
+                    </span>
+
+                </a>
+
+
+
+                <!-- Students -->
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <span>
+                        Students
+                    </span>
+
+                </a>
+
+
+
+                <!-- Results -->
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-chart-column"></i>
+
+                    <span>
+                        Results
+                    </span>
+
+                </a>
+
+
+            </nav>
+
+
+
+            <!-- SIDEBAR BOTTOM -->
+
+            <div class="sidebar-bottom">
+
+
+                <!-- Settings -->
+
+                <a
+                    href="#"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </a>
+
+
+
+                <!-- Back to Dashboard -->
+
+                <a
+                    href="teacher.html"
+                    class="nav-item"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =================================================
+             MAIN CONTENT
+        ================================================== -->
+
+        <main class="main-content">
+
+
+            <!-- PAGE HEADER -->
+
+            <header class="page-header">
+
+                <div>
+
+                    <span class="page-label">
+                        EXAMINATION BUILDER
+                    </span>
+
+
+                    <h1>
+                        Create Examination
+                    </h1>
+
+
+                    <p>
+                        Set up your examination before adding questions.
+                    </p>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- =================================================
+                 BUILDER PROGRESS
+            ================================================== -->
+
+            <div class="builder-progress">
+
+
+                <!-- STEP 1 -->
+
+                <div class="progress-step active">
+
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Exam Details
+                        </strong>
+
+
+                        <span>
+                            Basic information
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="progress-line"></div>
+
+
+
+                <!-- STEP 2 -->
+
+                <div class="progress-step">
+
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Questions
+                        </strong>
+
+
+                        <span>
+                            Add questions
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="progress-line"></div>
+
+
+
+                <!-- STEP 3 -->
+
+                <div class="progress-step">
+
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Review & Publish
+                        </strong>
+
+
+                        <span>
+                            Make available
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EXAM DETAILS CARD
+            ================================================== -->
+
+            <section class="form-card">
+
+
+                <!-- CARD HEADING -->
+
+                <div class="card-heading">
+
+
+                    <div class="heading-icon">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Examination Details
+                        </h2>
+
+
+                        <p>
+                            Provide the basic information for this examination.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FORM
+                ================================================== -->
+
+                <form id="examDetailsForm">
+
+
+                    <!-- =================================================
+                         EXAMINATION TITLE
+                    ================================================== -->
+
+                    <div class="form-group full-width">
+
+
+                        <label for="examTitle">
+                            Examination Title
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="examTitle"
+                            placeholder="e.g. Biology Mid-Term Examination"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         SUBJECT + CLASS
+                    ================================================== -->
+
+                    <div class="form-grid">
+
+
+                        <!-- SUBJECT -->
+
+                        <div class="form-group">
+
+
+                            <label for="subject">
+                                Subject / Course
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="subject"
+                                placeholder="e.g. Mathematics, Project Management, Nursing"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- CLASS -->
+
+                        <div class="form-group">
+
+
+                            <label for="classLevel">
+                                Class / Level / Category
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="classLevel"
+                                placeholder="e.g. SS 2, Undergraduate, Professional"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         DURATION + QUESTION COUNT
+                    ================================================== -->
+
+                    <div class="form-grid">
+
+
+                        <!-- DURATION -->
+
+                        <div class="form-group">
+
+
+                            <label for="duration">
+                                Examination Duration
+                            </label>
+
+
+                            <select
+                                id="duration"
+                                required
+                            >
+
+                                <option value="">
+                                    Select duration
+                                </option>
+
+
+                                <option value="15">
+                                    15 Minutes
+                                </option>
+
+
+                                <option value="30">
+                                    30 Minutes
+                                </option>
+
+
+                                <option value="45">
+                                    45 Minutes
+                                </option>
+
+
+                                <option value="60">
+                                    1 Hour
+                                </option>
+
+
+                                <option value="90">
+                                    1 Hour 30 Minutes
+                                </option>
+
+
+                                <option value="120">
+                                    2 Hours
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- QUESTION COUNT -->
+
+                        <div class="form-group">
+
+
+                            <label for="questionCount">
+                                Planned Number of Questions
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="questionCount"
+                                min="1"
+                                placeholder="e.g. 20"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         INSTRUCTIONS
+                    ================================================== -->
+
+                    <div class="form-group full-width">
+
+
+                        <label for="instructions">
+                            Examination Instructions
+                        </label>
+
+
+                        <textarea
+                            id="instructions"
+                            rows="5"
+                            placeholder="Enter instructions students should see before starting the examination..."
+                        ></textarea>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         EXAMINATION SETTINGS
+                    ================================================== -->
+
+                    <div class="settings-box">
+
+
+                        <h3>
+                            Examination Settings
+                        </h3>
+
+
+
+                        <!-- =================================================
+                             SHUFFLE QUESTIONS
+                        ================================================== -->
+
+                        <label class="checkbox-option">
+
+
+                            <input
+                                type="checkbox"
+                                id="shuffleQuestions"
+                            >
+
+
+                            <span>
+
+                                Shuffle questions for students
+
+                            </span>
+
+
+                        </label>
+
+
+
+                        <!-- =================================================
+                             SHOW RESULT
+                        ================================================== -->
+
+                        <label class="checkbox-option">
+
+
+                            <input
+                                type="checkbox"
+                                id="showResult"
+                                checked
+                            >
+
+
+                            <span>
+
+                                Show result immediately after submission
+
+                            </span>
+
+
+                        </label>
+
+
+
+                        <!-- =================================================
+                             ALLOW RETAKE
+                        ================================================== -->
+
+                        <label class="checkbox-option">
+
+
+                            <input
+                                type="checkbox"
+                                id="allowRetake"
+                            >
+
+
+                            <span>
+
+                                Allow students to retake this examination
+
+                            </span>
+
+
+                        </label>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         FORM ACTIONS
+                    ================================================== -->
+
+                    <div class="form-actions">
+
+
+                        <!-- CANCEL -->
+
+                        <a
+                            href="teacher.html"
+                            class="cancel-btn"
+                        >
+
+                            Cancel
+
+                        </a>
+
+
+
+                        <!-- CONTINUE -->
+
+                        <button
+                            type="submit"
+                            class="continue-btn"
+                        >
+
+                            Continue to Questions
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- =====================================================
+         GRACEXTOL SUPABASE CLIENT
+    ====================================================== -->
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <!-- =====================================================
+         TEACHER GUARD
+    ====================================================== -->
+
+    <script
+        src="../js/teacher-guard.js"
+    ></script>
+
+
+    <!-- =====================================================
+         CREATE EXAMINATION JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="../js/create-exam.js"
+    ></script>
+
+
+</body>
+
+</html>

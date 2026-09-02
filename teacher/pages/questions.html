@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Add Questions | Gracextol CBT</title>
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- =====================================================
+         MATHLIVE
+         Mathematical/scientific notation editor
+    ====================================================== -->
+
+    <script
+        defer
+        src="https://unpkg.com/mathlive"
+    ></script>
+
+
+    <!-- Questions CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/questions.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="questions-page">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+                G
+            </div>
+
+            <div>
+
+                <h2>
+                    Gracextol <span>CBT</span>
+                </h2>
+
+                <p>
+                    Teacher Portal
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="teacher.html"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="create-exam.html"
+                class="nav-item active"
+            >
+
+                <i class="fa-solid fa-file-circle-plus"></i>
+
+                <span>
+                    Create Examination
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-book"></i>
+
+                <span>
+                    My Examinations
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-database"></i>
+
+                <span>
+                    Question Bank
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Students
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <span>
+                    Results
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+            <a
+                href="teacher.html"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- PAGE HEADER -->
+
+        <header class="page-header">
+
+            <div>
+
+                <span class="page-label">
+                    EXAMINATION BUILDER
+                </span>
+
+                <h1>
+                    Add Questions
+                </h1>
+
+                <p>
+                    Create questions using text, mathematics,
+                    scientific notation and media.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             EXAM SUMMARY
+        ================================================== -->
+
+        <section class="exam-summary">
+
+
+            <div class="summary-item">
+
+                <span>
+                    Examination
+                </span>
+
+                <strong id="examTitleDisplay">
+                    Loading...
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    Subject / Course
+                </span>
+
+                <strong id="subjectDisplay">
+                    Loading...
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    Class / Level
+                </span>
+
+                <strong id="classDisplay">
+                    Loading...
+                </strong>
+
+            </div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    Questions
+                </span>
+
+                <strong>
+
+                    <span id="questionTotal">
+                        0
+                    </span>
+
+                    /
+
+                    <span id="plannedQuestions">
+                        0
+                    </span>
+
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
+
+        <div class="builder-progress">
+
+
+            <div class="progress-step completed">
+
+                <div class="step-number">
+
+                    <i class="fa-solid fa-check"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Exam Details
+                    </strong>
+
+                    <span>
+                        Basic information
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-line active"></div>
+
+
+            <div class="progress-step active">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div>
+
+                    <strong>
+                        Questions
+                    </strong>
+
+                    <span>
+                        Add questions
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-line"></div>
+
+
+            <div class="progress-step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div>
+
+                    <strong>
+                        Review & Publish
+                    </strong>
+
+                    <span>
+                        Make available
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             QUESTION BUILDER
+        ================================================== -->
+
+        <div class="section-heading">
+
+    <div>
+
+        <h2>
+            Examination Questions
+        </h2>
+
+        <p>
+            Add questions manually or generate them with AI.
+        </p>
+
+    </div>
+
+
+    <div class="question-actions">
+
+        <!-- AI GENERATOR -->
+
+        <button
+            type="button"
+            class="ai-generate-btn"
+            id="openAiGeneratorBtn">
+
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            Generate with AI
+
+        </button>
+
+
+        <!-- MANUAL QUESTION -->
+
+        <button
+            type="button"
+            class="add-question-btn"
+            id="addQuestionBtn">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Question
+
+        </button>
+
+    </div>
+
+</div>
+
+            <!-- =================================================
+                 FORMAT HELP
+            ================================================== -->
+
+            <div class="format-help">
+
+                <div class="format-help-icon">
+
+                    <i class="fa-solid fa-square-root-variable"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Mathematical & Scientific Notation
+                    </strong>
+
+                    <p>
+                        You can use the math editor when creating
+                        equations, powers, subscripts, chemical
+                        formulas and other scientific expressions.
+                    </p>
+
+                    <div class="format-examples">
+
+                        <span>
+                            x²
+                        </span>
+
+                        <span>
+                            H₂O
+                        </span>
+
+                        <span>
+                            CO₂
+                        </span>
+
+                        <span>
+                            √25
+                        </span>
+
+                        <span>
+                            SO₄²⁻
+                        </span>
+
+                        <span>
+                            E = mc²
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 QUESTIONS
+            ================================================== -->
+
+            <div
+                class="questions-list"
+                id="questionsList"
+            >
+
+            </div>
+<!-- =====================================================
+     AI QUESTION GENERATOR
+====================================================== -->
+
+<div
+    class="ai-generator-panel"
+    id="aiGeneratorPanel"
+    style="display: none;">
+
+    <div class="ai-generator-header">
+
+        <div class="ai-generator-title">
+
+            <div class="ai-icon">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    AI Question Generator
+                </h3>
+
+                <p>
+                    Describe the questions you want to create.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="ai-close-btn"
+            id="closeAiGeneratorBtn"
+            aria-label="Close AI generator">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         CUSTOM PROMPT
+    ================================================== -->
+
+    <div class="ai-form-group">
+
+        <label for="aiPrompt">
+
+            What would you like the AI to generate?
+
+        </label>
+
+
+        <textarea
+            id="aiPrompt"
+            rows="6"
+            placeholder="Example: Generate 10 JSS2 Mathematics questions on fractions. Make 6 multiple-choice, 2 true/false and 2 fill-in-the-gap. Include practical word problems and make the questions moderately difficult.">
+        </textarea>
+
+
+        <small>
+            You can describe the topic, number of questions,
+            difficulty, question types and any special
+            instructions.
+        </small>
+
+    </div>
+
+
+    <!-- =================================================
+         AI SETTINGS
+    ================================================== -->
+
+    <div class="ai-settings-grid">
+
+
+        <!-- Number -->
+
+        <div class="ai-form-group">
+
+            <label for="aiQuestionCount">
+
+                Number of Questions
+
+            </label>
+
+
+            <input
+                type="number"
+                id="aiQuestionCount"
+                min="1"
+                max="50"
+                value="5">
+
+        </div>
+
+
+        <!-- Question Type -->
+
+        <div class="ai-form-group">
+
+            <label for="aiQuestionType">
+
+                Question Type
+
+            </label>
+
+
+            <select
+                id="aiQuestionType">
+
+                <option value="mixed">
+                    Mixed
+                </option>
+
+                <option value="multiple-choice">
+                    Multiple Choice
+                </option>
+
+                <option value="true-false">
+                    True / False
+                </option>
+
+                <option value="fill-gap">
+                    Fill in the Gap
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Difficulty -->
+
+        <div class="ai-form-group">
+
+            <label for="aiDifficulty">
+
+                Difficulty
+
+            </label>
+
+
+            <select
+                id="aiDifficulty">
+
+                <option value="easy">
+                    Easy
+                </option>
+
+                <option value="medium" selected>
+                    Medium
+                </option>
+
+                <option value="hard">
+                    Hard
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ACTIONS
+    ================================================== -->
+
+    <div class="ai-generator-actions">
+
+        <button
+            type="button"
+            class="ai-cancel-btn"
+            id="cancelAiGeneratorBtn">
+
+            Cancel
+
+        </button>
+
+
+        <button
+            type="button"
+            class="ai-generate-submit-btn"
+            id="generateAiQuestionsBtn">
+
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            Generate Questions
+
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         STATUS
+    ================================================== -->
+
+    <div
+        class="ai-generator-status"
+        id="aiGeneratorStatus"
+        style="display: none;">
+
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+
+        <span>
+            Generating questions...
+        </span>
+
+    </div>
+
+</div>
+
+            <!-- =================================================
+                 EMPTY STATE
+            ================================================== -->
+
+            <div
+                class="empty-state"
+                id="emptyState"
+            >
+
+                <div class="empty-icon">
+
+                    <i class="fa-solid fa-file-circle-plus"></i>
+
+                </div>
+
+                <h3>
+                    No questions added yet
+                </h3>
+
+                <p>
+                    Click "Add Question" to create the first
+                    question for this examination.
+                </p>
+
+                <button
+                    type="button"
+                    class="empty-add-btn"
+                    id="emptyAddBtn"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add First Question
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             BOTTOM ACTIONS
+        ================================================== -->
+
+        <div class="bottom-actions">
+
+
+            <a
+                href="create-exam.html"
+                class="back-btn"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Exam Details
+
+            </a>
+
+
+            <button
+                type="button"
+                class="continue-btn"
+                id="continueReviewBtn"
+            >
+
+                Continue to Review
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+<!-- =========================================================
+     GRACEXTOL SUPABASE CLIENT
+========================================================= -->
+
+<script
+    src="../../assets/js/supabase-client.js"
+></script>
+
+
+<!-- =========================================================
+     QUESTIONS JAVASCRIPT
+========================================================= -->
+
+<script
+    src="../js/questions.js"
+></script>
+
+
+</body>
+
+</html>

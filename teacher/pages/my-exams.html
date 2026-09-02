@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Examinations | Gracextol CBT</title>
+
+    <link rel="stylesheet" href="../css/teacher.css">
+
+    <!-- MY EXAMINATIONS CSS -->
+    <link rel="stylesheet" href="../css/my-exams.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+<body>
+
+    <div class="teacher-layout">
+
+        <!-- =========================================
+             SIDEBAR
+        ========================================== -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+
+
+                <div class="logo-icon">
+                    G
+                </div>
+
+                <div>
+                    <h2>Gracextol <span>CBT</span></h2>
+                    <p>Teacher Portal</p>
+                </div>
+
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <a href="teacher.html">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+
+
+                <a href="create-exam.html">
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                    <span>Create Examination</span>
+                </a>
+
+
+                <a href="my-exams.html" class="active">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>My Examinations</span>
+                </a>
+
+
+                <a href="#">
+                    <i class="fa-solid fa-database"></i>
+                    <span>Question Bank</span>
+                </a>
+
+
+                <a href="#">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Students</span>
+                </a>
+
+
+                <a href="#">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <span>Results</span>
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <a href="#">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================================
+             MAIN CONTENT
+        ========================================== -->
+
+        <main class="main-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        My Examinations
+                    </h1>
+
+                    <p>
+                        Manage examinations you have created.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="create-exam.html"
+                    class="create-exam-btn"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Create Examination
+
+                </a>
+
+            </div>
+
+
+            <!-- =====================================
+                 LOADING
+            ====================================== -->
+
+            <div
+                id="loadingState"
+                class="loading-state"
+            >
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <p>
+                    Loading examinations...
+                </p>
+
+            </div>
+
+
+            <!-- =====================================
+                 EMPTY STATE
+            ====================================== -->
+
+            <div
+                id="emptyState"
+                class="empty-state"
+                style="display: none;"
+            >
+
+                <div class="empty-icon">
+
+                    <i class="fa-solid fa-file-circle-question"></i>
+
+                </div>
+
+                <h2>
+                    No examinations yet
+                </h2>
+
+                <p>
+                    You have not created any examinations.
+                </p>
+
+                <a
+                    href="create-exam.html"
+                    class="create-exam-btn"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Create Your First Examination
+
+                </a>
+
+            </div>
+
+
+            <!-- =====================================
+                 ERROR STATE
+            ====================================== -->
+
+            <div
+                id="errorState"
+                class="error-state"
+                style="display: none;"
+            >
+
+                <div class="error-icon">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                </div>
+
+                <h2>
+                    Unable to load examinations
+                </h2>
+
+                <p id="errorMessage">
+                    Something went wrong.
+                </p>
+
+                <button
+                    id="retryBtn"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-rotate-right"></i>
+
+                    Try Again
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================
+                 EXAMINATIONS LIST
+            ====================================== -->
+
+            <div
+                id="examsList"
+                class="exams-list"
+            ></div>
+
+        </main>
+
+    </div>
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../../assets/js/supabase-client.js"></script>
+
+
+    <!-- =========================================
+         MY EXAMS JAVASCRIPT
+    ========================================== -->
+
+    <script src="../js/my-exams.js"></script>
+    
+
+</body>
+</html>

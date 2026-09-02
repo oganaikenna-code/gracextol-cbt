@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Gracextol CBT | Student Examination Portal</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         STUDENT PORTAL CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         BACKGROUND DECORATIONS
+    ====================================================== -->
+
+    <div class="bg-shape shape-one"></div>
+
+    <div class="bg-shape shape-two"></div>
+
+
+
+    <!-- =====================================================
+         MAIN STUDENT PORTAL
+    ====================================================== -->
+
+    <main class="landing-page">
+
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================== -->
+
+        <section class="hero-section">
+
+
+            <!-- =================================================
+                 BRAND
+            ================================================== -->
+
+            <div class="brand">
+
+                <div class="brand-logo">
+
+                    <img
+                        src="../../assets/images/graextolcbt-logo.png"
+                        alt="Gracextol CBT Logo"
+                    >
+
+                </div>
+
+
+                <div class="brand-name">
+
+                    <h2>
+
+                        GRACEXTOL
+                        <span>CBT</span>
+
+                    </h2>
+
+
+                    <p>
+
+                        Learn
+                        <span>•</span>
+                        Practice
+                        <span>•</span>
+                        Excel
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================== -->
+
+        <section class="login-section">
+
+
+            <!-- =================================================
+                 DATE AND TIME
+            ================================================== -->
+
+            <div class="datetime">
+
+
+                <div>
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <span id="currentDate">
+                        Loading...
+                    </span>
+
+                </div>
+
+
+                <div class="divider"></div>
+
+
+                <div>
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    <span id="currentTime">
+                        Loading...
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STUDENT CARD
+            ================================================== -->
+
+            <div class="login-card">
+
+
+                <!-- =================================================
+                     WELCOME
+                ================================================== -->
+
+                <div class="welcome-text">
+
+                    <span>
+                        Welcome to
+                    </span>
+
+
+                    <h2>
+
+                        Gracextol
+                        <strong>CBT</strong>
+
+                    </h2>
+
+
+                    <div class="title-line"></div>
+
+
+                    <p>
+                        Student Examination Portal
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     INFORMATION MESSAGE
+                ================================================== -->
+
+                <div class="start-message">
+
+
+                    <div class="message-icon">
+
+                        <i class="fa-solid fa-pen-to-square"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h4>
+                            Ready to take your examination?
+                        </h4>
+
+
+                        <p>
+
+                            Enter your name and the unique
+                            access code provided by your teacher.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     STUDENT FORM
+                ================================================== -->
+
+                <form id="startForm">
+
+
+                    <!-- =================================================
+                         STUDENT NAME
+                    ================================================== -->
+
+                    <div class="form-group">
+
+
+                        <label for="studentName">
+
+                            <i class="fa-solid fa-user"></i>
+
+                            Student Name
+
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+
+                            <i class="fa-regular fa-user"></i>
+
+
+                            <input
+                                type="text"
+                                id="studentName"
+                                name="studentName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required
+                            >
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         EXAM ACCESS CODE
+                    ================================================== -->
+
+                    <div class="form-group">
+
+
+                        <label for="accessCode">
+
+                            <i class="fa-solid fa-key"></i>
+
+                            Examination Access Code
+
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+
+                            <i class="fa-solid fa-ticket"></i>
+
+
+                            <input
+                                type="text"
+                                id="accessCode"
+                                name="accessCode"
+                                placeholder="Enter the code from your teacher"
+                                autocomplete="off"
+                                autocapitalize="characters"
+                                maxlength="20"
+                                required
+                            >
+
+
+                        </div>
+
+
+                        <small class="access-code-hint">
+
+                            Your teacher should provide you
+                            with the access code for your examination.
+
+                        </small>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         EXAM PREVIEW
+                         HIDDEN UNTIL CODE IS VERIFIED
+                    ================================================== -->
+
+                    <div
+                        id="examPreview"
+                        class="exam-preview"
+                        style="display: none;"
+                    >
+
+
+                        <div class="exam-preview-icon">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Examination Verified
+                            </span>
+
+
+                            <strong id="previewExamTitle">
+                                Examination
+                            </strong>
+
+
+                            <small id="previewExamDetails">
+                                --
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         STATUS MESSAGE
+                    ================================================== -->
+
+                    <div
+                        id="startMessage"
+                        class="start-message-status"
+                        aria-live="polite"
+                    ></div>
+
+
+
+                    <!-- =================================================
+                         START EXAMINATION
+                    ================================================== -->
+
+                    <button
+                        type="submit"
+                        class="start-btn"
+                        id="startExamBtn"
+                    >
+
+
+                        <span>
+
+                            <i class="fa-solid fa-play"></i>
+
+                        </span>
+
+
+                        Start Examination
+
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- =================================================
+                     SECURITY
+                ================================================== -->
+
+                <div class="security">
+
+
+                    <span>
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        Secure
+
+                    </span>
+
+
+                    <b>•</b>
+
+
+                    <span>
+                        Fair
+                    </span>
+
+
+                    <b>•</b>
+
+
+                    <span>
+                        Reliable
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        © 2026 Gracextol CBT.
+        All rights reserved.
+
+        <span>|</span>
+
+        Empowering Better Learning Through Technology.
+
+    </footer>
+
+
+<!-- Supabase JavaScript Library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Gracextol Supabase Connection -->
+<script src="../../assets/js/supabase-client.js"></script>
+
+<!-- Student Portal JavaScript -->
+<script src="../js/script.js"></script>
+
+
+</body>
+
+</html>

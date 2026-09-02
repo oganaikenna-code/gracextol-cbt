@@ -1,0 +1,1294 @@
+/* =========================================
+   GRACEXTOL CBT
+   EXAMINATION PAGE
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #6d28d9;
+    --primary-light: #8b5cf6;
+    --blue: #2563eb;
+
+    --dark: #10185a;
+    --text: #26346e;
+    --muted: #68749d;
+
+    --white: #ffffff;
+    --background: #f5f7ff;
+    --border: #dfe5f4;
+
+    --success: #10b981;
+    --danger: #ef4444;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+
+    min-height: 100vh;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 5% 10%,
+            rgba(109, 40, 217, 0.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 95% 20%,
+            rgba(37, 99, 235, 0.10),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #f5f7ff 0%,
+            #f9f7ff 50%,
+            #f2f7ff 100%
+        );
+}
+
+
+/* =========================================
+   MAIN PAGE
+========================================= */
+
+.exam-page {
+    width: min(1250px, 94%);
+
+    min-height: 100vh;
+
+    margin: 0 auto;
+
+    padding: 25px 0 20px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.exam-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding: 18px 25px;
+
+    background: rgba(255, 255, 255, 0.92);
+
+    border: 1px solid rgba(255, 255, 255, 0.95);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px rgba(48, 62, 141, 0.08);
+
+    backdrop-filter: blur(15px);
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.exam-brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+.exam-logo {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #172b9b,
+            #6d28d9
+        );
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 25px rgba(91, 33, 244, 0.20);
+}
+
+.exam-brand h2 {
+    font-size: 20px;
+
+    color: var(--dark);
+}
+
+.exam-brand h2 span {
+    color: var(--primary);
+}
+
+.exam-brand p {
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   HEADER INFORMATION
+========================================= */
+
+.exam-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.student-info,
+.timer {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 150px;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    background: #f7f8ff;
+
+    border: 1px solid #e5e9f7;
+}
+
+.student-info > i,
+.timer > i {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eee9ff;
+
+    color: var(--primary);
+}
+
+.timer > i {
+    background: #eaf1ff;
+
+    color: var(--blue);
+}
+
+.student-info small,
+.timer small {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #7c87a8;
+
+    font-size: 10px;
+}
+
+.student-info strong,
+.timer strong {
+    display: block;
+
+    color: var(--dark);
+
+    font-size: 13px;
+}
+
+.timer strong {
+    color: var(--blue);
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   EXAM CONTENT
+========================================= */
+
+.exam-container {
+    width: min(900px, 100%);
+
+    margin: 30px auto 0;
+}
+
+
+/* =========================================
+   EXAM TITLE
+========================================= */
+
+.exam-title {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 18px;
+}
+
+.exam-label {
+    display: inline-block;
+
+    margin-bottom: 6px;
+
+    color: var(--primary);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.exam-title h1 {
+    color: var(--dark);
+
+    font-size: 32px;
+
+    letter-spacing: -1px;
+}
+
+.exam-title p {
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.question-count {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 4px;
+
+    padding: 13px 18px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 8px 20px rgba(48, 62, 141, 0.06);
+}
+
+.question-count strong {
+    color: var(--primary);
+
+    font-size: 25px;
+}
+
+.question-count span {
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.progress-container {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    flex: 1;
+
+    height: 8px;
+
+    overflow: hidden;
+
+    background: #e5e9f5;
+
+    border-radius: 20px;
+}
+
+.progress-fill {
+    width: 5%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--blue)
+        );
+
+    border-radius: 20px;
+
+    transition: width 0.3s ease;
+}
+
+#progressText {
+    flex-shrink: 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   QUESTION CARD
+========================================= */
+
+.question-card {
+    padding: 32px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid rgba(255, 255, 255, 0.95);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 50px rgba(48, 62, 141, 0.09);
+}
+
+
+/* =========================================
+   QUESTION TYPE
+========================================= */
+
+.question-type {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.question-type > span:first-child {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.type-badge {
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    background: #eee9ff;
+
+    color: var(--primary);
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   QUESTION TEXT
+========================================= */
+
+.question-card h2 {
+    max-width: 800px;
+
+    color: var(--dark);
+
+    font-size: 21px;
+
+    line-height: 1.55;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   ANSWERS
+========================================= */
+
+.answers {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    margin-top: 28px;
+}
+
+.answer-option {
+    min-height: 65px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 12px 16px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: #fbfcff;
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.answer-option:hover {
+    border-color: #a78bfa;
+
+    background: #f8f5ff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(91, 33, 244, 0.08);
+}
+
+.answer-option.selected {
+    border-color: var(--primary);
+
+    background: #f1edff;
+
+    color: var(--primary);
+
+    box-shadow:
+        0 8px 20px rgba(91, 33, 244, 0.10);
+}
+
+.option-letter {
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #d6ddef;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #68749d;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+.answer-option.selected .option-letter {
+    border-color: var(--primary);
+
+    background: var(--primary);
+
+    color: white;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.exam-navigation {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 20px;
+}
+
+.previous-btn,
+.next-btn {
+    min-width: 125px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    border-radius: 12px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.previous-btn {
+    border: 1px solid var(--border);
+
+    background: white;
+
+    color: var(--muted);
+}
+
+.previous-btn:hover {
+    border-color: #a78bfa;
+
+    color: var(--primary);
+}
+
+.next-btn {
+    border: none;
+
+    background:
+        linear-gradient(
+            100deg,
+            #8b2cf5,
+            #2563eb
+        );
+
+    color: white;
+
+    box-shadow:
+        0 10px 25px rgba(75, 57, 221, 0.20);
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(75, 57, 221, 0.28);
+}
+
+
+/* =========================================
+   QUESTION DOTS
+========================================= */
+
+.question-dots {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+.question-dots span {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #d6dced;
+
+    transition: 0.2s;
+}
+
+.question-dots span.active {
+    width: 24px;
+
+    border-radius: 10px;
+
+    background: var(--primary);
+}
+
+
+/* =========================================
+   SUBMIT
+========================================= */
+
+.submit-container {
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 25px;
+}
+
+.submit-btn {
+    min-width: 220px;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: #111a5c;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.submit-btn:hover {
+    background: #182578;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(17, 26, 92, 0.20);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    padding: 30px 0 10px;
+
+    text-align: center;
+
+    color: #7c87a8;
+
+    font-size: 11px;
+}
+
+footer span {
+    margin: 0 8px;
+
+    color: #c1c8da;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .exam-page {
+        width: 94%;
+    }
+
+    .exam-header {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .exam-info {
+        width: 100%;
+    }
+
+    .student-info,
+    .timer {
+        flex: 1;
+    }
+
+    .answers {
+        grid-template-columns: 1fr;
+    }
+
+    .question-card {
+        padding: 25px;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .exam-page {
+        width: 92%;
+
+        padding-top: 15px;
+    }
+
+    .exam-header {
+        padding: 15px;
+    }
+
+    .exam-brand h2 {
+        font-size: 18px;
+    }
+
+    .exam-brand p {
+        font-size: 9px;
+    }
+
+    .exam-info {
+        flex-direction: column;
+    }
+
+    .student-info,
+    .timer {
+        width: 100%;
+    }
+
+    .exam-title {
+        align-items: flex-start;
+    }
+
+    .exam-title h1 {
+        font-size: 26px;
+    }
+
+    .question-count {
+        padding: 10px 13px;
+    }
+
+    .question-count strong {
+        font-size: 21px;
+    }
+
+    .question-card {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .question-card h2 {
+        font-size: 18px;
+    }
+
+    .answer-option {
+        min-height: 60px;
+
+        font-size: 15px;
+    }
+
+    .exam-navigation {
+        gap: 10px;
+    }
+
+    .previous-btn,
+    .next-btn {
+        min-width: 105px;
+    }
+
+    .question-dots {
+        display: none;
+    }
+}
+/* =========================================
+   FILL IN THE GAP
+========================================= */
+
+.fill-answer {
+    margin-top: 25px;
+}
+
+.fill-answer input {
+    width: 100%;
+    height: 58px;
+
+    padding: 0 18px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: #fbfcff;
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.25s ease;
+}
+
+.fill-answer input:focus {
+    background: white;
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 4px rgba(109, 40, 217, 0.08);
+}
+
+.fill-answer input::placeholder {
+    color: #a2abc4;
+}
+@media (max-width: 550px) {
+    /* your existing mobile CSS */
+}
+
+
+/* =========================================
+   GRACEXTOL CBT
+   TYPOGRAPHY REFINEMENT
+========================================= */
+
+body {
+    font-size: 15px;
+}
+
+.exam-brand h2 {
+    font-size: 22px;
+}
+
+.exam-brand p {
+    font-size: 12px;
+}
+
+.student-info small,
+.timer small {
+    font-size: 11px;
+}
+
+.student-info strong,
+.timer strong {
+    font-size: 14px;
+}
+
+.timer strong {
+    font-size: 17px;
+}
+
+.exam-label {
+    font-size: 12px;
+}
+
+.exam-title h1 {
+    font-size: 36px;
+}
+
+.exam-title p {
+    font-size: 14px;
+}
+
+.question-count strong {
+    font-size: 28px;
+}
+
+.question-count span {
+    font-size: 14px;
+}
+
+#progressText {
+    font-size: 12px;
+}
+
+.question-type > span:first-child {
+    font-size: 14px;
+}
+
+.type-badge {
+    font-size: 12px;
+}
+
+.question-card h2 {
+    font-size: 24px;
+    line-height: 1.6;
+}
+
+.answer-option {
+    font-size: 17px;
+    min-height: 68px;
+}
+
+.option-letter {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+}
+
+.previous-btn,
+.next-btn {
+    font-size: 14px;
+}
+
+.submit-btn {
+    font-size: 15px;
+}
+
+footer {
+    font-size: 12px;
+}
+
+.fill-answer input {
+    font-size: 17px;
+}
+/* =========================================
+   GRACEXTOL CBT
+   FINAL TEXT & TYPOGRAPHY IMPROVEMENT
+========================================= */
+
+/* Main page text */
+body {
+    font-size: 16px;
+}
+
+
+/* =========================================
+   BRAND / HEADER
+========================================= */
+
+.exam-brand h2 {
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.exam-brand p {
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================================
+   STUDENT & TIMER
+========================================= */
+
+.student-info small,
+.timer small {
+    font-size: 11px;
+}
+
+.student-info strong,
+.timer strong {
+    font-size: 15px;
+}
+
+
+/* =========================================
+   EXAM TITLE
+========================================= */
+
+.exam-label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.exam-title h1 {
+    font-size: 36px;
+    line-height: 1.2;
+}
+
+.exam-title p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   QUESTION COUNTER
+========================================= */
+
+.question-count strong {
+    font-size: 27px;
+}
+
+.question-count span {
+    font-size: 14px;
+}
+
+
+/* =========================================
+   PROGRESS / COMPLETED TEXT
+========================================= */
+
+#progressText {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   QUESTION INSTRUCTION
+========================================= */
+
+.question-type > span:first-child {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.type-badge {
+    font-size: 12px;
+    padding: 8px 13px;
+}
+
+
+/* =========================================
+   MAIN QUESTION
+========================================= */
+
+.question-card h2 {
+    font-size: 25px;
+    line-height: 1.6;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   ANSWER OPTIONS
+========================================= */
+
+.answer-option {
+    min-height: 70px;
+
+    font-size: 18px;
+
+    line-height: 1.4;
+
+    font-weight: 500;
+}
+
+.option-letter {
+    width: 40px;
+    height: 40px;
+
+    font-size: 15px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   FILL IN THE GAP
+========================================= */
+
+.fill-answer input {
+    height: 60px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   NAVIGATION BUTTONS
+========================================= */
+
+.previous-btn,
+.next-btn {
+    min-height: 52px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.submit-btn {
+    height: 54px;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   QUESTION DOTS
+========================================= */
+
+.question-dots span {
+    width: 9px;
+    height: 9px;
+}
+
+.question-dots span.active {
+    width: 27px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   MOBILE TEXT
+========================================= */
+
+@media (max-width: 600px) {
+
+    .exam-title h1 {
+        font-size: 30px;
+    }
+
+    .exam-title p {
+        font-size: 14px;
+    }
+
+    .question-card h2 {
+        font-size: 21px;
+        line-height: 1.55;
+    }
+
+    .answer-option {
+        font-size: 17px;
+        min-height: 64px;
+    }
+
+    .exam-brand h2 {
+        font-size: 20px;
+    }
+
+    .student-info strong,
+    .timer strong {
+        font-size: 14px;
+    }
+
+    #progressText {
+        font-size: 12px;
+    }
+}
+/* =========================================================
+   FILL IN THE GAP
+========================================================= */
+
+.fill-answer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fill-answer label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.fill-answer-input {
+    width: 100%;
+    min-height: 54px;
+    padding: 14px 16px;
+    border: 1px solid #dbe2f0;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.fill-answer-input:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.10);
+}
+
+
+/* =========================================================
+   TRUE / FALSE
+========================================================= */
+
+.true-false-options {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.true-false-option {
+    flex: 1;
+    min-height: 58px;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   OPTION TEXT
+========================================================= */
+
+.option-text {
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SCIENTIFIC / MATHEMATICAL FORMATTING
+========================================================= */
+
+#questionText sup,
+#questionText sub,
+.option-text sup,
+.option-text sub {
+    line-height: 0;
+}

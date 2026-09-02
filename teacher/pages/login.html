@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Gracextol CBT | Teacher Access</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         PAGE CSS
+    ====================================================== -->
+
+    <style>
+
+       /* =================================================
+   GRACEXTOL CBT — TEACHER ACCESS
+   LIGHTER DARK THEME
+   SAME VISUAL LANGUAGE AS LANDING PAGE
+================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #8b5cf6;
+    --primary-dark: #7c3aed;
+    --primary-light: #a78bfa;
+
+    --blue: #3b82f6;
+    --blue-light: #60a5fa;
+
+    --background: #11162a;
+    --background-2: #151b31;
+
+    --surface: #181f36;
+    --surface-light: #202944;
+
+    --text: #e5eaf5;
+    --text-bright: #f8fafc;
+    --muted: #9aa6bf;
+
+    --border: rgba(148, 163, 184, 0.15);
+}
+
+
+/* =================================================
+   BODY
+================================================= */
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    font-family: "Inter", sans-serif;
+
+    color: var(--text);
+
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(
+            circle at 8% 8%,
+            rgba(139, 92, 246, 0.18),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 92% 88%,
+            rgba(59, 130, 246, 0.13),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #11162a 0%,
+            #151b31 50%,
+            #11182d 100%
+        );
+}
+
+
+/* =================================================
+   BACKGROUND GLOW
+================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    width: 430px;
+    height: 430px;
+
+    left: -300px;
+    bottom: -300px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139, 92, 246, 0.14),
+            transparent 68%
+        );
+
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 400px;
+    height: 400px;
+
+    right: -280px;
+    top: -250px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(59, 130, 246, 0.12),
+            transparent 68%
+        );
+
+    z-index: -1;
+}
+
+
+/* =================================================
+   AUTH CONTAINER
+================================================= */
+
+.auth-container {
+    width: 100%;
+    max-width: 490px;
+
+    position: relative;
+}
+
+
+/* =================================================
+   LOGO
+================================================= */
+
+.logo {
+    text-align: center;
+
+    margin-bottom: 10px;
+}
+
+.logo img {
+    width: 68px;
+    height: 68px;
+
+    object-fit: contain;
+
+    display: inline-block;
+}
+
+
+/* =================================================
+   BRAND
+================================================= */
+
+.brand {
+    text-align: center;
+
+    margin-bottom: 21px;
+}
+
+.brand h1 {
+    color: var(--text-bright);
+
+    font-size: 27px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    letter-spacing: -0.8px;
+}
+
+.brand h1 span {
+    color: var(--primary-light);
+}
+
+.brand p {
+    margin-top: 6px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =================================================
+   AUTH CARD
+================================================= */
+
+.auth-card {
+    width: 100%;
+
+    padding: 31px 34px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(29, 37, 63, 0.98),
+            rgba(23, 31, 53, 0.98)
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 24px 60px
+        rgba(0, 0, 0, 0.28);
+
+    backdrop-filter: blur(12px);
+}
+
+
+/* =================================================
+   TABS
+================================================= */
+
+.auth-tabs {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 4px;
+
+    padding: 4px;
+
+    margin-bottom: 24px;
+
+    background:
+        rgba(9, 14, 28, 0.55);
+
+    border: 1px solid
+        rgba(148, 163, 184, 0.11);
+
+    border-radius: 10px;
+}
+
+.auth-tab {
+    border: none;
+
+    padding: 10px 8px;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #7f8ba5;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.auth-tab:hover {
+    color: var(--primary-light);
+}
+
+.auth-tab.active {
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124, 58, 237, 0.90),
+            rgba(59, 130, 246, 0.80)
+        );
+
+    box-shadow:
+        0 6px 16px
+        rgba(0, 0, 0, 0.18);
+}
+
+
+/* =================================================
+   FORMS
+================================================= */
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+
+/* =================================================
+   CARD HEADING
+================================================= */
+
+.card-heading {
+    margin-bottom: 21px;
+}
+
+.card-heading h2 {
+    color: var(--text-bright);
+
+    font-size: 23px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: -0.6px;
+
+    margin-bottom: 7px;
+}
+
+.card-heading p {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =================================================
+   FORM GROUP
+================================================= */
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #dce3ef;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =================================================
+   INPUT WRAPPER
+================================================= */
+
+.input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+.input-wrapper > i:first-child {
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--primary-light);
+
+    font-size: 13px;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* =================================================
+   INPUTS
+================================================= */
+
+.input-wrapper input {
+    width: 100%;
+
+    height: 50px;
+
+    padding:
+        0
+        45px
+        0
+        43px;
+
+    border: 1px solid
+        rgba(
+            148,
+            163,
+            184,
+            0.16
+        );
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        rgba(
+            10,
+            16,
+            31,
+            0.68
+        );
+
+    color: #f1f5f9;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.input-wrapper input::placeholder {
+    color: #687590;
+}
+
+.input-wrapper input:hover {
+    border-color:
+        rgba(
+            167,
+            139,
+            250,
+            0.27
+        );
+}
+
+.input-wrapper input:focus {
+    background:
+        rgba(
+            12,
+            19,
+            36,
+            0.85
+        );
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            139,
+            92,
+            246,
+            0.10
+        );
+}
+
+
+/* =================================================
+   PASSWORD TOGGLE
+================================================= */
+
+.password-toggle {
+    position: absolute;
+
+    right: 11px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: #7f8ba3;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: var(--primary-light);
+
+    background:
+        rgba(
+            139,
+            92,
+            246,
+            0.10
+        );
+}
+
+
+/* =================================================
+   AUTH BUTTON
+================================================= */
+
+.auth-btn {
+    width: 100%;
+
+    height: 51px;
+
+    margin-top: 5px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--blue)
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px
+        rgba(
+            92,
+            72,
+            196,
+            0.23
+        );
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(
+            92,
+            72,
+            196,
+            0.30
+        );
+}
+
+.auth-btn:active {
+    transform: translateY(0);
+}
+
+.auth-btn:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =================================================
+   AUTH MESSAGE
+================================================= */
+
+#authMessage {
+    min-height: 20px;
+
+    margin-top: 12px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =================================================
+   BACK LINK
+================================================= */
+
+.back-link {
+    display: block;
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: var(--primary-light);
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--blue-light);
+}
+
+
+/* =================================================
+   REGISTER FORM
+================================================= */
+
+#registerForm .card-heading {
+    margin-bottom: 19px;
+}
+
+#registerForm .form-group {
+    margin-bottom: 14px;
+}
+
+
+/* =================================================
+   ACCESSIBILITY
+================================================= */
+
+.auth-tab:focus-visible,
+.auth-btn:focus-visible,
+.password-toggle:focus-visible,
+.back-link:focus-visible {
+
+    outline: 3px solid
+        rgba(
+            139,
+            92,
+            246,
+            0.20
+        );
+
+    outline-offset: 2px;
+}
+
+
+/* =================================================
+   TABLET
+================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding:
+            22px
+            15px;
+    }
+
+    .auth-container {
+        max-width: 450px;
+    }
+
+    .logo img {
+        width: 62px;
+        height: 62px;
+    }
+
+    .brand {
+        margin-bottom: 18px;
+    }
+
+    .brand h1 {
+        font-size: 24px;
+    }
+
+    .auth-card {
+        padding:
+            28px
+            23px;
+
+        border-radius: 18px;
+    }
+
+    .card-heading h2 {
+        font-size: 21px;
+    }
+}
+
+
+/* =================================================
+   SMALL PHONES
+================================================= */
+
+@media (max-width: 380px) {
+
+    body {
+        padding:
+            18px
+            11px;
+    }
+
+    .logo img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .brand h1 {
+        font-size: 22px;
+    }
+
+    .brand p {
+        font-size: 9px;
+    }
+
+    .auth-card {
+        padding:
+            24px
+            17px;
+
+        border-radius: 17px;
+    }
+
+    .auth-tabs {
+        margin-bottom: 20px;
+    }
+
+    .auth-tab {
+        font-size: 12px;
+
+        padding:
+            9px
+            5px;
+    }
+
+    .card-heading h2 {
+        font-size: 20px;
+    }
+
+    .card-heading p {
+        font-size: 11px;
+    }
+
+    .input-wrapper input {
+        height: 48px;
+
+        font-size: 12px;
+    }
+
+    .auth-btn {
+        height: 49px;
+    }
+}
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         AUTH CONTAINER
+    ================================================== -->
+
+    <main class="auth-container">
+
+
+        <!-- =================================================
+             LOGO
+        ================================================== -->
+
+        <div class="logo">
+
+            <img
+                src="../../assets/images/graextolcbt-logo.png"
+                alt="Gracextol CBT Logo"
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <div class="brand">
+
+            <h1>
+                GRACEXTOL <span>CBT</span>
+            </h1>
+
+            <p>
+                Teacher Portal
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             AUTH CARD
+        ================================================== -->
+
+        <section class="auth-card">
+
+
+            <!-- =================================================
+                 TABS
+            ================================================== -->
+
+            <div class="auth-tabs">
+
+                <button
+                    type="button"
+                    class="auth-tab active"
+                    id="loginTab"
+                >
+                    Sign In
+                </button>
+
+
+                <button
+                    type="button"
+                    class="auth-tab"
+                    id="registerTab"
+                >
+                    Create Account
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
+
+            <form
+                id="loginForm"
+                class="auth-form active"
+            >
+
+                <div class="card-heading">
+
+                    <h2>
+                        Teacher Sign In
+                    </h2>
+
+                    <p>
+                        Sign in to create, manage and publish
+                        your examinations.
+                    </p>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="loginPassword"
+                            aria-label="Show password"
+                        >
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="auth-btn"
+                >
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    Sign In
+
+                </button>
+
+            </form>
+
+
+            <!-- =================================================
+                 REGISTER FORM
+            ================================================== -->
+
+            <form
+                id="registerForm"
+                class="auth-form"
+            >
+
+                <div class="card-heading">
+
+                    <h2>
+                        Create Teacher Account
+                    </h2>
+
+                    <p>
+                        Create your account to build and
+                        manage your examinations.
+                    </p>
+
+                </div>
+
+
+                <!-- USERNAME -->
+
+                <div class="form-group">
+
+                    <label for="registerUsername">
+                        Username
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <input
+                            type="text"
+                            id="registerUsername"
+                            placeholder="Choose a username"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="registerEmail">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="registerPassword">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            minlength="6"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="registerPassword"
+                            aria-label="Show password"
+                        >
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm your password"
+                            autocomplete="new-password"
+                            minlength="6"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            data-target="confirmPassword"
+                            aria-label="Show password"
+                        >
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REGISTER BUTTON -->
+
+                <button
+                    type="submit"
+                    class="auth-btn"
+                >
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    Create Teacher Account
+
+                </button>
+
+            </form>
+
+
+            <!-- =================================================
+                 AUTH MESSAGE
+            ================================================== -->
+
+            <div id="authMessage"></div>
+
+
+            <!-- =================================================
+                 BACK TO MAIN PAGE
+            ================================================== -->
+
+            <a
+                href="../../index.html"
+                class="back-link"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to main page
+
+            </a>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================================
+         SUPABASE
+    ================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- =================================================
+         GRACEXTOL SUPABASE CONNECTION
+    ================================================== -->
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <!-- =================================================
+         TEACHER AUTH JAVASCRIPT
+    ================================================== -->
+
+    <script
+        src="../js/teacher-auth.js"
+    ></script>
+
+
+</body>
+
+</html>

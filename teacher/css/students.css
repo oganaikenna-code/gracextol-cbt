@@ -1,0 +1,1395 @@
+/* =========================================================
+   GRACEXTOL CBT
+   TEACHER PORTAL — STUDENTS
+   LIGHT PROFESSIONAL THEME
+========================================================= */
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root {
+
+    --primary: #7c3aed;
+    --primary-dark: #6d28d9;
+    --primary-light: #ede9fe;
+
+    --blue: #2563eb;
+    --blue-light: #dbeafe;
+
+    --background: #f7f8fc;
+
+    --sidebar: #ffffff;
+
+    --card: #ffffff;
+
+    --text: #17203f;
+    --text-dark: #111827;
+
+    --muted: #64748b;
+    --muted-light: #94a3b8;
+
+    --border: #e5e7eb;
+
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+html,
+body {
+
+    width: 100%;
+    min-height: 100%;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family: "Inter", sans-serif;
+
+    color: var(--text);
+
+    background: var(--background);
+
+    overflow-x: hidden;
+
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.teacher-layout {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    display: flex;
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    width: 255px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: var(--sidebar);
+
+    border-right: 1px solid var(--border);
+
+    z-index: 100;
+
+}
+
+
+/* =========================================================
+   SIDEBAR BRAND
+========================================================= */
+
+.sidebar-brand {
+
+    height: 92px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 18px 22px;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.brand-logo {
+
+    width: 50px;
+
+    height: 50px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.brand-logo img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+}
+
+
+/* =========================================================
+   BRAND TEXT
+========================================================= */
+
+.brand-info {
+
+    min-width: 0;
+
+}
+
+
+.sidebar-brand h2 {
+
+    color: var(--text);
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.4px;
+
+}
+
+
+.sidebar-brand h2 span {
+
+    color: var(--primary);
+
+}
+
+
+.sidebar-brand p {
+
+    margin-top: 5px;
+
+    color: var(--muted-light);
+
+    font-size: 11px;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.sidebar-nav {
+
+    flex: 1;
+
+    padding: 23px 14px;
+
+    overflow-y: auto;
+
+}
+
+
+.nav-item {
+
+    width: 100%;
+
+    min-height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 0 15px;
+
+    margin-bottom: 6px;
+
+    border-radius: 11px;
+
+    color: #64748b;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.nav-item i {
+
+    width: 21px;
+
+    flex-shrink: 0;
+
+    text-align: center;
+
+    font-size: 16px;
+
+}
+
+
+.nav-item:hover {
+
+    color: var(--primary);
+
+    background: #f5f3ff;
+
+}
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+.nav-item.active {
+
+    color: var(--primary);
+
+    background: #f3efff;
+
+    border-left: 3px solid var(--primary);
+
+    padding-left: 12px;
+
+}
+
+
+.nav-item.active i {
+
+    color: var(--primary);
+
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+========================================================= */
+
+.sidebar-bottom {
+
+    flex-shrink: 0;
+
+    padding: 14px;
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+
+    width: calc(100% - 255px);
+
+    min-width: 0;
+
+    margin-left: 255px;
+
+    padding: 40px 45px 55px;
+
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.page-header {
+
+    width: 100%;
+
+    margin-bottom: 32px;
+
+}
+
+
+.page-header h1 {
+
+    color: var(--text-dark);
+
+    font-size: 32px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: -0.9px;
+
+}
+
+
+.page-header p {
+
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.students-summary {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 22px;
+
+    margin-bottom: 28px;
+
+}
+
+
+/* =========================================================
+   SUMMARY CARD
+========================================================= */
+
+.student-summary-card {
+
+    min-height: 125px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 22px 24px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(
+            30,
+            41,
+            59,
+            0.05
+        );
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.student-summary-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 32px
+        rgba(
+            30,
+            41,
+            59,
+            0.08
+        );
+
+}
+
+
+/* =========================================================
+   SUMMARY ICON
+========================================================= */
+
+.student-summary-icon {
+
+    width: 62px;
+
+    height: 62px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: var(--primary-light);
+
+    color: var(--primary);
+
+    font-size: 24px;
+
+}
+
+
+.attempts-icon {
+
+    background: var(--blue-light);
+
+    color: var(--blue);
+
+}
+
+
+/* =========================================================
+   SUMMARY CONTENT
+========================================================= */
+
+.summary-content span {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+.summary-content strong {
+
+    display: block;
+
+    color: var(--text);
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.students-toolbar {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 22px;
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.student-search {
+
+    position: relative;
+
+    width: 460px;
+
+    max-width: 100%;
+
+}
+
+
+.student-search i {
+
+    position: absolute;
+
+    left: 17px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: var(--muted-light);
+
+    font-size: 15px;
+
+    pointer-events: none;
+
+}
+
+
+.student-search input {
+
+    width: 100%;
+
+    height: 48px;
+
+    padding:
+        0 17px 0 46px;
+
+    border: 1px solid #dfe4ec;
+
+    border-radius: 11px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.student-search input::placeholder {
+
+    color: var(--muted-light);
+
+}
+
+
+.student-search input:focus {
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            124,
+            58,
+            237,
+            0.08
+        );
+
+}
+
+
+/* =========================================================
+   STUDENTS LIST
+========================================================= */
+
+.students-list {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 22px;
+
+}
+
+
+/* =========================================================
+   STUDENT CARD
+========================================================= */
+
+.student-card {
+
+    min-width: 0;
+
+    padding: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(
+            30,
+            41,
+            59,
+            0.05
+        );
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.student-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 32px
+        rgba(
+            30,
+            41,
+            59,
+            0.09
+        );
+
+}
+
+
+/* =========================================================
+   STUDENT HEADER
+========================================================= */
+
+.student-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.student-avatar {
+
+    width: 58px;
+
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #2563eb
+        );
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================================
+   STUDENT INFORMATION
+========================================================= */
+
+.student-info {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+
+.student-name {
+
+    color: var(--text);
+
+    font-size: 16px;
+
+    line-height: 1.35;
+
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+.student-id {
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+/* =========================================================
+   STUDENT STATS
+========================================================= */
+
+.student-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap: 11px;
+
+    margin-bottom: 19px;
+
+}
+
+
+.student-stat {
+
+    min-width: 0;
+
+    padding: 13px 12px;
+
+    border-radius: 11px;
+
+    background: #f8f9ff;
+
+    border: 1px solid #edf0f6;
+
+}
+
+
+.student-stat span {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+}
+
+
+.student-stat strong {
+
+    display: block;
+
+    color: #17205c;
+
+    font-size: 15px;
+
+    line-height: 1.3;
+
+    font-weight: 700;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+/* =========================================================
+   LATEST EXAM
+========================================================= */
+
+.student-latest {
+
+    padding-top: 16px;
+
+    border-top: 1px solid #edf0f6;
+
+}
+
+
+.student-latest-label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+}
+
+
+.student-latest-exam {
+
+    color: #17205c;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    font-weight: 700;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+.student-latest-score {
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   LOADING / EMPTY / ERROR
+========================================================= */
+
+.students-state {
+
+    width: 100%;
+
+    min-height: 320px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 40px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+}
+
+
+.students-state > i {
+
+    margin-bottom: 14px;
+
+    color: var(--primary);
+
+    font-size: 28px;
+
+}
+
+
+.students-state h2 {
+
+    margin:
+        10px 0 7px;
+
+    color: var(--text);
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+}
+
+
+.students-state p {
+
+    max-width: 480px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================================
+   EMPTY ICON
+========================================================= */
+
+.students-empty-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 5px;
+
+    border-radius: 18px;
+
+    background: var(--primary-light);
+
+    color: var(--primary);
+
+    font-size: 27px;
+
+}
+
+
+/* =========================================================
+   ERROR ICON
+========================================================= */
+
+.error-icon {
+
+    color: #d97706;
+
+    background: #fef3c7;
+
+}
+
+
+/* =========================================================
+   RETRY BUTTON
+========================================================= */
+
+#retryBtn {
+
+    height: 42px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 20px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-dark)
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 20px
+        rgba(
+            109,
+            40,
+            217,
+            0.18
+        );
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+#retryBtn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(
+            109,
+            40,
+            217,
+            0.25
+        );
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .main-content {
+
+        padding:
+            32px 30px 45px;
+
+    }
+
+
+    .students-list {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .sidebar {
+
+        width: 225px;
+
+    }
+
+
+    .main-content {
+
+        width: calc(100% - 225px);
+
+        margin-left: 225px;
+
+        padding:
+            30px 24px 40px;
+
+    }
+
+
+    .students-summary {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .teacher-layout {
+
+        display: block;
+
+    }
+
+
+    .sidebar {
+
+        position: relative;
+
+        width: 100%;
+
+        min-height: auto;
+
+        height: auto;
+
+    }
+
+
+    .sidebar-brand {
+
+        height: 78px;
+
+        padding:
+            14px 18px;
+
+    }
+
+
+    .brand-logo {
+
+        width: 44px;
+
+        height: 44px;
+
+    }
+
+
+    .sidebar-nav {
+
+        display: flex;
+
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        padding: 10px;
+
+        gap: 5px;
+
+    }
+
+
+    .sidebar-nav .nav-item {
+
+        width: auto;
+
+        flex-shrink: 0;
+
+        margin-bottom: 0;
+
+        padding: 0 13px;
+
+    }
+
+
+    .sidebar-bottom {
+
+        display: none;
+
+    }
+
+
+    .main-content {
+
+        width: 100%;
+
+        margin-left: 0;
+
+        padding:
+            28px 18px 40px;
+
+    }
+
+
+    .page-header h1 {
+
+        font-size: 28px;
+
+    }
+
+
+    .page-header p {
+
+        font-size: 13px;
+
+    }
+
+
+    .students-summary {
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+
+    }
+
+
+    .student-search {
+
+        width: 100%;
+
+    }
+
+
+    .students-list {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 450px) {
+
+    .sidebar-brand h2 {
+
+        font-size: 16px;
+
+    }
+
+
+    .sidebar-brand p {
+
+        font-size: 10px;
+
+    }
+
+
+    .sidebar-nav .nav-item span {
+
+        font-size: 10px;
+
+    }
+
+
+    .page-header h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .summary-content strong {
+
+        font-size: 26px;
+
+    }
+
+
+    .student-card {
+
+        padding: 18px;
+
+    }
+
+
+    .student-stats {
+
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .student-stats {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .student-stat {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+    }
+
+
+    .student-stat span {
+
+        margin-bottom: 0;
+
+    }
+
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Result | Gracextol CBT</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Result CSS -->
+    <link rel="stylesheet" href="../css/result.css">
+</head>
+
+
+<body>
+
+    <main class="result-page result-loading">
+
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
+<header class="result-header">
+
+    <div class="result-brand">
+
+        <div class="brand-logo">
+            <img
+                src="../../assets/images/graextolcbt-logo.png"
+                alt="Gracextol CBT Logo"
+            >
+        </div>
+
+        <div class="brand-text">
+            <h2>
+                Gracextol <span>CBT</span>
+            </h2>
+
+            <p>
+                Computer Based Testing System
+            </p>
+        </div>
+
+    </div>
+
+</header>
+
+
+        <!-- =========================================
+             RESULT CARD
+        ========================================== -->
+
+        <section class="result-container">
+
+            <div class="success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+
+            <span class="result-label">
+                EXAMINATION COMPLETED
+            </span>
+
+
+            <h1>
+                Well Done, <strong id="studentName">Student</strong>!
+            </h1>
+
+
+            <p class="result-message">
+                Your examination has been successfully submitted.
+                Here is your performance summary.
+            </p>
+
+
+            <!-- =====================================
+                 SCORE
+            ====================================== -->
+
+            <div class="score-section">
+
+                <div class="score-circle">
+
+                    <div>
+                        <strong id="percentage">
+                            0%
+                        </strong>
+
+                        <span>
+                            Score
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="score-details">
+
+                    <div class="score-item">
+
+                        <span>
+                            Correct Answers
+                        </span>
+
+                        <strong id="correctAnswers">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="score-item">
+
+                        <span>
+                            Total Questions
+                        </span>
+
+                        <strong id="totalQuestions">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="score-item">
+
+                        <span>
+                            Performance
+                        </span>
+
+                        <strong id="performance">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 PERFORMANCE MESSAGE
+            ====================================== -->
+
+            <div class="performance-card">
+
+                <div class="performance-icon">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div>
+
+                    <h3 id="performanceTitle">
+                        Good Job!
+                    </h3>
+
+                    <p id="performanceMessage">
+                        Keep learning and improving.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 ACTION BUTTONS
+            ====================================== -->
+
+            <div class="result-actions">
+
+                <button
+                    type="button"
+                    class="retake-btn"
+                    onclick="retakeExam()">
+
+                    <i class="fa-solid fa-rotate-right"></i>
+
+                    Retake Exam
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="home-btn"
+                    onclick="goHome()">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Back to Home
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer>
+
+            <p>
+                © 2026 Gracextol CBT
+                <span>|</span>
+                Computer Based Testing System
+            </p>
+
+        </footer>
+
+    </main>
+<!-- =========================================
+     SUPABASE
+========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- =========================================
+     GRACEXTOL SUPABASE CLIENT
+========================================= -->
+
+<script src="../../assets/js/supabase-client.js"></script>
+
+
+<!-- =========================================
+     RESULT JAVASCRIPT
+========================================= -->
+
+<script src="../js/result.js"></script>
+</body>
+
+</html>

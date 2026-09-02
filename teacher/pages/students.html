@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Students | Gracextol CBT</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         STUDENTS CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/students.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="teacher-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <div class="sidebar-brand">
+
+
+            <div class="brand-logo">
+
+                <img
+                    src="../../assets/images/graextolcbt-logo.png"
+                    alt="Gracextol CBT Logo"
+                >
+
+            </div>
+
+
+            <div class="brand-info">
+
+                <h2>
+                    Gracextol <span>CBT</span>
+                </h2>
+
+                <p>
+                    Teacher Portal
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             NAVIGATION
+        ================================================== -->
+
+        <nav class="sidebar-nav">
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="teacher.html"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- CREATE EXAMINATION -->
+
+            <a
+                href="create-exam.html"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-file-circle-plus"></i>
+
+                <span>
+                    Create Examination
+                </span>
+
+            </a>
+
+
+
+            <!-- MY EXAMINATIONS -->
+
+            <a
+                href="my-exams.html"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-book"></i>
+
+                <span>
+                    My Examinations
+                </span>
+
+            </a>
+
+
+
+            <!-- QUESTION BANK -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-database"></i>
+
+                <span>
+                    Question Bank
+                </span>
+
+            </a>
+
+
+
+            <!-- STUDENTS -->
+
+            <a
+                href="students.html"
+                class="nav-item active"
+            >
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Students
+                </span>
+
+            </a>
+
+
+
+            <!-- RESULTS -->
+
+            <a
+                href="result-page.html"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-chart-column"></i>
+
+                <span>
+                    Results
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- =================================================
+             SIDEBAR BOTTOM
+        ================================================== -->
+
+        <div class="sidebar-bottom">
+
+
+            <!-- SETTINGS -->
+
+            <a
+                href="#"
+                class="nav-item"
+            >
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <div class="page-header">
+
+
+            <div>
+
+                <h1>
+                    Students
+                </h1>
+
+                <p>
+                    View students who have participated in your examinations.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             STUDENT SUMMARY
+        ================================================== -->
+
+        <div class="students-summary">
+
+
+            <!-- =================================================
+                 TOTAL STUDENTS
+            ================================================== -->
+
+            <div class="student-summary-card">
+
+
+                <div class="student-summary-icon">
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
+
+
+                <div class="summary-content">
+
+                    <span>
+                        Total Students
+                    </span>
+
+                    <strong id="totalStudents">
+                        0
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TOTAL ATTEMPTS
+            ================================================== -->
+
+            <div class="student-summary-card">
+
+
+                <div
+                    class="student-summary-icon attempts-icon"
+                >
+
+                    <i class="fa-solid fa-file-circle-check"></i>
+
+                </div>
+
+
+                <div class="summary-content">
+
+                    <span>
+                        Total Attempts
+                    </span>
+
+                    <strong id="totalAttempts">
+                        0
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SEARCH TOOLBAR
+        ================================================== -->
+
+        <div class="students-toolbar">
+
+
+            <div class="student-search">
+
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+
+                <input
+                    type="search"
+                    id="studentSearch"
+                    placeholder="Search students..."
+                    autocomplete="off"
+                >
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             LOADING STATE
+        ================================================== -->
+
+        <div
+            id="loadingState"
+            class="students-state"
+        >
+
+
+            <i
+                class="fa-solid fa-spinner fa-spin"
+            ></i>
+
+
+            <p>
+                Loading students...
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div
+            id="emptyState"
+            class="students-state"
+            style="display: none;"
+        >
+
+
+            <div class="students-empty-icon">
+
+                <i class="fa-solid fa-user-group"></i>
+
+            </div>
+
+
+            <h2>
+                No students yet
+            </h2>
+
+
+            <p>
+                Students will appear here after they submit examinations.
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             ERROR STATE
+        ================================================== -->
+
+        <div
+            id="errorState"
+            class="students-state"
+            style="display: none;"
+        >
+
+
+            <div
+                class="students-empty-icon error-icon"
+            >
+
+                <i
+                    class="fa-solid fa-triangle-exclamation"
+                ></i>
+
+            </div>
+
+
+            <h2>
+                Unable to load students
+            </h2>
+
+
+            <p id="errorMessage">
+                Something went wrong.
+            </p>
+
+
+            <button
+                id="retryBtn"
+                type="button"
+            >
+
+                <i
+                    class="fa-solid fa-rotate-right"
+                ></i>
+
+                Try Again
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             STUDENTS LIST
+        ================================================== -->
+
+        <div
+            id="studentsList"
+            class="students-list"
+        ></div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- =================================================
+     SUPABASE
+================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+
+<script
+    src="../../assets/js/supabase-client.js"
+></script>
+
+
+
+<!-- =================================================
+     STUDENTS JAVASCRIPT
+================================================= -->
+
+<script
+    src="../js/students.js"
+></script>
+
+
+</body>
+
+</html>
