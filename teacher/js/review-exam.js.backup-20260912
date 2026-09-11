@@ -4,7 +4,7 @@
    SUPABASE / MEDIA ENABLED VERSION
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        ELEMENTS
@@ -298,154 +298,57 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
     /* =====================================================
-       LOAD QUESTIONS FROM SUPABASE
+       GET QUESTIONS
     ===================================================== */
 
-    async function loadQuestionsFromSupabase() {
-
-        if (!examId) {
-
-            throw new Error(
-                "This examination does not have a valid exam ID."
-            );
-        }
+    let questions =
+        examData.questions;
 
 
-        const {
-            data: databaseQuestions,
-            error: questionsError
-        } = await supabaseClient
-            .from("questions")
-            .select("*")
-            .eq(
-                "exam_id",
-                examId
-            )
-            .order(
-                "question_number",
-                {
-                    ascending: true
-                }
-            );
-
-
-        if (questionsError) {
-
-            throw questionsError;
-        }
-
-
-        const loadedQuestions =
-            Array.isArray(databaseQuestions)
-                ? databaseQuestions
-                : [];
-
-
-        const questionIds =
-            loadedQuestions.map(
-                question => question.id
-            );
-
-
-        let optionRows = [];
-
-
-        if (questionIds.length > 0) {
-
-            const {
-                data: databaseOptions,
-                error: optionsError
-            } = await supabaseClient
-                .from("question_options")
-                .select("*")
-                .in(
-                    "question_id",
-                    questionIds
-                )
-                .order(
-                    "option_label",
-                    {
-                        ascending: true
-                    }
-                );
-
-
-            if (optionsError) {
-
-                throw optionsError;
-            }
-
-
-            optionRows =
-                Array.isArray(databaseOptions)
-                    ? databaseOptions
-                    : [];
-        }
-
-
-        return loadedQuestions.map(
-            function (question) {
-
-                const relatedOptions =
-                    optionRows.filter(
-                        option =>
-                            option.question_id ===
-                            question.id
-                    );
-
-
-                if (relatedOptions.length === 0) {
-
-                    return question;
-                }
-
-
-                const correctIndex =
-                    relatedOptions.findIndex(
-                        option =>
-                            option.is_correct === true
-                    );
-
-
-                return {
-                    ...question,
-                    options:
-                        relatedOptions.map(
-                            option =>
-                                option.option_text || ""
-                        ),
-                    optionRows: relatedOptions,
-                    correct_answer:
-                        correctIndex >= 0
-                            ? correctIndex
-                            : question.correct_answer
-                };
-
-            }
-        );
-    }
-
-
-    let questions = [];
-
-
-    try {
+    if (!Array.isArray(questions)) {
 
         questions =
-            await loadQuestionsFromSupabase();
-
+            getStorageValue([
+                "gracextolQuestions",
+                "gracextol_questions",
+                "examQuestions",
+                "questions",
+                "currentQuestions",
+                "createdQuestions"
+            ]);
     }
 
-    catch (error) {
 
-        console.error(
-            "Unable to load review questions from Supabase:",
-            error
-        );
+    if (
+        questions &&
+        !Array.isArray(questions)
+    ) {
 
-        alert(
-            "Unable to load the examination questions. Please try again."
-        );
+        if (
+            Array.isArray(
+                questions.questions
+            )
+        ) {
+
+            questions =
+                questions.questions;
+        }
+
+        else if (
+            Array.isArray(
+                questions.items
+            )
+        ) {
+
+            questions =
+                questions.items;
+        }
+    }
+
+
+    if (!Array.isArray(questions)) {
+
+        questions = [];
     }
 
 
