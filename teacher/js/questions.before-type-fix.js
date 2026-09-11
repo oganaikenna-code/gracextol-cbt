@@ -5185,63 +5185,16 @@ function normalizeAIQuestions(
         );
     }
 
-    const teacherType =
-        normalizeAIQuestionType(
-            type
-        );
-
-    console.log(
-        "[AI] Selected type:",
-        type
-    );
-
     return source.map(
         (item, index) => {
 
-            console.log(
-                "[AI] Raw question:",
-                item
-            );
-
-            const responseTypes = [
-                item.questionType,
-                item.question_type,
-                item.type
-            ];
-
             const questionType =
-                responseTypes
-                    .map(
-                        value =>
-                            normalizeAIQuestionType(
-                                value
-                            )
-                    )
-                    .find(
-                        value =>
-                            Boolean(value) &&
-                            value !== "mixed"
-                    ) ||
-                (
-                    teacherType &&
-                    teacherType !== "mixed"
-                        ? teacherType
-                        : inferAIQuestionType(
-                            item
-                        )
+                normalizeAIQuestionType(
+                    item.questionType ||
+                    item.question_type ||
+                    item.type ||
+                    type
                 );
-
-            if (!questionType) {
-
-                throw new Error(
-                    `AI question ${index + 1} has no safely recognizable question type.`
-                );
-            }
-
-            console.log(
-                "[AI] Normalized type:",
-                questionType
-            );
 
             const options =
                 questionType === "multiple-choice"
@@ -5283,22 +5236,10 @@ function normalizeAIQuestions(
                         : answer;
 
             if (questionType === "true-false" &&
-                String(item.optionA || "").trim().toLowerCase() !== "true" ||
-                questionType === "true-false" &&
-                String(item.optionB || "").trim().toLowerCase() !== "false") {
+                !["true", "false"].includes(normalizedAnswer)) {
 
                 throw new Error(
-                    `AI question ${index + 1} must contain True and False options.`
-                );
-            }
-
-            if (questionType === "true-false" &&
-                !["a", "b", "true", "false"].includes(
-                    normalizedAnswer
-                )) {
-
-                throw new Error(
-                    `AI question ${index + 1} must have correct answer A or B.`
+                    `AI question ${index + 1} must have a True or False answer.`
                 );
             }
 
@@ -5313,22 +5254,6 @@ function normalizeAIQuestions(
                 questionType === "multiple-choice"
                     ? normalizedAnswer.charCodeAt(0) - 65
                     : null;
-
-            const trueFalseAnswer =
-                questionType === "true-false"
-                    ? normalizedAnswer === "a" ||
-                        normalizedAnswer === "true"
-                        ? "true"
-                        : "false"
-                    : normalizedAnswer;
-
-            if (questionType === "fill-gap") {
-
-                console.log(
-                    "[AI DEBUG] Fill-gap answer:",
-                    normalizedAnswer
-                );
-            }
 
             return {
 
@@ -5350,11 +5275,9 @@ function normalizeAIQuestions(
                     correctIndex,
 
                 answer:
-                    questionType === "multiple-choice"
-                        ? options[correctIndex]
-                        : questionType === "true-false"
-                            ? trueFalseAnswer
-                            : normalizedAnswer,
+                    correctIndex === null
+                        ? normalizedAnswer
+                        : options[correctIndex],
 
                 explanation:
                     item.explanation || "",
@@ -5379,101 +5302,22 @@ function normalizeAIQuestionType(
     const normalized =
         String(value || "")
             .toLowerCase()
-            .trim()
-            .replace(/[_ ]+/g, "-");
+            .replace(/[_ ]/g, "-");
 
     if (normalized === "true/false" ||
         normalized === "true-false" ||
-        normalized === "truefalse" ||
-        normalized === "true-or-false" ||
-        normalized === "boolean" ||
-        normalized === "tf") {
+        normalized === "truefalse") {
         return "true-false";
     }
 
     if (normalized === "fill-in-the-gap" ||
         normalized === "fill-gap" ||
         normalized === "fill-in-gap" ||
-        normalized === "fillgap" ||
-        normalized === "fill-in-the-blank" ||
-        normalized === "fillblank") {
+        normalized === "fillgap") {
         return "fill-gap";
     }
 
-    if (normalized === "multiple-choice" ||
-        normalized === "multiplechoice" ||
-        normalized === "mcq") {
-        return "multiple-choice";
-    }
-
-    if (normalized === "mixed") {
-        return "mixed";
-    }
-
-    return "";
-}
-
-
-function inferAIQuestionType(
-    item
-) {
-
-    const optionA =
-        String(item.optionA || "").trim();
-
-    const optionB =
-        String(item.optionB || "").trim();
-
-    const optionC =
-        String(item.optionC || "").trim();
-
-    const optionD =
-        String(item.optionD || "").trim();
-
-    const correctAnswer =
-        String(
-            item.correctAnswer ??
-            item.correct_answer ??
-            ""
-        )
-            .trim()
-            .toUpperCase();
-
-    const isMultipleChoice =
-        Boolean(optionA) &&
-        Boolean(optionB) &&
-        Boolean(optionC) &&
-        Boolean(optionD) &&
-        ["A", "B", "C", "D"].includes(
-            correctAnswer
-        );
-
-    if (isMultipleChoice) {
-        return "multiple-choice";
-    }
-
-    const isTrueFalse =
-        optionA.toLowerCase() === "true" &&
-        optionB.toLowerCase() === "false" &&
-        !optionC &&
-        !optionD &&
-        ["A", "B"].includes(
-            correctAnswer
-        );
-
-    if (isTrueFalse) {
-        return "true-false";
-    }
-
-    if (!optionA &&
-        !optionB &&
-        !optionC &&
-        !optionD &&
-        Boolean(correctAnswer)) {
-        return "fill-gap";
-    }
-
-    return "";
+    return "multiple-choice";
 }
 
 

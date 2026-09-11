@@ -2,7 +2,7 @@
    GRACEXTOL CBT
    REVIEW & PUBLISH JAVASCRIPT
    SUPABASE / MEDIA ENABLED VERSION
-========================================================= */
+   ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeSuccessModal =
         document.getElementById("closeSuccessModal");
 
+
     /* =====================================================
        ACCESS CODE ELEMENTS
     ===================================================== */
@@ -58,6 +59,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const copyCodeMessage =
         document.getElementById("copyCodeMessage");
+
+
+    /* =====================================================
+       STUDENT JOIN LINK ELEMENTS
+    ===================================================== */
+
+    const examJoinLink =
+        document.getElementById("examJoinLink");
+
+    const copyJoinLinkBtn =
+        document.getElementById("copyJoinLinkBtn");
 
 
     /* =====================================================
@@ -77,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         return;
-
     }
 
 
@@ -108,16 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 catch (error) {
 
                     return value;
-
                 }
-
             }
-
         }
 
-
         return null;
-
     }
 
 
@@ -133,7 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
 
             return fallback;
-
         }
 
 
@@ -143,7 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
 
             return value;
-
         }
 
 
@@ -160,14 +164,11 @@ document.addEventListener("DOMContentLoaded", function () {
             catch (error) {
 
                 return fallback;
-
             }
-
         }
 
 
         return fallback;
-
     }
 
 
@@ -192,7 +193,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
 
         examData = {};
-
     }
 
 
@@ -264,7 +264,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         examTitle.textContent =
             title;
-
     }
 
 
@@ -272,7 +271,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         subject.textContent =
             examSubject;
-
     }
 
 
@@ -280,7 +278,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         examClass.textContent =
             level;
-
     }
 
 
@@ -290,7 +287,6 @@ document.addEventListener("DOMContentLoaded", function () {
             typeof examDuration === "number"
                 ? `${examDuration} minutes`
                 : examDuration;
-
     }
 
 
@@ -298,7 +294,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         instructions.textContent =
             examInstructions;
-
     }
 
 
@@ -321,7 +316,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 "currentQuestions",
                 "createdQuestions"
             ]);
-
     }
 
 
@@ -338,7 +332,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             questions =
                 questions.questions;
-
         }
 
         else if (
@@ -349,16 +342,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             questions =
                 questions.items;
-
         }
-
     }
 
 
     if (!Array.isArray(questions)) {
 
         questions = [];
-
     }
 
 
@@ -375,7 +365,6 @@ document.addEventListener("DOMContentLoaded", function () {
             ) {
 
                 return {};
-
             }
 
 
@@ -395,7 +384,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!Array.isArray(options)) {
 
                 options = [];
-
             }
 
 
@@ -415,20 +403,15 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!Array.isArray(media)) {
 
                 media = [];
-
             }
 
 
             return {
-
                 ...question,
-
                 options:
                     options,
-
                 media:
                     media
-
             };
 
         });
@@ -442,7 +425,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         questionCount.textContent =
             questions.length;
-
     }
 
 
@@ -450,7 +432,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         questionBadgeCount.textContent =
             questions.length;
-
     }
 
 
@@ -477,7 +458,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!isNaN(mark)) {
 
                 marks += mark;
-
             }
 
         }
@@ -488,7 +468,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         totalMarks.textContent =
             marks;
-
     }
 
 
@@ -524,171 +503,158 @@ document.addEventListener("DOMContentLoaded", function () {
                 /'/g,
                 "&#039;"
             );
-
     }
+
+
     /* =====================================================
-   RENDER RICH TEXT
-   Decodes stored HTML entities and renders formatting
-===================================================== */
+       RENDER RICH TEXT
+       Decodes stored HTML entities and renders formatting
+    ===================================================== */
 
-function renderRichText(value) {
-
-    if (
-        value === null ||
-        value === undefined ||
-        value === ""
-    ) {
-        return "";
-    }
-
-
-    /* -------------------------------------------------
-       STEP 1: DECODE HTML ENTITIES
-       Handles:
-       &lt;b&gt;EXCEPT&lt;/b&gt;
-       &amp;nbsp;
-       &nbsp;
-    ------------------------------------------------- */
-
-    let html =
-        String(value);
-
-    const decoder =
-        document.createElement("textarea");
-
-
-    for (
-        let i = 0;
-        i < 2;
-        i++
-    ) {
+    function renderRichText(value) {
 
         if (
-            !html.includes("&")
+            value === null ||
+            value === undefined ||
+            value === ""
         ) {
-            break;
+
+            return "";
         }
 
 
-        decoder.innerHTML =
+        let html =
+            String(value);
+
+
+        const decoder =
+            document.createElement(
+                "textarea"
+            );
+
+
+        for (
+            let i = 0;
+            i < 2;
+            i++
+        ) {
+
+            if (
+                !html.includes("&")
+            ) {
+
+                break;
+            }
+
+
+            decoder.innerHTML =
+                html;
+
+
+            const decoded =
+                decoder.value;
+
+
+            if (
+                decoded === html
+            ) {
+
+                break;
+            }
+
+
+            html =
+                decoded;
+        }
+
+
+        const container =
+            document.createElement(
+                "div"
+            );
+
+
+        container.innerHTML =
             html;
 
 
-        const decoded =
-            decoder.value;
+        /* -------------------------------------------------
+           REMOVE DANGEROUS ELEMENTS
+        ------------------------------------------------- */
+
+        container
+            .querySelectorAll(
+                "script, style, iframe, object, embed, link, meta"
+            )
+            .forEach(
+                element =>
+                    element.remove()
+            );
 
 
-        if (
-            decoded === html
-        ) {
-            break;
-        }
+        /* -------------------------------------------------
+           REMOVE DANGEROUS ATTRIBUTES
+        ------------------------------------------------- */
+
+        container
+            .querySelectorAll("*")
+            .forEach(
+                element => {
+
+                    Array
+                        .from(
+                            element.attributes
+                        )
+                        .forEach(
+                            attribute => {
+
+                                const name =
+                                    attribute.name
+                                        .toLowerCase();
 
 
-        html =
-            decoded;
+                                const attributeValue =
+                                    attribute.value;
 
+
+                                if (
+                                    name.startsWith("on")
+                                ) {
+
+                                    element.removeAttribute(
+                                        attribute.name
+                                    );
+
+                                    return;
+                                }
+
+
+                                if (
+                                    (
+                                        name === "href" ||
+                                        name === "src"
+                                    ) &&
+                                    /^\s*javascript:/i.test(
+                                        attributeValue
+                                    )
+                                ) {
+
+                                    element.removeAttribute(
+                                        attribute.name
+                                    );
+                                }
+
+                            }
+                        );
+
+                }
+            );
+
+
+        return container.innerHTML;
     }
 
 
-    /* -------------------------------------------------
-       STEP 2: PUT DECODED HTML INTO A CONTAINER
-    ------------------------------------------------- */
-
-    const container =
-        document.createElement("div");
-
-
-    container.innerHTML =
-        html;
-
-
-    /* -------------------------------------------------
-       STEP 3: REMOVE DANGEROUS ELEMENTS
-    ------------------------------------------------- */
-
-    container
-        .querySelectorAll(
-            "script, style, iframe, object, embed, link, meta"
-        )
-        .forEach(
-            element =>
-                element.remove()
-        );
-
-
-    /* -------------------------------------------------
-       STEP 4: REMOVE DANGEROUS ATTRIBUTES
-    ------------------------------------------------- */
-
-    container
-        .querySelectorAll("*")
-        .forEach(
-            element => {
-
-                Array
-                    .from(
-                        element.attributes
-                    )
-                    .forEach(
-                        attribute => {
-
-                            const name =
-                                attribute.name
-                                    .toLowerCase();
-
-                            const attributeValue =
-                                attribute.value;
-
-
-                            /* Remove onclick,
-                               onerror, onload, etc. */
-
-                            if (
-                                name.startsWith("on")
-                            ) {
-
-                                element.removeAttribute(
-                                    attribute.name
-                                );
-
-                                return;
-
-                            }
-
-
-                            /* Remove javascript URLs */
-
-                            if (
-                                (
-                                    name === "href" ||
-                                    name === "src"
-                                ) &&
-                                /^\s*javascript:/i.test(
-                                    attributeValue
-                                )
-                            ) {
-
-                                element.removeAttribute(
-                                    attribute.name
-                                );
-
-                            }
-
-                        }
-                    );
-
-            }
-        );
-
-
-    /* -------------------------------------------------
-       STEP 5: RETURN CLEAN HTML
-    ------------------------------------------------- */
-
-    return container.innerHTML;
-
-}
     /* =====================================================
        MEDIA HELPERS
     ===================================================== */
@@ -711,12 +677,10 @@ function renderRichText(value) {
         if (!Array.isArray(media)) {
 
             media = [];
-
         }
 
 
         return media;
-
     }
 
 
@@ -756,7 +720,6 @@ function renderRichText(value) {
         ) {
 
             return "image";
-
         }
 
 
@@ -769,7 +732,6 @@ function renderRichText(value) {
         ) {
 
             return "video";
-
         }
 
 
@@ -782,7 +744,6 @@ function renderRichText(value) {
         ) {
 
             return "audio";
-
         }
 
 
@@ -793,7 +754,6 @@ function renderRichText(value) {
         ) {
 
             return "pdf";
-
         }
 
 
@@ -804,12 +764,10 @@ function renderRichText(value) {
         ) {
 
             return "link";
-
         }
 
 
         return "file";
-
     }
 
 
@@ -824,7 +782,6 @@ function renderRichText(value) {
             item.fileData ||
             ""
         );
-
     }
 
 
@@ -837,7 +794,6 @@ function renderRichText(value) {
         if (media.length === 0) {
 
             return "";
-
         }
 
 
@@ -852,6 +808,7 @@ function renderRichText(value) {
                     Attached Media
 
                 </div>
+
 
                 <div class="review-media-list">
 
@@ -895,6 +852,7 @@ function renderRichText(value) {
 
                             </div>
 
+
                             <img
                                 src="${escapeHTML(
                                     source
@@ -910,7 +868,6 @@ function renderRichText(value) {
                     `;
 
                     return;
-
                 }
 
 
@@ -932,6 +889,7 @@ function renderRichText(value) {
                                 )}
 
                             </div>
+
 
                             <video
                                 class="review-video"
@@ -957,7 +915,6 @@ function renderRichText(value) {
                     `;
 
                     return;
-
                 }
 
 
@@ -979,6 +936,7 @@ function renderRichText(value) {
                                 )}
 
                             </div>
+
 
                             <audio
                                 class="review-audio"
@@ -1003,7 +961,6 @@ function renderRichText(value) {
                     `;
 
                     return;
-
                 }
 
 
@@ -1025,6 +982,7 @@ function renderRichText(value) {
                                 )}
 
                             </div>
+
 
                             <div class="review-media-actions">
 
@@ -1067,7 +1025,6 @@ function renderRichText(value) {
                     `;
 
                     return;
-
                 }
 
 
@@ -1090,6 +1047,7 @@ function renderRichText(value) {
 
                             </div>
 
+
                             <a
                                 href="${escapeHTML(
                                     source
@@ -1110,7 +1068,6 @@ function renderRichText(value) {
                     `;
 
                     return;
-
                 }
 
 
@@ -1130,6 +1087,7 @@ function renderRichText(value) {
 
                             </div>
 
+
                             <a
                                 href="${escapeHTML(
                                     source
@@ -1148,7 +1106,6 @@ function renderRichText(value) {
                         </div>
 
                     `;
-
                 }
 
             }
@@ -1165,7 +1122,6 @@ function renderRichText(value) {
 
 
         return html;
-
     }
 
 
@@ -1183,7 +1139,6 @@ function renderRichText(value) {
             question.title ||
             "Question text not available."
         );
-
     }
 
 
@@ -1199,7 +1154,6 @@ function renderRichText(value) {
             question.questionType ||
             "Multiple Choice"
         );
-
     }
 
 
@@ -1218,7 +1172,6 @@ function renderRichText(value) {
             question.correctIndex ??
             ""
         );
-
     }
 
 
@@ -1231,7 +1184,6 @@ function renderRichText(value) {
         if (!questionsList) {
 
             return;
-
         }
 
 
@@ -1259,7 +1211,6 @@ function renderRichText(value) {
             `;
 
             return;
-
         }
 
 
@@ -1314,7 +1265,6 @@ function renderRichText(value) {
                 if (!Array.isArray(options)) {
 
                     options = [];
-
                 }
 
 
@@ -1355,7 +1305,6 @@ function renderRichText(value) {
                                             option.value ||
                                             option.answer ||
                                             "";
-
                                     }
 
 
@@ -1379,7 +1328,6 @@ function renderRichText(value) {
 
                                         isCorrect =
                                             true;
-
                                     }
 
 
@@ -1409,7 +1357,6 @@ function renderRichText(value) {
 
                                             isCorrect =
                                                 true;
-
                                         }
 
 
@@ -1420,7 +1367,6 @@ function renderRichText(value) {
 
                                             isCorrect =
                                                 true;
-
                                         }
 
 
@@ -1433,9 +1379,7 @@ function renderRichText(value) {
 
                                             isCorrect =
                                                 true;
-
                                         }
-
                                     }
 
 
@@ -1452,6 +1396,7 @@ function renderRichText(value) {
                                                 ${letter}
 
                                             </div>
+
 
                                             <span>
 
@@ -1471,7 +1416,6 @@ function renderRichText(value) {
                         </div>
 
                     `;
-
                 }
 
 
@@ -1518,9 +1462,7 @@ function renderRichText(value) {
                                 options[
                                     numericAnswer
                                 ];
-
                         }
-
                     }
 
 
@@ -1535,7 +1477,6 @@ function renderRichText(value) {
                             displayedAnswer.value ||
                             displayedAnswer.answer ||
                             "";
-
                     }
 
 
@@ -1554,7 +1495,6 @@ function renderRichText(value) {
                         </div>
 
                     `;
-
                 }
 
 
@@ -1724,7 +1664,6 @@ function renderRichText(value) {
                     );
 
                     return;
-
                 }
 
 
@@ -1746,7 +1685,6 @@ function renderRichText(value) {
 
 
                     return;
-
                 }
 
 
@@ -1793,7 +1731,6 @@ function renderRichText(value) {
                     if (questionsError) {
 
                         throw questionsError;
-
                     }
 
 
@@ -1815,7 +1752,6 @@ function renderRichText(value) {
                         throw new Error(
                             "No questions were found in Supabase for this examination. Make sure the questions have been saved with the correct exam_id before publishing."
                         );
-
                     }
 
 
@@ -1859,7 +1795,6 @@ function renderRichText(value) {
                     if (examError) {
 
                         throw examError;
-
                     }
 
 
@@ -1868,7 +1803,6 @@ function renderRichText(value) {
                         throw new Error(
                             "Supabase did not return the published examination."
                         );
-
                     }
 
 
@@ -1891,7 +1825,6 @@ function renderRichText(value) {
                         throw new Error(
                             "The examination was published, but no access code was returned."
                         );
-
                     }
 
 
@@ -1909,7 +1842,44 @@ function renderRichText(value) {
 
                         examAccessCode.textContent =
                             accessCode;
+                    }
 
+
+                    /* =================================================
+                       CREATE STUDENT JOIN LINK
+                    ================================================= */
+
+                    const joinUrl =
+                        new URL(
+                            "/student/pages/join.html",
+                            window.location.origin
+                        );
+
+
+                    joinUrl.searchParams.set(
+                        "gc",
+                        accessCode
+                    );
+
+
+                    const studentJoinLink =
+                        joinUrl.toString();
+
+
+                    console.log(
+                        "Student Join Link:",
+                        studentJoinLink
+                    );
+
+
+                    /* =================================================
+                       DISPLAY STUDENT JOIN LINK
+                    ================================================= */
+
+                    if (examJoinLink) {
+
+                        examJoinLink.value =
+                            studentJoinLink;
                     }
 
 
@@ -1963,7 +1933,10 @@ function renderRichText(value) {
                             updatedExam.published_at,
 
                         accessCode:
-                            updatedExam.access_code
+                            updatedExam.access_code,
+
+                        studentJoinLink:
+                            studentJoinLink
 
                     };
 
@@ -1997,7 +1970,6 @@ function renderRichText(value) {
                     ) {
 
                         publishedExams = [];
-
                     }
 
 
@@ -2036,7 +2008,6 @@ function renderRichText(value) {
                         publishedExams.push(
                             publishedExam
                         );
-
                     }
 
 
@@ -2097,13 +2068,14 @@ function renderRichText(value) {
 
                         alert(
                             "Examination published successfully!\n\nAccess Code: " +
-                            accessCode
+                            accessCode +
+                            "\n\nStudent Join Link: " +
+                            studentJoinLink
                         );
 
 
                         window.location.href =
                             "teacher.html";
-
                     }
 
                 }
@@ -2152,7 +2124,6 @@ function renderRichText(value) {
         console.error(
             'Publish button not found. Check that the HTML button has id="publishExamBtn".'
         );
-
     }
 
 
@@ -2172,10 +2143,12 @@ function renderRichText(value) {
                         : "";
 
 
-                if (!code || code === "Loading...") {
+                if (
+                    !code ||
+                    code === "Loading..."
+                ) {
 
                     return;
-
                 }
 
 
@@ -2193,7 +2166,6 @@ function renderRichText(value) {
 
                         copyCodeMessage.style.color =
                             "#16a34a";
-
                     }
 
 
@@ -2273,10 +2245,10 @@ function renderRichText(value) {
 
                             copyCodeMessage.style.color =
                                 "#16a34a";
-
                         }
 
                     }
+
 
                     catch (fallbackError) {
 
@@ -2293,7 +2265,143 @@ function renderRichText(value) {
 
                             copyCodeMessage.style.color =
                                 "#dc2626";
+                        }
 
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       COPY STUDENT JOIN LINK
+    ===================================================== */
+
+    if (copyJoinLinkBtn) {
+
+        copyJoinLinkBtn.addEventListener(
+            "click",
+            async function () {
+
+                const link =
+                    examJoinLink
+                        ? examJoinLink.value.trim()
+                        : "";
+
+
+                if (!link) {
+
+                    return;
+                }
+
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        link
+                    );
+
+
+                    if (copyCodeMessage) {
+
+                        copyCodeMessage.textContent =
+                            "Student join link copied successfully!";
+
+                        copyCodeMessage.style.color =
+                            "#16a34a";
+                    }
+
+
+                    copyJoinLinkBtn.innerHTML = `
+
+                        <i class="fa-solid fa-check"></i>
+
+                        Copied
+
+                    `;
+
+
+                    setTimeout(
+                        function () {
+
+                            copyJoinLinkBtn.innerHTML = `
+
+                                <i class="fa-regular fa-copy"></i>
+
+                                Copy
+
+                            `;
+
+                        },
+                        2000
+                    );
+
+                }
+
+
+                catch (error) {
+
+                    console.error(
+                        "Unable to copy student join link:",
+                        error
+                    );
+
+
+                    /* =========================================
+                       FALLBACK COPY METHOD
+                    ========================================= */
+
+                    try {
+
+                        if (examJoinLink) {
+
+                            examJoinLink.focus();
+
+                            examJoinLink.select();
+
+                            examJoinLink.setSelectionRange(
+                                0,
+                                examJoinLink.value.length
+                            );
+                        }
+
+
+                        document.execCommand(
+                            "copy"
+                        );
+
+
+                        if (copyCodeMessage) {
+
+                            copyCodeMessage.textContent =
+                                "Student join link copied successfully!";
+
+                            copyCodeMessage.style.color =
+                                "#16a34a";
+                        }
+
+                    }
+
+
+                    catch (fallbackError) {
+
+                        console.error(
+                            "Join link copy failed:",
+                            fallbackError
+                        );
+
+
+                        if (copyCodeMessage) {
+
+                            copyCodeMessage.textContent =
+                                "Please copy the student join link manually.";
+
+                            copyCodeMessage.style.color =
+                                "#dc2626";
                         }
 
                     }
@@ -2321,7 +2429,6 @@ function renderRichText(value) {
                     successModal.classList.remove(
                         "show"
                     );
-
                 }
 
 
@@ -2352,7 +2459,6 @@ function renderRichText(value) {
                     successModal.classList.remove(
                         "show"
                     );
-
                 }
 
             }

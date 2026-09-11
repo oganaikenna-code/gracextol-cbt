@@ -22,7 +22,7 @@
 
 /* =========================================================
    AI QUESTION GENERATOR
-    REAL N8N VERSION
+   MOCK VERSION
 ========================================================= */
 
 const openAiGeneratorBtn =
@@ -171,7 +171,7 @@ if (
 
     generateAiQuestionsBtn.addEventListener(
         "click",
-        generateAIQuestions
+        generateMockAIQuestions
     );
 
 }
@@ -181,7 +181,7 @@ if (
    MOCK AI GENERATOR
 ========================================================= */
 
-async function generateAIQuestions() {
+async function generateMockAIQuestions() {
 
     const prompt =
         aiPrompt?.value.trim() ||
@@ -202,29 +202,6 @@ async function generateAIQuestions() {
     const difficulty =
         aiDifficulty?.value ||
         "medium";
-
-
-    const request = {
-
-        prompt,
-
-        count,
-
-        questionType:
-            type,
-
-        difficulty,
-
-        examTitle:
-            examData.title || "",
-
-        subject:
-            examData.subject || "",
-
-        classLevel:
-            examData.classLevel || ""
-
-    };
 
 
     /* -----------------------------------------------------
@@ -280,29 +257,13 @@ async function generateAIQuestions() {
          * would normally take.
          */
 
-        const response =
-            await fetch(
-                "http://localhost:5678/webhook-test/gracextol-ai-questions",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify(request)
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                `AI service returned status ${response.status}.`
-            );
-        }
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    1200
+                )
+        );
 
 
         /* -------------------------------------------------
@@ -310,10 +271,10 @@ async function generateAIQuestions() {
         ------------------------------------------------- */
 
         const generatedQuestions =
-            normalizeAIQuestions(
-                await response.json(),
+            createMockQuestions(
+                count,
                 type,
-                difficulty
+                prompt
             );
 
 
@@ -326,10 +287,9 @@ async function generateAIQuestions() {
            ADD TO EXISTING QUESTION LIST
         ------------------------------------------------- */
 
-        window.gracextolAIQuestions =
-            generatedQuestions;
-
-        renderAIQuestionReview();
+        await addGeneratedQuestions(
+            generatedQuestions
+        );
 
 
         /* -------------------------------------------------
@@ -370,10 +330,7 @@ async function generateAIQuestions() {
         );
 
         alert(
-            error.name === "TypeError"
-                ? "Unable to connect to the AI service. Please make sure n8n is running."
-                : error.message ||
-                    "Unable to generate questions."
+            "Unable to generate questions."
         );
 
     } finally {
@@ -391,7 +348,7 @@ async function generateAIQuestions() {
    CREATE MOCK QUESTIONS
 ========================================================= */
 
-function legacyQuestionFactory(
+function createMockQuestions(
     count,
     type,
     prompt
@@ -457,20 +414,20 @@ function legacyQuestionFactory(
                     questionNumber,
 
                 question_text:
-                    "",
+                    `Which of the following is correct about "${prompt}"?`,
 
                 question_type:
                     "multiple-choice",
 
                 options: [
 
-                    "",
+                    `It is an important concept related to ${prompt}.`,
 
-                    "",
+                    `It has no relationship with ${prompt}.`,
 
-                    "",
+                    `It is a topic that should be studied carefully.`,
 
-                    "",
+                    `It is completely unrelated to the subject.`
 
                 ],
 
@@ -509,7 +466,7 @@ function legacyQuestionFactory(
                     questionNumber,
 
                 question_text:
-                    "",
+                    `"${prompt}" is an important topic that students should understand.`,
 
                 question_type:
                     "true-false",
@@ -551,7 +508,7 @@ function legacyQuestionFactory(
                     questionNumber,
 
                 question_text:
-                    "",
+                    `Complete the following statement about "${prompt}": This topic is studied as part of ______.`,
 
                 question_type:
                     "fill-gap",
@@ -563,7 +520,7 @@ function legacyQuestionFactory(
                     null,
 
                 answer:
-                    "",
+                    "the subject",
 
                 marks:
                     1,
@@ -587,7 +544,7 @@ function legacyQuestionFactory(
    ADD GENERATED QUESTIONS
 ========================================================= */
 
-async function saveApprovedAIQuestions(
+async function addGeneratedQuestions(
     generatedQuestions
 ) {
 
@@ -5165,468 +5122,6 @@ async function addLinkMedia(
 /* =========================================================
    BUTTON EVENTS
 ========================================================= */
-
-function normalizeAIQuestions(
-    result,
-    type,
-    difficulty
-) {
-
-    const source =
-        Array.isArray(result)
-            ? result
-            : result?.questions ||
-                result?.result?.questions;
-
-    if (!Array.isArray(source) || source.length === 0) {
-
-        throw new Error(
-            "The AI response does not contain any questions."
-        );
-    }
-
-    const teacherType =
-        normalizeAIQuestionType(
-            type
-        );
-
-    console.log(
-        "[AI] Selected type:",
-        type
-    );
-
-    return source.map(
-        (item, index) => {
-
-            console.log(
-                "[AI] Raw question:",
-                item
-            );
-
-            const responseTypes = [
-                item.questionType,
-                item.question_type,
-                item.type
-            ];
-
-            const questionType =
-                responseTypes
-                    .map(
-                        value =>
-                            normalizeAIQuestionType(
-                                value
-                            )
-                    )
-                    .find(
-                        value =>
-                            Boolean(value) &&
-                            value !== "mixed"
-                    ) ||
-                (
-                    teacherType &&
-                    teacherType !== "mixed"
-                        ? teacherType
-                        : inferAIQuestionType(
-                            item
-                        )
-                );
-
-            if (!questionType) {
-
-                throw new Error(
-                    `AI question ${index + 1} has no safely recognizable question type.`
-                );
-            }
-
-            console.log(
-                "[AI] Normalized type:",
-                questionType
-            );
-
-            const options =
-                questionType === "multiple-choice"
-                    ? [
-                        item.optionA,
-                        item.optionB,
-                        item.optionC,
-                        item.optionD
-                    ]
-                    : [];
-
-            const answer =
-                String(
-                    item.correctAnswer ??
-                    item.correct_answer ??
-                    ""
-                ).trim();
-
-            if (!String(item.question || "").trim()) {
-                throw new Error(
-                    `AI question ${index + 1} is missing question text.`
-                );
-            }
-
-            if (questionType === "multiple-choice" &&
-                (options.some(option => !String(option || "").trim()) ||
-                    !["A", "B", "C", "D"].includes(answer.toUpperCase()))) {
-
-                throw new Error(
-                    `AI question ${index + 1} must contain options A-D and a valid correctAnswer.`
-                );
-            }
-
-            const normalizedAnswer =
-                questionType === "multiple-choice"
-                    ? answer.toUpperCase().charAt(0)
-                    : questionType === "true-false"
-                        ? answer.toLowerCase()
-                        : answer;
-
-            if (questionType === "true-false" &&
-                String(item.optionA || "").trim().toLowerCase() !== "true" ||
-                questionType === "true-false" &&
-                String(item.optionB || "").trim().toLowerCase() !== "false") {
-
-                throw new Error(
-                    `AI question ${index + 1} must contain True and False options.`
-                );
-            }
-
-            if (questionType === "true-false" &&
-                !["a", "b", "true", "false"].includes(
-                    normalizedAnswer
-                )) {
-
-                throw new Error(
-                    `AI question ${index + 1} must have correct answer A or B.`
-                );
-            }
-
-            if (questionType === "fill-gap" && !normalizedAnswer) {
-
-                throw new Error(
-                    `AI question ${index + 1} must contain an answer.`
-                );
-            }
-
-            const correctIndex =
-                questionType === "multiple-choice"
-                    ? normalizedAnswer.charCodeAt(0) - 65
-                    : null;
-
-            const trueFalseAnswer =
-                questionType === "true-false"
-                    ? normalizedAnswer === "a" ||
-                        normalizedAnswer === "true"
-                        ? "true"
-                        : "false"
-                    : normalizedAnswer;
-
-            if (questionType === "fill-gap") {
-
-                console.log(
-                    "[AI DEBUG] Fill-gap answer:",
-                    normalizedAnswer
-                );
-            }
-
-            return {
-
-                exam_id:
-                    examData.id,
-
-                question_number:
-                    questions.length + index + 1,
-
-                question_text:
-                    String(item.question).trim(),
-
-                question_type:
-                    questionType,
-
-                options,
-
-                correct_answer:
-                    correctIndex,
-
-                answer:
-                    questionType === "multiple-choice"
-                        ? options[correctIndex]
-                        : questionType === "true-false"
-                            ? trueFalseAnswer
-                            : normalizedAnswer,
-
-                explanation:
-                    item.explanation || "",
-
-                difficulty:
-                    item.difficulty || difficulty,
-
-                marks:
-                    Number(item.marks) || 1,
-
-                media: []
-            };
-        }
-    );
-}
-
-
-function normalizeAIQuestionType(
-    value
-) {
-
-    const normalized =
-        String(value || "")
-            .toLowerCase()
-            .trim()
-            .replace(/[_ ]+/g, "-");
-
-    if (normalized === "true/false" ||
-        normalized === "true-false" ||
-        normalized === "truefalse" ||
-        normalized === "true-or-false" ||
-        normalized === "boolean" ||
-        normalized === "tf") {
-        return "true-false";
-    }
-
-    if (normalized === "fill-in-the-gap" ||
-        normalized === "fill-gap" ||
-        normalized === "fill-in-gap" ||
-        normalized === "fillgap" ||
-        normalized === "fill-in-the-blank" ||
-        normalized === "fillblank") {
-        return "fill-gap";
-    }
-
-    if (normalized === "multiple-choice" ||
-        normalized === "multiplechoice" ||
-        normalized === "mcq") {
-        return "multiple-choice";
-    }
-
-    if (normalized === "mixed") {
-        return "mixed";
-    }
-
-    return "";
-}
-
-
-function inferAIQuestionType(
-    item
-) {
-
-    const optionA =
-        String(item.optionA || "").trim();
-
-    const optionB =
-        String(item.optionB || "").trim();
-
-    const optionC =
-        String(item.optionC || "").trim();
-
-    const optionD =
-        String(item.optionD || "").trim();
-
-    const correctAnswer =
-        String(
-            item.correctAnswer ??
-            item.correct_answer ??
-            ""
-        )
-            .trim()
-            .toUpperCase();
-
-    const isMultipleChoice =
-        Boolean(optionA) &&
-        Boolean(optionB) &&
-        Boolean(optionC) &&
-        Boolean(optionD) &&
-        ["A", "B", "C", "D"].includes(
-            correctAnswer
-        );
-
-    if (isMultipleChoice) {
-        return "multiple-choice";
-    }
-
-    const isTrueFalse =
-        optionA.toLowerCase() === "true" &&
-        optionB.toLowerCase() === "false" &&
-        !optionC &&
-        !optionD &&
-        ["A", "B"].includes(
-            correctAnswer
-        );
-
-    if (isTrueFalse) {
-        return "true-false";
-    }
-
-    if (!optionA &&
-        !optionB &&
-        !optionC &&
-        !optionD &&
-        Boolean(correctAnswer)) {
-        return "fill-gap";
-    }
-
-    return "";
-}
-
-
-function renderAIQuestionReview() {
-
-    const review =
-        document.getElementById(
-            "aiQuestionReview"
-        );
-
-    const generatedQuestions =
-        Array.isArray(window.gracextolAIQuestions)
-            ? window.gracextolAIQuestions
-            : [];
-
-    if (!review) {
-        return;
-    }
-
-    review.innerHTML = "";
-    review.style.display =
-        generatedQuestions.length > 0
-            ? "block"
-            : "none";
-
-    generatedQuestions.forEach(
-        (question, index) => {
-
-            const item =
-                document.createElement("article");
-
-            item.className =
-                "ai-review-item";
-
-            item.innerHTML =
-                `<h4>Question ${index + 1} | ${question.question_type} | ${question.difficulty}</h4>` +
-                `<p class="ai-review-question"></p>`;
-
-            item.querySelector(
-                ".ai-review-question"
-            ).textContent =
-                question.question_text;
-
-            if (question.options.length > 0) {
-
-                const options =
-                    document.createElement("ol");
-
-                question.options.forEach(
-                    (option, optionIndex) => {
-
-                        const optionItem =
-                            document.createElement("li");
-
-                        optionItem.textContent =
-                            option;
-
-                        if (optionIndex === question.correct_answer) {
-                            optionItem.className = "correct";
-                        }
-
-                        options.appendChild(optionItem);
-                    }
-                );
-
-                item.appendChild(options);
-            }
-
-            const details =
-                document.createElement("p");
-
-            details.className =
-                "ai-review-explanation";
-
-            details.textContent =
-                question.explanation
-                    ? `Answer: ${question.answer} | Explanation: ${question.explanation}`
-                    : `Answer: ${question.answer}`;
-
-            item.appendChild(details);
-
-            const actions =
-                document.createElement("div");
-
-            actions.className =
-                "ai-review-actions";
-
-            const approve =
-                document.createElement("button");
-
-            approve.type = "button";
-            approve.textContent = "Approve and add";
-            approve.className = "ai-review-approve";
-
-            approve.addEventListener(
-                "click",
-                async () => {
-
-                    approve.disabled = true;
-                    question.question_number =
-                        questions.length + 1;
-
-                    try {
-
-                        await saveApprovedAIQuestions([
-                            question
-                        ]);
-
-                        window.gracextolAIQuestions =
-                            window.gracextolAIQuestions.filter(
-                                item => item !== question
-                            );
-
-                        renderAIQuestionReview();
-
-                    } catch (error) {
-
-                        approve.disabled = false;
-
-                        alert(
-                            "Unable to save this question. Please try again."
-                        );
-                    }
-                }
-            );
-
-            const reject =
-                document.createElement("button");
-
-            reject.type = "button";
-            reject.textContent = "Reject";
-            reject.className = "ai-review-reject";
-
-            reject.addEventListener(
-                "click",
-                () => {
-
-                    window.gracextolAIQuestions =
-                        window.gracextolAIQuestions.filter(
-                            item => item !== question
-                        );
-
-                    renderAIQuestionReview();
-                }
-            );
-
-            actions.appendChild(approve);
-            actions.appendChild(reject);
-            item.appendChild(actions);
-            review.appendChild(item);
-        }
-    );
-}
 
 if (addQuestionBtn) {
 
