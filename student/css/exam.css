@@ -97,6 +97,227 @@ body {
 
 
 /* =========================================
+   EXAM MODE GATE
+========================================= */
+
+.exam-mode-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(16, 24, 90, 0.62);
+    backdrop-filter: blur(8px);
+}
+
+.exam-mode-gate[hidden] {
+    display: none;
+}
+
+.exam-mode-gate-card {
+    width: min(100%, 500px);
+
+    padding: 36px;
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 22px;
+
+    background: #ffffff;
+
+    text-align: center;
+
+    box-shadow: 0 25px 70px rgba(16, 24, 90, 0.24);
+}
+
+.exam-mode-gate-icon {
+    width: 58px;
+    height: 58px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: #eee9ff;
+    color: var(--primary);
+
+    font-size: 24px;
+}
+
+.exam-mode-gate-label {
+    display: block;
+
+    margin-top: 18px;
+
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.exam-mode-gate-card h2 {
+    margin-top: 8px;
+
+    color: var(--dark);
+    font-size: 26px;
+}
+
+.exam-mode-gate-card p {
+    margin-top: 12px;
+
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.exam-mode-gate-message {
+    color: var(--text) !important;
+    font-size: 13px !important;
+}
+
+.exam-mode-gate-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+.enter-exam-mode-btn,
+.continue-without-fullscreen-btn {
+    min-height: 48px;
+
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.enter-exam-mode-btn {
+    border: none;
+
+    background: linear-gradient(100deg, #8b2cf5, #2563eb);
+    color: #ffffff;
+}
+
+.continue-without-fullscreen-btn {
+    border: 1px solid var(--border);
+
+    background: #ffffff;
+    color: var(--muted);
+}
+
+
+/* =========================================
+   EXAM MODE WARNING
+========================================= */
+
+.exam-mode-warning {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    margin: 16px auto 0;
+
+    padding: 14px 18px;
+
+    border: 1px solid #fbbf24;
+
+    border-radius: 14px;
+
+    background: #fffbeb;
+
+    color: #78350f;
+
+    box-shadow:
+        0 8px 22px rgba(146, 64, 14, 0.08);
+}
+
+.exam-mode-warning[hidden] {
+    display: none;
+}
+
+.exam-mode-warning-content {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+}
+
+.exam-mode-warning-content > i {
+    margin-top: 2px;
+
+    color: #d97706;
+
+    font-size: 18px;
+}
+
+.exam-mode-warning strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.exam-mode-warning p {
+    margin-top: 4px;
+
+    color: #92400e;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+.return-fullscreen-btn {
+    flex-shrink: 0;
+
+    min-height: 38px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #f59e0b;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #92400e;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.return-fullscreen-btn:hover {
+    background: #fef3c7;
+}
+
+
+/* =========================================
    BRAND
 ========================================= */
 
@@ -752,6 +973,20 @@ footer span {
         flex-direction: column;
 
         align-items: stretch;
+    }
+
+    .exam-mode-warning {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .return-fullscreen-btn {
+        width: 100%;
+    }
+
+    .exam-mode-gate-card {
+        padding: 28px 22px;
     }
 
     .exam-info {

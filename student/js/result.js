@@ -426,11 +426,13 @@ function showFullResult() {
 
         percentage =
             total > 0
-                ? Math.round(
+                ? Number(
                     (
-                        score /
-                        total
-                    ) * 100
+                        (
+                            score /
+                            total
+                        ) * 100
+                    ).toFixed(2)
                 )
                 : 0;
 
@@ -444,7 +446,9 @@ function showFullResult() {
     if (percentageElement) {
 
         percentageElement.textContent =
-            `${percentage}%`;
+            `${Number(
+                percentage
+            ).toString()}%`;
 
     }
 

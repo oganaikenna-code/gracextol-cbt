@@ -168,6 +168,114 @@
         </header>
 
 
+        <!-- =================================================
+             EXAM MODE GATE
+        ================================================== -->
+
+        <div
+            id="examModeGate"
+            class="exam-mode-gate"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="examModeGateTitle"
+        >
+
+            <div class="exam-mode-gate-card">
+
+                <i class="fa-solid fa-expand exam-mode-gate-icon"></i>
+
+                <span class="exam-mode-gate-label">
+                    EXAM MODE
+                </span>
+
+                <h2 id="examModeGateTitle">
+                    Enter Exam Mode
+                </h2>
+
+                <p>
+                    For the best examination experience and exam integrity, this examination will run in fullscreen mode.
+                </p>
+
+                <p id="examModeGateMessage" class="exam-mode-gate-message">
+                    Please ensure you are ready before continuing.
+                </p>
+
+                <div class="exam-mode-gate-actions">
+
+                    <button
+                        type="button"
+                        id="enterExamModeBtn"
+                        class="enter-exam-mode-btn"
+                    >
+
+                        <i class="fa-solid fa-expand"></i>
+
+                        Enter Exam Mode
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="continueWithoutFullscreenBtn"
+                        class="continue-without-fullscreen-btn"
+                        hidden
+                    >
+
+                        Continue Without Fullscreen
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             EXAM MODE WARNING
+        ================================================== -->
+
+        <div
+            id="examModeWarning"
+            class="exam-mode-warning"
+            role="alert"
+            aria-live="assertive"
+            hidden
+        >
+
+            <div class="exam-mode-warning-content">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <div>
+
+                    <strong>
+                        Exam Mode Warning
+                    </strong>
+
+                    <p id="examModeWarningMessage"></p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="returnFullscreenBtn"
+                class="return-fullscreen-btn"
+            >
+
+                <i class="fa-solid fa-expand"></i>
+
+                Return to Fullscreen
+
+            </button>
+
+        </div>
+
+
 
         <!-- =================================================
              EXAM CONTENT

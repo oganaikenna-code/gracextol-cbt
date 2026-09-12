@@ -39,6 +39,20 @@ let activeExamAttempt = null;
 
 let activeAttemptSaveTimeout = null;
 
+let examModeActive = false;
+
+let examModeListenersActive = false;
+
+let lastIntegrityEventAt = 0;
+
+let pendingVisibilityWarning = false;
+
+let pendingFocusWarning = false;
+
+let examModeWarningKind = "";
+
+let examModeWarningTimeout = null;
+
 
 /* =========================================================
    HTML ELEMENTS
@@ -88,6 +102,27 @@ const questionLabel =
 
 const questionTypeDisplay =
     document.getElementById("questionType");
+
+const examModeGate =
+    document.getElementById("examModeGate");
+
+const enterExamModeBtn =
+    document.getElementById("enterExamModeBtn");
+
+const continueWithoutFullscreenBtn =
+    document.getElementById("continueWithoutFullscreenBtn");
+
+const examModeGateMessage =
+    document.getElementById("examModeGateMessage");
+
+const examModeWarning =
+    document.getElementById("examModeWarning");
+
+const examModeWarningMessage =
+    document.getElementById("examModeWarningMessage");
+
+const returnFullscreenBtn =
+    document.getElementById("returnFullscreenBtn");
 
 
 /* =========================================================
@@ -188,6 +223,8 @@ function initializeActiveExamAttempt() {
         activeExamAttempt =
             savedAttempt;
 
+        ensureIntegrityState();
+
         return;
     }
 
@@ -241,7 +278,26 @@ function initializeActiveExamAttempt() {
             [],
 
         lastSavedAt:
-            new Date().toISOString()
+            new Date().toISOString(),
+
+        violations: {
+
+            fullscreenExit:
+                0,
+
+            visibilityHidden:
+                0,
+
+            focusLost:
+                0,
+
+            total:
+                0,
+
+            events:
+                []
+
+        }
 
     };
 
@@ -301,6 +357,681 @@ function scheduleActiveExamAttemptSave() {
             saveActiveExamAttempt,
             250
         );
+}
+
+
+function ensureIntegrityState() {
+
+    if (
+        !activeExamAttempt
+    ) {
+
+        return;
+    }
+
+
+    if (
+        !activeExamAttempt.violations ||
+        typeof activeExamAttempt.violations !==
+        "object"
+    ) {
+
+        activeExamAttempt.violations = {
+
+            fullscreenExit:
+                0,
+
+            visibilityHidden:
+                0,
+
+            focusLost:
+                0,
+
+            total:
+                0,
+
+            events:
+                []
+
+        };
+    }
+
+
+    activeExamAttempt.violations.events =
+        Array.isArray(
+            activeExamAttempt.violations.events
+        )
+            ? activeExamAttempt.violations.events
+            : [];
+}
+
+
+function showExamModeWarning(
+    message,
+    kind,
+    showFullscreenButton = false
+) {
+
+    if (
+        !examModeWarning ||
+        !examModeWarningMessage
+    ) {
+
+        return;
+    }
+
+
+    examModeWarningKind =
+        kind ||
+        "general";
+
+    if (
+        examModeWarningTimeout
+    ) {
+
+        clearTimeout(
+            examModeWarningTimeout
+        );
+    }
+
+    examModeWarningMessage.textContent =
+        message;
+
+    examModeWarning.hidden =
+        false;
+
+
+    if (
+        returnFullscreenBtn
+    ) {
+
+        returnFullscreenBtn.hidden =
+            !showFullscreenButton;
+    }
+
+
+    if (
+        !showFullscreenButton
+    ) {
+
+        examModeWarningTimeout =
+            setTimeout(
+                hideExamModeWarning,
+                8000
+            );
+    }
+}
+
+
+function hideExamModeWarning() {
+
+    if (
+        examModeWarning
+    ) {
+
+        examModeWarning.hidden =
+            true;
+    }
+
+    examModeWarningKind =
+        "";
+
+    if (
+        examModeWarningTimeout
+    ) {
+
+        clearTimeout(
+            examModeWarningTimeout
+        );
+
+        examModeWarningTimeout =
+            null;
+    }
+}
+
+
+function recordIntegrityEvent(
+    type
+) {
+
+    if (
+        !examModeActive ||
+        !activeExamAttempt
+    ) {
+
+        return;
+    }
+
+
+    const now =
+        Date.now();
+
+    const relatedInterruption =
+        (
+            type ===
+            "visibility_hidden" ||
+            type ===
+            "focus_lost"
+        ) &&
+        now - lastIntegrityEventAt <
+        1000;
+
+
+    if (
+        relatedInterruption
+    ) {
+
+        return;
+    }
+
+
+    ensureIntegrityState();
+
+
+    if (
+        type ===
+        "fullscreen_exit"
+    ) {
+
+        activeExamAttempt.violations.fullscreenExit++;
+    }
+
+    else if (
+        type ===
+        "visibility_hidden"
+    ) {
+
+        activeExamAttempt.violations.visibilityHidden++;
+    }
+
+    else if (
+        type ===
+        "focus_lost"
+    ) {
+
+        activeExamAttempt.violations.focusLost++;
+    }
+
+
+    activeExamAttempt.violations.total++;
+
+    activeExamAttempt.violations.events.push({
+
+        type:
+            type,
+
+        timestamp:
+            new Date(
+                now
+            ).toISOString()
+
+    });
+
+    lastIntegrityEventAt =
+        now;
+
+    saveActiveExamAttempt();
+
+    console.log(
+        "[Exam Mode] Integrity event saved:",
+        type
+    );
+}
+
+
+function requestExamFullscreen() {
+
+    if (
+        !document.fullscreenEnabled
+    ) {
+
+        console.warn(
+            "[Exam Mode] Fullscreen unavailable: document.fullscreenEnabled is false."
+        );
+
+        return Promise.resolve(
+            false
+        );
+    }
+
+
+    if (
+        !document.documentElement.requestFullscreen
+    ) {
+
+        console.warn(
+            "[Exam Mode] Fullscreen unavailable: requestFullscreen is not supported."
+        );
+
+        return Promise.resolve(
+            false
+        );
+    }
+
+
+    return document.documentElement
+        .requestFullscreen()
+        .then(
+            () => true
+        )
+        .catch(
+            error => {
+
+                console.warn(
+                    "[Exam Mode] Fullscreen unavailable:",
+                    error
+                );
+
+                return false;
+            }
+        );
+}
+
+
+function handleFullscreenChange() {
+
+    if (
+        !examModeActive
+    ) {
+
+        return;
+    }
+
+
+    if (
+        document.fullscreenElement
+    ) {
+
+        if (
+            examModeWarningKind ===
+            "fullscreen"
+        ) {
+
+            hideExamModeWarning();
+        }
+
+        console.log(
+            "[Exam Mode] Fullscreen entered"
+        );
+
+        return;
+    }
+
+
+    recordIntegrityEvent(
+        "fullscreen_exit"
+    );
+
+    showExamModeWarning(
+        "You have exited fullscreen. Please return to fullscreen to continue your examination.",
+        "fullscreen",
+        true
+    );
+
+    console.log(
+        "[Exam Mode] Fullscreen exited"
+    );
+}
+
+
+function handleVisibilityChange() {
+
+    if (
+        !examModeActive
+    ) {
+
+        return;
+    }
+
+
+    if (
+        document.hidden
+    ) {
+
+        recordIntegrityEvent(
+            "visibility_hidden"
+        );
+
+        pendingVisibilityWarning =
+            true;
+
+        saveActiveExamAttempt();
+
+        console.log(
+            "[Exam Mode] Visibility interruption"
+        );
+
+        return;
+    }
+
+
+    if (
+        pendingVisibilityWarning
+    ) {
+
+        pendingVisibilityWarning =
+            false;
+
+        pendingFocusWarning =
+            false;
+
+        showExamModeWarning(
+            "The examination page was temporarily hidden. Your examination has been saved. Please remain on the examination page.",
+            "visibility"
+        );
+    }
+}
+
+
+function handleWindowBlur() {
+
+    if (
+        !examModeActive
+    ) {
+
+        return;
+    }
+
+
+    recordIntegrityEvent(
+        "focus_lost"
+    );
+
+    pendingFocusWarning =
+        true;
+
+    saveActiveExamAttempt();
+
+    console.log(
+        "[Exam Mode] Focus lost"
+    );
+}
+
+
+function handleWindowFocus() {
+
+    if (
+        !examModeActive
+    ) {
+
+        return;
+    }
+
+
+    if (
+        pendingFocusWarning &&
+        !document.hidden &&
+        (
+            !examModeWarning ||
+            examModeWarning.hidden
+        )
+    ) {
+
+        pendingFocusWarning =
+            false;
+
+        showExamModeWarning(
+            "The examination window lost focus. Please remain on the examination page.",
+            "focus"
+        );
+    }
+}
+
+
+function handleExamModePopState() {
+
+    if (
+        !examModeActive
+    ) {
+
+        return;
+    }
+
+
+    history.pushState(
+        {
+            gracextolExamMode:
+                true
+        },
+        "",
+        window.location.href
+    );
+
+    showExamModeWarning(
+        "Your examination is still in progress. Please use the examination controls until you submit.",
+        "navigation"
+    );
+
+    saveActiveExamAttempt();
+}
+
+
+function startExamMode() {
+
+    if (
+        examModeActive
+    ) {
+
+        return;
+    }
+
+
+    examModeActive =
+        true;
+
+    ensureIntegrityState();
+
+    saveActiveExamAttempt();
+
+    document.addEventListener(
+        "fullscreenchange",
+        handleFullscreenChange
+    );
+
+    document.addEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+    );
+
+    window.addEventListener(
+        "blur",
+        handleWindowBlur
+    );
+
+    window.addEventListener(
+        "focus",
+        handleWindowFocus
+    );
+
+    history.pushState(
+        {
+            gracextolExamMode:
+                true
+        },
+        "",
+        window.location.href
+    );
+
+    window.addEventListener(
+        "popstate",
+        handleExamModePopState
+    );
+
+    examModeListenersActive =
+        true;
+
+    console.log(
+        "[Exam Mode] Started"
+    );
+}
+
+
+function stopExamMode() {
+
+    if (
+        !examModeListenersActive
+    ) {
+
+        return;
+    }
+
+
+    document.removeEventListener(
+        "fullscreenchange",
+        handleFullscreenChange
+    );
+
+    document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+    );
+
+    window.removeEventListener(
+        "blur",
+        handleWindowBlur
+    );
+
+    window.removeEventListener(
+        "focus",
+        handleWindowFocus
+    );
+
+    window.removeEventListener(
+        "popstate",
+        handleExamModePopState
+    );
+
+    examModeListenersActive =
+        false;
+
+    examModeActive =
+        false;
+
+    pendingVisibilityWarning =
+        false;
+
+    pendingFocusWarning =
+        false;
+
+    hideExamModeWarning();
+
+    if (
+        document.fullscreenElement &&
+        document.exitFullscreen
+    ) {
+
+        document.exitFullscreen()
+            .catch(
+                () => {}
+            );
+    }
+
+    console.log(
+        "[Exam Mode] Stopped"
+    );
+}
+
+
+if (
+    returnFullscreenBtn
+) {
+
+    returnFullscreenBtn.addEventListener(
+        "click",
+        function () {
+
+            requestExamFullscreen();
+        }
+    );
+}
+
+
+function activateExamMode() {
+
+    if (
+        examModeGate
+    ) {
+
+        examModeGate.hidden =
+            true;
+    }
+
+
+    displayQuestion();
+
+    startExamMode();
+
+    startTimer();
+}
+
+
+async function enterExamModeFromGate() {
+
+    if (
+        !enterExamModeBtn
+    ) {
+
+        return;
+    }
+
+
+    enterExamModeBtn.disabled =
+        true;
+
+    const fullscreenEntered =
+        await requestExamFullscreen();
+
+
+    if (
+        fullscreenEntered
+    ) {
+
+        activateExamMode();
+
+        return;
+    }
+
+
+    enterExamModeBtn.disabled =
+        false;
+
+    if (
+        examModeGateMessage
+    ) {
+
+        examModeGateMessage.textContent =
+            "Fullscreen could not be enabled. You can retry or continue without fullscreen.";
+    }
+
+    if (
+        continueWithoutFullscreenBtn
+    ) {
+
+        continueWithoutFullscreenBtn.hidden =
+            false;
+    }
+}
+
+
+if (
+    enterExamModeBtn
+) {
+
+    enterExamModeBtn.addEventListener(
+        "click",
+        enterExamModeFromGate
+    );
+}
+
+
+if (
+    continueWithoutFullscreenBtn
+) {
+
+    continueWithoutFullscreenBtn.addEventListener(
+        "click",
+        activateExamMode
+    );
 }
 
 
@@ -870,14 +1601,13 @@ async function loadQuestions() {
         saveActiveExamAttempt();
 
 
-        displayQuestion();
+        if (
+            examModeGate
+        ) {
 
-
-        /* =================================================
-           START TIMER
-        ================================================= */
-
-        startTimer();
+            examModeGate.hidden =
+                false;
+        }
 
 
     } catch (error) {
@@ -2684,11 +3414,13 @@ async function calculateResult() {
 
     const percentage =
         questions.length > 0
-            ? Math.round(
+            ? Number(
                 (
-                    score /
-                    questions.length
-                ) * 100
+                    (
+                        score /
+                        questions.length
+                    ) * 100
+                ).toFixed(2)
             )
             : 0;
 
@@ -2752,6 +3484,9 @@ async function calculateResult() {
 
         return;
     }
+
+
+    stopExamMode();
 
 
     localStorage.removeItem(
