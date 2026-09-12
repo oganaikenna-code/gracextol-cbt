@@ -696,6 +696,31 @@ function saveStudentExamSession(
     exam
 ) {
 
+    const startedAt =
+        new Date();
+
+    const durationMinutes =
+        Number(
+            exam.duration
+        ) > 0
+            ? Number(
+                exam.duration
+            )
+            : 30;
+
+    const endAt =
+        new Date(
+            startedAt.getTime() +
+            durationMinutes * 60 * 1000
+        ).toISOString();
+
+    const sessionId =
+        window.crypto &&
+        typeof window.crypto.randomUUID ===
+        "function"
+            ? window.crypto.randomUUID()
+            : `exam-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
     /* -----------------------------------------
        BASIC STUDENT INFORMATION
     ----------------------------------------- */
@@ -778,7 +803,13 @@ function saveStudentExamSession(
             exam.access_code || "",
 
         startedAt:
-            new Date().toISOString()
+            startedAt.toISOString(),
+
+        endAt:
+            endAt,
+
+        sessionId:
+            sessionId
 
     };
 
@@ -788,6 +819,38 @@ function saveStudentExamSession(
         JSON.stringify(
             studentExamSession
         )
+    );
+
+
+    localStorage.setItem(
+        "gracextolActiveExamAttempt",
+        JSON.stringify({
+
+            sessionId:
+                sessionId,
+
+            examId:
+                exam.id,
+
+            studentName:
+                studentName,
+
+            startedAt:
+                startedAt.toISOString(),
+
+            endAt:
+                endAt,
+
+            currentQuestion:
+                0,
+
+            answers:
+                [],
+
+            lastSavedAt:
+                new Date().toISOString()
+
+        })
     );
 
 }

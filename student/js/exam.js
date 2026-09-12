@@ -32,6 +32,13 @@ let timer = null;
 
 let examSubmitted = false;
 
+const ACTIVE_EXAM_ATTEMPT_KEY =
+    "gracextolActiveExamAttempt";
+
+let activeExamAttempt = null;
+
+let activeAttemptSaveTimeout = null;
+
 
 /* =========================================================
    HTML ELEMENTS
@@ -100,6 +107,201 @@ const savedStudentName =
 
 const selectedExamId =
     localStorage.getItem("selectedExamId");
+
+
+/* =========================================================
+   ACTIVE EXAM ATTEMPT
+========================================================= */
+
+function createLocalSessionId() {
+
+    return (
+        window.crypto &&
+        typeof window.crypto.randomUUID ===
+        "function"
+            ? window.crypto.randomUUID()
+            : `exam-${Date.now()}-${Math.random().toString(36).slice(2)}`
+    );
+}
+
+
+function readStudentExamSession() {
+
+    try {
+
+        const savedSession =
+            localStorage.getItem(
+                "studentExamSession"
+            );
+
+
+        return savedSession
+            ? JSON.parse(savedSession)
+            : null;
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to read student exam session:",
+            error
+        );
+
+        return null;
+    }
+}
+
+
+function initializeActiveExamAttempt() {
+
+    let savedAttempt = null;
+
+
+    try {
+
+        const storedAttempt =
+            localStorage.getItem(
+                ACTIVE_EXAM_ATTEMPT_KEY
+            );
+
+
+        savedAttempt = storedAttempt
+            ? JSON.parse(storedAttempt)
+            : null;
+
+    } catch (error) {
+
+        console.warn(
+            "Unable to read active examination attempt:",
+            error
+        );
+    }
+
+
+    if (
+        savedAttempt &&
+        savedAttempt.examId === selectedExamId &&
+        savedAttempt.sessionId &&
+        savedAttempt.startedAt &&
+        savedAttempt.endAt
+    ) {
+
+        activeExamAttempt =
+            savedAttempt;
+
+        return;
+    }
+
+
+    const studentExamSession =
+        readStudentExamSession() || {};
+
+    const startedAt =
+        studentExamSession.startedAt ||
+        new Date().toISOString();
+
+    const durationMinutes =
+        Number(
+            examData.duration
+        ) > 0
+            ? Number(
+                examData.duration
+            )
+            : 30;
+
+    const endAt =
+        studentExamSession.endAt ||
+        new Date(
+            Date.parse(startedAt) +
+            durationMinutes * 60 * 1000
+        ).toISOString();
+
+
+    activeExamAttempt = {
+
+        sessionId:
+            studentExamSession.sessionId ||
+            createLocalSessionId(),
+
+        examId:
+            examData.id,
+
+        studentName:
+            savedStudentName,
+
+        startedAt:
+            startedAt,
+
+        endAt:
+            endAt,
+
+        currentQuestion:
+            0,
+
+        answers:
+            [],
+
+        lastSavedAt:
+            new Date().toISOString()
+
+    };
+
+
+    localStorage.setItem(
+        ACTIVE_EXAM_ATTEMPT_KEY,
+        JSON.stringify(
+            activeExamAttempt
+        )
+    );
+}
+
+
+function saveActiveExamAttempt() {
+
+    if (
+        !activeExamAttempt ||
+        !examData ||
+        examData.id !== selectedExamId
+    ) {
+
+        return;
+    }
+
+
+    activeExamAttempt.answers =
+        userAnswers.slice();
+
+    activeExamAttempt.currentQuestion =
+        currentQuestion;
+
+    activeExamAttempt.lastSavedAt =
+        new Date().toISOString();
+
+
+    localStorage.setItem(
+        ACTIVE_EXAM_ATTEMPT_KEY,
+        JSON.stringify(
+            activeExamAttempt
+        )
+    );
+}
+
+
+function scheduleActiveExamAttemptSave() {
+
+    if (activeAttemptSaveTimeout) {
+
+        clearTimeout(
+            activeAttemptSaveTimeout
+        );
+    }
+
+
+    activeAttemptSaveTimeout =
+        setTimeout(
+            saveActiveExamAttempt,
+            250
+        );
+}
 
 
 /* =========================================================
@@ -581,10 +783,37 @@ async function loadQuestions() {
            CREATE ANSWER ARRAY
         ================================================= */
 
+        initializeActiveExamAttempt();
+
+
         userAnswers =
             new Array(
                 questions.length
             ).fill(null);
+
+
+        if (
+            Array.isArray(
+                activeExamAttempt.answers
+            )
+        ) {
+
+            activeExamAttempt.answers
+                .slice(
+                    0,
+                    questions.length
+                )
+                .forEach(
+                    (
+                        answer,
+                        index
+                    ) => {
+
+                        userAnswers[index] =
+                            answer;
+                    }
+                );
+        }
 
 
         /* =================================================
@@ -597,27 +826,48 @@ async function loadQuestions() {
             );
 
 
-        if (
-            duration &&
-            duration > 0
-        ) {
+        const endTime =
+            Date.parse(
+                activeExamAttempt.endAt
+            );
 
-            timeRemaining =
-                duration * 60;
+        const remainingSeconds =
+            Number.isFinite(endTime)
+                ? Math.ceil(
+                    (
+                        endTime -
+                        Date.now()
+                    ) / 1000
+                )
+                : duration * 60;
 
-        } else {
-
-            timeRemaining =
-                30 * 60;
-        }
+        timeRemaining =
+            Math.max(
+                0,
+                remainingSeconds
+            );
 
 
         /* =================================================
            FIRST QUESTION
         ================================================= */
 
+        const savedQuestion =
+            Number(
+                activeExamAttempt.currentQuestion
+            );
+
         currentQuestion =
-            0;
+            Number.isInteger(
+                savedQuestion
+            ) &&
+            savedQuestion >= 0 &&
+            savedQuestion < questions.length
+                ? savedQuestion
+                : 0;
+
+
+        saveActiveExamAttempt();
 
 
         displayQuestion();
@@ -1750,6 +2000,9 @@ function renderFillAnswer(
                 input.value;
 
 
+            scheduleActiveExamAttemptSave();
+
+
             updateDots();
 
         }
@@ -1809,6 +2062,9 @@ function selectAnswer(
     );
 
 
+    saveActiveExamAttempt();
+
+
     updateDots();
 }
 
@@ -1827,6 +2083,8 @@ function goToNextQuestion() {
         currentQuestion++;
 
         displayQuestion();
+
+        saveActiveExamAttempt();
 
         return;
     }
@@ -1861,6 +2119,8 @@ function goToPreviousQuestion() {
         currentQuestion--;
 
         displayQuestion();
+
+        saveActiveExamAttempt();
     }
 }
 
@@ -2039,6 +2299,20 @@ function startTimer() {
     updateTimerDisplay();
 
 
+    if (
+        timeRemaining <= 0
+    ) {
+
+        alert(
+            "Time is up! Your examination will now be submitted."
+        );
+
+        calculateResult();
+
+        return;
+    }
+
+
     timer =
         setInterval(
             function () {
@@ -2055,7 +2329,23 @@ function startTimer() {
                 }
 
 
-                timeRemaining--;
+                const endTime =
+                    Date.parse(
+                        activeExamAttempt.endAt
+                    );
+
+                timeRemaining =
+                    Number.isFinite(endTime)
+                        ? Math.max(
+                            0,
+                            Math.ceil(
+                                (
+                                    endTime -
+                                    Date.now()
+                                ) / 1000
+                            )
+                        )
+                        : timeRemaining - 1;
 
 
                 updateTimerDisplay();
@@ -2464,6 +2754,11 @@ async function calculateResult() {
     }
 
 
+    localStorage.removeItem(
+        ACTIVE_EXAM_ATTEMPT_KEY
+    );
+
+
     /* =====================================================
        SAVE RESULT LOCALLY
     ===================================================== */
@@ -2645,6 +2940,8 @@ if (submitBtn) {
 window.addEventListener(
     "beforeunload",
     function (event) {
+
+        saveActiveExamAttempt();
 
         if (
             !examSubmitted &&

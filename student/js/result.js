@@ -812,6 +812,16 @@ function retakeExam() {
     );
 
 
+    localStorage.removeItem(
+        "gracextolActiveExamAttempt"
+    );
+
+
+    localStorage.removeItem(
+        "studentExamSession"
+    );
+
+
     /*
        Keep selectedExamId so the student
        can take the same examination again.
@@ -847,6 +857,11 @@ function goHome() {
 
     localStorage.removeItem(
         "completedExam"
+    );
+
+
+    localStorage.removeItem(
+        "gracextolActiveExamAttempt"
     );
 
     localStorage.removeItem(
