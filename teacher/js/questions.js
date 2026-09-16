@@ -282,7 +282,7 @@ async function generateAIQuestions() {
 
         const response =
             await fetch(
-                "http://localhost:5678/webhook-test/gracextol-ai-questions",
+                "https://n8n.gracextol.com/webhook/gracextol-ai-questions",
                 {
                     method: "POST",
 
