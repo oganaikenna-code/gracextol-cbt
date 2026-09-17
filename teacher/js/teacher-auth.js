@@ -195,42 +195,6 @@ registerForm.addEventListener(
 
 
         try {
-
-            /* ================================
-               CHECK USERNAME
-            ================================= */
-
-            const {
-                data: existingUsername,
-                error: usernameError
-            } = await supabaseClient
-                .from("users")
-                .select("id")
-                .eq("username", username)
-                .maybeSingle();
-
-
-            if (usernameError) {
-
-                console.error(
-                    "Username check error:",
-                    usernameError
-                );
-
-            }
-
-
-            if (existingUsername) {
-
-                showMessage(
-                    "That username is already taken."
-                );
-
-                return;
-
-            }
-
-
             /* ================================
                CREATE SUPABASE AUTH ACCOUNT
             ================================= */
@@ -269,8 +233,16 @@ registerForm.addEventListener(
                     error
                 );
 
+                const registrationError =
+                    `${error.code || ""} ${error.message || ""} ${error.details || ""} ${error.hint || ""}`
+                        .toLowerCase();
+
                 showMessage(
-                    error.message
+                    registrationError.includes(
+                        "users_username_unique"
+                    )
+                        ? "That username is already taken. Please choose another username."
+                        : error.message
                 );
 
                 return;
