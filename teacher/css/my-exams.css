@@ -1076,3 +1076,67 @@ button {
     }
 
 }
+
+
+/* =========================================================
+   COMPACT MOBILE NAVIGATION
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .teacher-layout {
+        display: block;
+    }
+
+    .sidebar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: static;
+        width: 100%;
+        min-height: 0;
+        padding: 8px 10px;
+        gap: 6px;
+        overflow-x: auto;
+    }
+
+    .sidebar-logo {
+        display: none;
+    }
+
+    .sidebar-nav,
+    .sidebar-bottom {
+        display: contents;
+    }
+
+    .sidebar-nav a,
+    .sidebar-bottom a {
+        flex: 0 0 auto;
+        min-height: 44px;
+        padding: 0 12px;
+        white-space: nowrap;
+    }
+
+    .sidebar-nav a span,
+    .sidebar-bottom a span {
+        display: inline;
+    }
+
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .sidebar {
+        padding: 6px 8px;
+    }
+
+    .sidebar-nav a,
+    .sidebar-bottom a {
+        min-height: 44px;
+        padding: 0 10px;
+    }
+}
