@@ -51,6 +51,85 @@ function showMessage(message, type = "error") {
 
 
 /* =========================================
+   EMAIL VERIFICATION CALLBACK
+========================================= */
+
+async function handleEmailVerificationCallback() {
+
+    const hashParams =
+        new URLSearchParams(
+            window.location.hash.substring(1)
+        );
+
+    const searchParams =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const isSignupCallback =
+        hashParams.get("type") === "signup" ||
+        searchParams.get("type") === "signup";
+
+    if (!isSignupCallback) {
+        return;
+    }
+
+    try {
+
+        const {
+            data: {
+                session
+            },
+            error: sessionError
+        } = await supabaseClient.auth.getSession();
+
+        if (sessionError) {
+            throw sessionError;
+        }
+
+        if (session) {
+
+            const {
+                error: signOutError
+            } = await supabaseClient.auth.signOut();
+
+            if (signOutError) {
+                throw signOutError;
+            }
+        }
+
+        window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+        );
+
+        showMessage(
+            "Email Verified Successfully!\n" +
+            "Your Gracextol Teacher account is now ready.\n" +
+            "Enter your username or email and password below to access your Teacher Portal.",
+            "success"
+        );
+
+        authMessage.style.whiteSpace = "pre-line";
+        authMessage.style.fontSize = "13px";
+
+    } catch (error) {
+
+        window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+        );
+
+        showMessage(
+            "Email verification could not be completed. Please try the link again."
+        );
+    }
+}
+
+
+/* =========================================
    SWITCH TO LOGIN
 ========================================= */
 
@@ -211,6 +290,8 @@ registerForm.addEventListener(
 
                     options: {
 
+                        emailRedirectTo:
+                            "https://gracextol.com/teacher/pages/login.html",
                         data: {
 
                             username: username
@@ -315,6 +396,9 @@ registerForm.addEventListener(
 
     }
 );
+
+
+handleEmailVerificationCallback();
 
 
 /* =========================================
