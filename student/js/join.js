@@ -170,48 +170,19 @@ document.addEventListener(
             /* =================================================
                FETCH EXAMINATION
             ================================================= */
+const {
+    data: examData,
+    error: examError
+} =
+    await supabaseClient.rpc(
+        "get_exam_by_access_code",
+        {
+            p_access_code: accessCode
+        }
+    );
 
-            const {
-                data: exam,
-                error: examError
-            } =
-                await supabaseClient
-
-                    .from("exams")
-
-                    .select(`
-                        id,
-                        title,
-                        subject,
-                        class_level,
-                        question_count,
-                        duration,
-                        instructions,
-                        shuffle_questions,
-                        show_result,
-                        status,
-                        published,
-                        published_at,
-                        access_code,
-                        created_at
-                    `)
-
-                    .eq(
-                        "access_code",
-                        accessCode
-                    )
-
-                    .eq(
-                        "published",
-                        true
-                    )
-
-                    .eq(
-                        "status",
-                        "published"
-                    )
-
-                    .maybeSingle();
+const exam =
+    examData?.[0] || null;
 
 
             /* =================================================

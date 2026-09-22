@@ -10,7 +10,7 @@
    - Mathematical/scientific HTML formatting
    - Superscript / Subscript
    - question_options table
-   - Automatic grading
+   - Server-side grading
 ========================================================= */
 
 
@@ -188,8 +188,10 @@ function readStudentExamSession() {
 
 function initializeActiveExamAttempt() {
 
-    let savedAttempt = null;
+    const studentExamSession =
+        readStudentExamSession() || {};
 
+    let savedAttempt = null;
 
     try {
 
@@ -198,10 +200,10 @@ function initializeActiveExamAttempt() {
                 ACTIVE_EXAM_ATTEMPT_KEY
             );
 
-
-        savedAttempt = storedAttempt
-            ? JSON.parse(storedAttempt)
-            : null;
+        savedAttempt =
+            storedAttempt
+                ? JSON.parse(storedAttempt)
+                : null;
 
     } catch (error) {
 
@@ -209,32 +211,131 @@ function initializeActiveExamAttempt() {
             "Unable to read active examination attempt:",
             error
         );
+
+        localStorage.removeItem(
+            ACTIVE_EXAM_ATTEMPT_KEY
+        );
+
+        savedAttempt =
+            null;
     }
 
 
+    const currentSessionId =
+        studentExamSession.sessionId ||
+        "";
+
+
+    const savedAttemptMatchesExam =
+        Boolean(
+            savedAttempt &&
+            savedAttempt.examId ===
+                selectedExamId
+        );
+
+
+    const savedAttemptMatchesSession =
+        Boolean(
+            savedAttemptMatchesExam &&
+            currentSessionId &&
+            savedAttempt.sessionId ===
+                currentSessionId
+        );
+
+
+    /*
+     * IMPORTANT:
+     *
+     * Only the exact same Join Exam session
+     * is allowed to resume an old attempt.
+     *
+     * If the student joins the same examination
+     * again, a new sessionId is created and the
+     * previous attempt is discarded.
+     */
+
     if (
-        savedAttempt &&
-        savedAttempt.examId === selectedExamId &&
-        savedAttempt.sessionId &&
+        savedAttemptMatchesExam &&
+        !savedAttemptMatchesSession
+    ) {
+
+        console.log(
+            "[Exam Recovery] Old attempt belongs to a different session. Discarding stale attempt."
+        );
+
+        localStorage.removeItem(
+            ACTIVE_EXAM_ATTEMPT_KEY
+        );
+
+        savedAttempt =
+            null;
+    }
+
+
+    /*
+     * SAME SESSION:
+     *
+     * Resume the existing attempt.
+     *
+     * If the attempt has already expired, keep
+     * the expired attempt instead of creating a
+     * new timer.
+     */
+
+    if (
+        savedAttemptMatchesSession &&
         savedAttempt.startedAt &&
         savedAttempt.endAt
     ) {
 
+        const savedEndTime =
+            Date.parse(
+                savedAttempt.endAt
+            );
+
+
         activeExamAttempt =
             savedAttempt;
 
+
         ensureIntegrityState();
+
+
+        if (
+            Number.isFinite(
+                savedEndTime
+            ) &&
+            savedEndTime >
+                Date.now()
+        ) {
+
+            console.log(
+                "[Exam Recovery] Resuming active examination attempt."
+            );
+
+        } else {
+
+            console.log(
+                "[Exam Recovery] Existing examination attempt has expired."
+            );
+        }
+
 
         return;
     }
 
 
-    const studentExamSession =
-        readStudentExamSession() || {};
+    /*
+     * NEW SESSION:
+     *
+     * Create a completely new examination
+     * attempt using the current Join Exam session.
+     */
 
     const startedAt =
         studentExamSession.startedAt ||
         new Date().toISOString();
+
 
     const durationMinutes =
         Number(
@@ -245,18 +346,27 @@ function initializeActiveExamAttempt() {
             )
             : 30;
 
+
+    const calculatedEndAt =
+        new Date(
+            Date.parse(
+                startedAt
+            ) +
+            durationMinutes *
+            60 *
+            1000
+        ).toISOString();
+
+
     const endAt =
         studentExamSession.endAt ||
-        new Date(
-            Date.parse(startedAt) +
-            durationMinutes * 60 * 1000
-        ).toISOString();
+        calculatedEndAt;
 
 
     activeExamAttempt = {
 
         sessionId:
-            studentExamSession.sessionId ||
+            currentSessionId ||
             createLocalSessionId(),
 
         examId:
@@ -307,6 +417,11 @@ function initializeActiveExamAttempt() {
         JSON.stringify(
             activeExamAttempt
         )
+    );
+
+
+    console.log(
+        "[Exam Recovery] New examination attempt created."
     );
 }
 
@@ -941,6 +1056,7 @@ if (
         function () {
 
             requestExamFullscreen();
+
         }
     );
 }
@@ -1068,19 +1184,6 @@ if (
    SAFE RICH TEXT RENDERING
 ========================================================= */
 
-/*
- * The teacher's editor stores formatting such as:
- *
- * <b>bold</b>
- * <i>italic</i>
- * <u>underline</u>
- * X<sup>2</sup>
- * H<sub>2</sub>O
- *
- * We allow those formatting tags while removing
- * potentially dangerous HTML.
- */
-
 function sanitizeRichText(value) {
 
     if (
@@ -1102,69 +1205,115 @@ function sanitizeRichText(value) {
         );
 
 
-    const allowedTags = new Set([
-        "B",
-        "STRONG",
-        "I",
-        "EM",
-        "U",
-        "S",
-        "SUB",
-        "SUP",
-        "BR",
-        "SPAN",
-        "MARK",
-        "SMALL"
-    ]);
+    const allowedTags =
+        new Set([
+            "B",
+            "STRONG",
+            "I",
+            "EM",
+            "U",
+            "S",
+            "SUB",
+            "SUP",
+            "BR",
+            "SPAN",
+            "MARK",
+            "SMALL"
+        ]);
 
 
-    const elements =
-        documentFragment.body.querySelectorAll("*");
+    function cleanNode(node) {
+
+        if (
+            node.nodeType ===
+            Node.TEXT_NODE
+        ) {
+
+            return document.createTextNode(
+                node.textContent
+            );
+        }
 
 
-    elements.forEach(
-        element => {
+        if (
+            node.nodeType !==
+            Node.ELEMENT_NODE
+        ) {
 
-            if (
-                !allowedTags.has(
-                    element.tagName
-                )
-            ) {
-
-                element.replaceWith(
-                    ...Array.from(
-                        element.childNodes
-                    )
-                );
-
-                return;
-            }
+            return document.createTextNode(
+                ""
+            );
+        }
 
 
-            /*
-             * Remove all attributes.
-             *
-             * This keeps formatting safe and prevents
-             * javascript/event attributes.
-             */
+        if (
+            !allowedTags.has(
+                node.tagName
+            )
+        ) {
+
+            const fragment =
+                document.createDocumentFragment();
 
             Array.from(
-                element.attributes
+                node.childNodes
             ).forEach(
-                attribute => {
+                child => {
 
-                    element.removeAttribute(
-                        attribute.name
+                    fragment.appendChild(
+                        cleanNode(child)
                     );
 
                 }
+            );
+
+            return fragment;
+        }
+
+
+        const cleanElement =
+            document.createElement(
+                node.tagName.toLowerCase()
+            );
+
+
+        Array.from(
+            node.childNodes
+        ).forEach(
+            child => {
+
+                cleanElement.appendChild(
+                    cleanNode(child)
+                );
+
+            }
+        );
+
+
+        return cleanElement;
+    }
+
+
+    const output =
+        document.createElement(
+            "div"
+        );
+
+
+    Array.from(
+        documentFragment.body.childNodes
+    ).forEach(
+        node => {
+
+            output.appendChild(
+                cleanNode(node)
             );
 
         }
     );
 
 
-    return documentFragment.body.innerHTML;
+    return output.innerHTML;
 }
 
 
@@ -1174,29 +1323,6 @@ function sanitizeRichText(value) {
 
 async function loadExamination() {
 
-    if (
-        typeof supabaseClient ===
-        "undefined"
-    ) {
-
-        console.error(
-            "Supabase client is not available."
-        );
-
-        alert(
-            "Unable to connect to the examination system."
-        );
-
-        return;
-    }
-
-
-    if (!selectedExamId) {
-
-        return;
-    }
-
-
     try {
 
         console.log(
@@ -1205,22 +1331,49 @@ async function loadExamination() {
         );
 
 
-        /* =================================================
-           LOAD EXACT EXAM
-        ================================================= */
+        const studentExamSession =
+            readStudentExamSession();
+
+        const examAccessCode =
+            studentExamSession?.examAccessCode ||
+            "";
+
+
+        if (!examAccessCode) {
+
+            console.error(
+                "Exam access code is missing."
+            );
+
+            alert(
+                "Examination access information is missing. Please enter the examination access code again."
+            );
+
+            return;
+        }
+
 
         const {
             data: exam,
             error: examError
         } =
             await supabaseClient
-                .from("exams")
-                .select("*")
-                .eq(
-                    "id",
-                    selectedExamId
-                )
-                .maybeSingle();
+                .rpc(
+                    "get_exam_for_student",
+                    {
+                        p_exam_id:
+                            selectedExamId,
+
+                        p_access_code:
+                            examAccessCode
+                    }
+                );
+
+
+        const examRecord =
+            Array.isArray(exam)
+                ? exam[0] || null
+                : exam;
 
 
         if (examError) {
@@ -1238,7 +1391,7 @@ async function loadExamination() {
         }
 
 
-        if (!exam) {
+        if (!examRecord) {
 
             console.error(
                 "No examination found:",
@@ -1254,7 +1407,7 @@ async function loadExamination() {
 
 
         examData =
-            exam;
+            examRecord;
 
 
         console.log(
@@ -1263,10 +1416,12 @@ async function loadExamination() {
         );
 
 
-        if (examTitleDisplay) {
+        if (
+            examTitleDisplay
+        ) {
 
             examTitleDisplay.textContent =
-                exam.title ||
+                examData.title ||
                 "Examination";
         }
 
@@ -1276,7 +1431,7 @@ async function loadExamination() {
     } catch (error) {
 
         console.error(
-            "Unexpected exam loading error:",
+            "Unexpected examination loading error:",
             error
         );
 
@@ -1288,40 +1443,63 @@ async function loadExamination() {
 
 
 /* =========================================================
-   LOAD QUESTIONS
+   LOAD QUESTIONS SECURELY
 ========================================================= */
 
 async function loadQuestions() {
 
+    if (
+        !examData
+    ) {
+
+        return;
+    }
+
+
     try {
 
         console.log(
-            "Loading questions for exam:",
+            "Loading questions securely for exam:",
             examData.id
         );
 
 
-        /* =================================================
-           LOAD QUESTIONS
-        ================================================= */
+        const studentExamSession =
+            readStudentExamSession() || {};
+
+        const examAccessCode =
+            studentExamSession.examAccessCode ||
+            "";
+
+
+        if (!examAccessCode) {
+
+            console.error(
+                "Exam access code is missing."
+            );
+
+            alert(
+                "Examination access information is missing."
+            );
+
+            return;
+        }
+
 
         const {
             data,
             error
         } =
-            await supabaseClient
-                .from("questions")
-                .select("*")
-                .eq(
-                    "exam_id",
-                    examData.id
-                )
-                .order(
-                    "question_number",
-                    {
-                        ascending: true
-                    }
-                );
+            await supabaseClient.rpc(
+                "get_student_exam_questions",
+                {
+                    p_exam_id:
+                        examData.id,
+
+                    p_access_code:
+                        examAccessCode
+                }
+            );
 
 
         if (error) {
@@ -1358,144 +1536,94 @@ async function loadQuestions() {
 
 
         /* =================================================
-           LOAD QUESTION OPTIONS
+           GROUP RPC RESULTS BY QUESTION
         ================================================= */
 
-        const questionIds =
-            data
-                .map(
-                    question =>
-                        question.id
-                )
-                .filter(Boolean);
+        const questionsById = {};
 
 
-        let optionRows = [];
-
-
-        if (
-            questionIds.length > 0
-        ) {
-
-            const {
-                data: options,
-                error: optionsError
-            } =
-                await supabaseClient
-                    .from("question_options")
-                    .select(
-                        `
-                        question_id,
-                        option_label,
-                        option_text,
-                        is_correct
-                        `
-                    )
-                    .in(
-                        "question_id",
-                        questionIds
-                    )
-                    .order(
-                        "option_label",
-                        {
-                            ascending: true
-                        }
-                    );
-
-
-            if (optionsError) {
-
-                console.error(
-                    "Question options loading error:",
-                    optionsError
-                );
-
-                alert(
-                    "Unable to load examination answer options."
-                );
-
-                return;
-            }
-
-
-            optionRows =
-                options || [];
-        }
-
-
-        /* =================================================
-           GROUP OPTIONS BY QUESTION
-        ================================================= */
-
-        const optionsByQuestion = {};
-
-
-        optionRows.forEach(
-            option => {
+        data.forEach(
+            row => {
 
                 if (
-                    !optionsByQuestion[
-                        option.question_id
+                    !questionsById[
+                        row.question_id
                     ]
                 ) {
 
-                    optionsByQuestion[
-                        option.question_id
-                    ] = [];
+                    questionsById[
+                        row.question_id
+                    ] = {
+
+                        id:
+                            row.question_id,
+
+                        question_number:
+                            row.question_number,
+
+                        question_text:
+                            row.question_text,
+
+                        question_type:
+                            row.question_type,
+
+                        question_options:
+                            []
+
+                    };
                 }
 
 
-                optionsByQuestion[
-                    option.question_id
-                ].push({
-                    label:
-                        option.option_label,
+                /*
+                 * IMPORTANT:
+                 *
+                 * Never add is_correct here.
+                 */
 
-                    text:
-                        option.option_text,
+                if (
+                    row.option_label !== null &&
+                    row.option_label !== undefined
+                ) {
 
-                    is_correct:
-                        Boolean(
-                            option.is_correct
-                        )
-                });
+                    questionsById[
+                        row.question_id
+                    ]
+                        .question_options
+                        .push({
+
+                            label:
+                                row.option_label,
+
+                            text:
+                                row.option_text
+
+                        });
+                }
 
             }
         );
 
 
-        /* =================================================
-           ATTACH OPTIONS TO QUESTIONS
-        ================================================= */
-
         questions =
-            data.map(
-                question => {
-
-                    return {
-
-                        ...question,
-
-                        question_options:
-                            optionsByQuestion[
-                                question.id
-                            ] || []
-
-                    };
-
-                }
+            Object.values(
+                questionsById
+            ).sort(
+                (
+                    a,
+                    b
+                ) =>
+                    Number(
+                        a.question_number
+                    ) -
+                    Number(
+                        b.question_number
+                    )
             );
 
 
         console.log(
-            "Questions loaded:",
+            "Questions loaded securely:",
             questions
-        );
-
-
-        console.log(
-            "Question options loaded:",
-            optionsByQuestion
         );
 
 
@@ -1503,7 +1631,9 @@ async function loadQuestions() {
            TOTAL QUESTIONS
         ================================================= */
 
-        if (totalQuestions) {
+        if (
+            totalQuestions
+        ) {
 
             totalQuestions.textContent =
                 questions.length;
@@ -1511,7 +1641,7 @@ async function loadQuestions() {
 
 
         /* =================================================
-           CREATE ANSWER ARRAY
+           CREATE / RESTORE ANSWER ARRAY
         ================================================= */
 
         initializeActiveExamAttempt();
@@ -1540,8 +1670,11 @@ async function loadQuestions() {
                         index
                     ) => {
 
-                        userAnswers[index] =
+                        userAnswers[
+                            index
+                        ] =
                             answer;
+
                     }
                 );
         }
@@ -1554,7 +1687,7 @@ async function loadQuestions() {
         const duration =
             Number(
                 examData.duration
-            );
+            ) || 30;
 
 
         const endTime =
@@ -1562,8 +1695,11 @@ async function loadQuestions() {
                 activeExamAttempt.endAt
             );
 
+
         const remainingSeconds =
-            Number.isFinite(endTime)
+            Number.isFinite(
+                endTime
+            )
                 ? Math.ceil(
                     (
                         endTime -
@@ -1571,6 +1707,7 @@ async function loadQuestions() {
                     ) / 1000
                 )
                 : duration * 60;
+
 
         timeRemaining =
             Math.max(
@@ -1580,7 +1717,7 @@ async function loadQuestions() {
 
 
         /* =================================================
-           FIRST QUESTION
+           RESTORE CURRENT QUESTION
         ================================================= */
 
         const savedQuestion =
@@ -1588,12 +1725,14 @@ async function loadQuestions() {
                 activeExamAttempt.currentQuestion
             );
 
+
         currentQuestion =
             Number.isInteger(
                 savedQuestion
             ) &&
             savedQuestion >= 0 &&
-            savedQuestion < questions.length
+            savedQuestion <
+                questions.length
                 ? savedQuestion
                 : 0;
 
@@ -1608,7 +1747,6 @@ async function loadQuestions() {
             examModeGate.hidden =
                 false;
         }
-
 
     } catch (error) {
 
@@ -1628,7 +1766,9 @@ async function loadQuestions() {
    GET QUESTION TEXT
 ========================================================= */
 
-function getQuestionText(question) {
+function getQuestionText(
+    question
+) {
 
     return (
         question.question_text ||
@@ -1644,7 +1784,9 @@ function getQuestionText(question) {
    GET QUESTION TYPE
 ========================================================= */
 
-function getQuestionType(question) {
+function getQuestionType(
+    question
+) {
 
     const rawType =
         String(
@@ -1702,11 +1844,14 @@ function getQuestionType(question) {
     return "multiple";
 }
 
+
 /* =========================================================
    GET QUESTION OPTIONS
 ========================================================= */
 
-function getQuestionOptions(question) {
+function getQuestionOptions(
+    question
+) {
 
     /*
      * NEW SYSTEM:
@@ -1742,7 +1887,9 @@ function getQuestionOptions(question) {
                 option =>
                     option !== null &&
                     option !== undefined &&
-                    String(option).trim() !== ""
+                    String(
+                        option
+                    ).trim() !== ""
             )
             .map(
                 (
@@ -1758,10 +1905,9 @@ function getQuestionOptions(question) {
                             ),
 
                         text:
-                            String(option),
-
-                        is_correct:
-                            false
+                            String(
+                                option
+                            )
 
                     };
 
@@ -1771,458 +1917,6 @@ function getQuestionOptions(question) {
 
 
     return [];
-}
-
-
-/* =========================================================
-   GET CORRECT ANSWER
-========================================================= */
-
-function getCorrectAnswer(question) {
-
-    const type =
-        getQuestionType(
-            question
-        );
-
-
-    /* =====================================================
-       MULTIPLE CHOICE
-    ===================================================== */
-
-    if (
-        type === "multiple"
-    ) {
-
-        const options =
-            getQuestionOptions(
-                question
-            );
-
-
-        const correctOption =
-            options.find(
-                option =>
-                    option.is_correct === true
-            );
-
-
-        if (correctOption) {
-
-            return (
-                correctOption.text
-            );
-        }
-
-
-        /*
-         * Fallback to old database structure.
-         */
-
-        if (
-            question.correct_answer !==
-                null &&
-            question.correct_answer !==
-                undefined &&
-            question.correct_answer !==
-                ""
-        ) {
-
-            return question.correct_answer;
-        }
-
-
-        return null;
-    }
-
-
-    /* =====================================================
-       TRUE / FALSE
-    ===================================================== */
-
-    if (
-        type === "true-false"
-    ) {
-
-        if (
-            question.answer !==
-                null &&
-            question.answer !==
-                undefined &&
-            question.answer !==
-                ""
-        ) {
-
-            return question.answer;
-        }
-
-
-        if (
-            question.correct_answer !==
-                null &&
-            question.correct_answer !==
-                undefined &&
-            question.correct_answer !==
-                ""
-        ) {
-
-            return question.correct_answer;
-        }
-
-
-        return null;
-    }
-
-
-    /* =====================================================
-       FILL IN THE GAP
-    ===================================================== */
-
-    if (
-        question.answer !==
-            null &&
-        question.answer !==
-            undefined &&
-        question.answer !==
-            ""
-    ) {
-
-        return question.answer;
-    }
-
-
-    if (
-        question.correct_answer !==
-            null &&
-        question.correct_answer !==
-            undefined &&
-        question.correct_answer !==
-            ""
-    ) {
-
-        return question.correct_answer;
-    }
-
-
-    return null;
-}
-
-
-/* =========================================================
-   NORMALIZE TEXT
-========================================================= */
-
-function normalizeText(value) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "";
-    }
-
-
-    return String(value)
-        .trim()
-        .toLowerCase()
-        .replace(
-            /\s+/g,
-            " "
-        );
-}
-
-
-/* =========================================================
-   NORMALIZE NUMERIC ANSWER
-========================================================= */
-
-function normalizeNumericAnswer(value) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "";
-    }
-
-
-    let text =
-        String(value)
-            .trim()
-            .toLowerCase();
-
-
-    /*
-     * Remove common currency symbols.
-     */
-
-    text =
-        text.replace(
-            /₦|\$|£|€|,/g,
-            ""
-        );
-
-
-    /*
-     * Remove spaces.
-     */
-
-    text =
-        text.replace(
-            /\s+/g,
-            ""
-        );
-
-
-    return text;
-}
-
-
-/* =========================================================
-   CHECK MULTIPLE CHOICE
-========================================================= */
-
-function checkMultipleChoiceAnswer(
-    question,
-    userAnswer
-) {
-
-    if (
-        userAnswer === null ||
-        userAnswer === undefined ||
-        String(userAnswer).trim() === ""
-    ) {
-
-        return false;
-    }
-
-
-    const correctAnswer =
-        getCorrectAnswer(
-            question
-        );
-
-
-    if (
-        correctAnswer === null ||
-        correctAnswer === undefined
-    ) {
-
-        return false;
-    }
-
-
-    return (
-        normalizeText(
-            userAnswer
-        ) ===
-        normalizeText(
-            correctAnswer
-        )
-    );
-}
-
-
-/* =========================================================
-   CHECK TRUE / FALSE
-========================================================= */
-
-function checkTrueFalseAnswer(
-    question,
-    userAnswer
-) {
-
-    if (
-        userAnswer === null ||
-        userAnswer === undefined
-    ) {
-
-        return false;
-    }
-
-
-    const correctAnswer =
-        getCorrectAnswer(
-            question
-        );
-
-
-    if (
-        correctAnswer === null ||
-        correctAnswer === undefined
-    ) {
-
-        return false;
-    }
-
-
-    return (
-        normalizeText(
-            userAnswer
-        ) ===
-        normalizeText(
-            correctAnswer
-        )
-    );
-}
-
-
-/* =========================================================
-   CHECK FILL IN THE GAP
-========================================================= */
-
-function checkFillAnswer(
-    question,
-    userAnswer
-) {
-
-    if (
-        userAnswer === null ||
-        userAnswer === undefined ||
-        String(userAnswer).trim() === ""
-    ) {
-
-        return false;
-    }
-
-
-    const correctAnswer =
-        getCorrectAnswer(
-            question
-        );
-
-
-    if (
-        correctAnswer === null ||
-        correctAnswer === undefined
-    ) {
-
-        return false;
-    }
-
-
-    const userText =
-        String(userAnswer).trim();
-
-
-    const correctText =
-        String(correctAnswer).trim();
-
-
-    /*
-     * First try normal text comparison.
-     */
-
-    if (
-        normalizeText(
-            userText
-        ) ===
-        normalizeText(
-            correctText
-        )
-    ) {
-
-        return true;
-    }
-
-
-    /*
-     * Then try numeric comparison.
-     *
-     * This allows:
-     *
-     * 5000
-     * 5,000
-     * ₦5,000
-     *
-     * to be treated as the same numeric answer.
-     */
-
-    const normalizedUserNumber =
-        normalizeNumericAnswer(
-            userText
-        );
-
-
-    const normalizedCorrectNumber =
-        normalizeNumericAnswer(
-            correctText
-        );
-
-
-    if (
-        normalizedUserNumber !== "" &&
-        normalizedCorrectNumber !== "" &&
-        !isNaN(
-            Number(
-                normalizedUserNumber
-            )
-        ) &&
-        !isNaN(
-            Number(
-                normalizedCorrectNumber
-            )
-        )
-    ) {
-
-        return (
-            Number(
-                normalizedUserNumber
-            ) ===
-            Number(
-                normalizedCorrectNumber
-            )
-        );
-    }
-
-
-    return false;
-}
-
-
-/* =========================================================
-   CHECK QUESTION
-========================================================= */
-
-function isAnswerCorrect(
-    question,
-    userAnswer
-) {
-
-    const type =
-        getQuestionType(
-            question
-        );
-
-
-    if (
-        type === "true-false"
-    ) {
-
-        return checkTrueFalseAnswer(
-            question,
-            userAnswer
-        );
-    }
-
-
-    if (
-        type === "fill"
-    ) {
-
-        return checkFillAnswer(
-            question,
-            userAnswer
-        );
-    }
-
-
-    return checkMultipleChoiceAnswer(
-        question,
-        userAnswer
-    );
 }
 
 
@@ -2256,7 +1950,9 @@ function displayQuestion() {
        QUESTION NUMBER
     ===================================================== */
 
-    if (questionNumber) {
+    if (
+        questionNumber
+    ) {
 
         questionNumber.textContent =
             currentQuestion + 1;
@@ -2267,7 +1963,9 @@ function displayQuestion() {
        QUESTION LABEL
     ===================================================== */
 
-    if (questionLabel) {
+    if (
+        questionLabel
+    ) {
 
         questionLabel.textContent =
             `Question ${currentQuestion + 1}`;
@@ -2278,27 +1976,9 @@ function displayQuestion() {
        QUESTION TEXT
     ===================================================== */
 
-    if (questionText) {
-
-        /*
-         * IMPORTANT:
-         *
-         * innerHTML is required here so:
-         *
-         * 394<sub>4</sub>
-         *
-         * becomes:
-         *
-         * 394₄
-         *
-         * and:
-         *
-         * x<sup>2</sup>
-         *
-         * becomes:
-         *
-         * x²
-         */
+    if (
+        questionText
+    ) {
 
         questionText.innerHTML =
             sanitizeRichText(
@@ -2313,7 +1993,9 @@ function displayQuestion() {
        CLEAR ANSWERS
     ===================================================== */
 
-    if (answersContainer) {
+    if (
+        answersContainer
+    ) {
 
         answersContainer.innerHTML =
             "";
@@ -2330,7 +2012,9 @@ function displayQuestion() {
         );
 
 
-    if (questionTypeDisplay) {
+    if (
+        questionTypeDisplay
+    ) {
 
         if (
             type === "fill"
@@ -2339,14 +2023,18 @@ function displayQuestion() {
             questionTypeDisplay.textContent =
                 "Fill in the Gap";
 
-        } else if (
+        }
+
+        else if (
             type === "true-false"
         ) {
 
             questionTypeDisplay.textContent =
                 "True / False";
 
-        } else {
+        }
+
+        else {
 
             questionTypeDisplay.textContent =
                 "Multiple Choice";
@@ -2405,6 +2093,26 @@ function displayQuestion() {
     updateNavigation();
 
     updateDots();
+}
+
+
+/* =========================================================
+   NORMALIZE TEXT
+========================================================= */
+
+function normalizeText(
+    value
+) {
+
+    return String(
+        value ?? ""
+    )
+        .trim()
+        .toLowerCase()
+        .replace(
+            /\s+/g,
+            " "
+        );
 }
 
 
@@ -2499,15 +2207,6 @@ function renderMultipleChoice(
             text.className =
                 "option-text";
 
-
-            /*
-             * IMPORTANT:
-             *
-             * Use innerHTML here so options can contain:
-             *
-             * 54<sub>5</sub>
-             * x<sup>2</sup>
-             */
 
             text.innerHTML =
                 sanitizeRichText(
@@ -2621,6 +2320,9 @@ function renderTrueFalse(
 
 
             if (
+                userAnswers[
+                    currentQuestion
+                ] !== null &&
                 normalizeText(
                     userAnswers[
                         currentQuestion
@@ -2732,7 +2434,6 @@ function renderFillAnswer(
 
             scheduleActiveExamAttemptSave();
 
-
             updateDots();
 
         }
@@ -2793,7 +2494,6 @@ function selectAnswer(
 
 
     saveActiveExamAttempt();
-
 
     updateDots();
 }
@@ -2859,7 +2559,9 @@ function goToPreviousQuestion() {
    NAVIGATION EVENTS
 ========================================================= */
 
-if (nextBtn) {
+if (
+    nextBtn
+) {
 
     nextBtn.addEventListener(
         "click",
@@ -2868,7 +2570,9 @@ if (nextBtn) {
 }
 
 
-if (previousBtn) {
+if (
+    previousBtn
+) {
 
     previousBtn.addEventListener(
         "click",
@@ -2893,22 +2597,28 @@ function updateProgress() {
 
     const percentage =
         (
-            (currentQuestion + 1) /
+            (
+                currentQuestion + 1
+            ) /
             questions.length
         ) * 100;
 
 
-    if (progressFill) {
+    if (
+        progressFill
+    ) {
 
         progressFill.style.width =
             `${percentage}%`;
     }
 
 
-    if (progressText) {
+    if (
+        progressText
+    ) {
 
         progressText.textContent =
-            `${Math.round(percentage)}% Completed`;
+            `${currentQuestion + 1} / ${questions.length}`;
     }
 }
 
@@ -2919,31 +2629,32 @@ function updateProgress() {
 
 function updateNavigation() {
 
-    if (previousBtn) {
+    if (
+        previousBtn
+    ) {
 
         previousBtn.disabled =
             currentQuestion === 0;
     }
 
 
-    if (!nextBtn) {
-
-        return;
-    }
-
-
     if (
-        currentQuestion ===
-        questions.length - 1
+        nextBtn
     ) {
 
-        nextBtn.innerHTML =
-            `Finish <i class="fa-solid fa-check"></i>`;
+        if (
+            currentQuestion <
+            questions.length - 1
+        ) {
 
-    } else {
+            nextBtn.textContent =
+                "Next →";
 
-        nextBtn.innerHTML =
-            `Next <i class="fa-solid fa-arrow-right"></i>`;
+        } else {
+
+            nextBtn.textContent =
+                "Submit Examination";
+        }
     }
 }
 
@@ -2954,7 +2665,9 @@ function updateNavigation() {
 
 function updateDots() {
 
-    if (!questionDots) {
+    if (
+        !questionDots
+    ) {
 
         return;
     }
@@ -2972,8 +2685,20 @@ function updateDots() {
 
             const dot =
                 document.createElement(
-                    "span"
+                    "button"
                 );
+
+
+            dot.type =
+                "button";
+
+
+            dot.className =
+                "question-dot";
+
+
+            dot.textContent =
+                index + 1;
 
 
             if (
@@ -2988,12 +2713,16 @@ function updateDots() {
 
 
             if (
-                userAnswers[index] !==
-                    null &&
-                userAnswers[index] !==
-                    undefined &&
+                userAnswers[
+                    index
+                ] !== null &&
+                userAnswers[
+                    index
+                ] !== undefined &&
                 String(
-                    userAnswers[index]
+                    userAnswers[
+                        index
+                    ]
                 ).trim() !== ""
             ) {
 
@@ -3001,6 +2730,21 @@ function updateDots() {
                     "answered"
                 );
             }
+
+
+            dot.addEventListener(
+                "click",
+                function () {
+
+                    currentQuestion =
+                        index;
+
+                    displayQuestion();
+
+                    saveActiveExamAttempt();
+
+                }
+            );
 
 
             questionDots.appendChild(
@@ -3013,12 +2757,52 @@ function updateDots() {
 
 
 /* =========================================================
+   UPDATE TIMER DISPLAY
+========================================================= */
+
+function updateTimerDisplay() {
+
+    if (
+        !timerDisplay
+    ) {
+
+        return;
+    }
+
+
+    const totalSeconds =
+        Math.max(
+            0,
+            Number(
+                timeRemaining
+            ) || 0
+        );
+
+
+    const minutes =
+        Math.floor(
+            totalSeconds / 60
+        );
+
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    timerDisplay.textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+
+/* =========================================================
    START TIMER
 ========================================================= */
 
 function startTimer() {
 
-    if (timer) {
+    if (
+        timer
+    ) {
 
         clearInterval(
             timer
@@ -3047,101 +2831,33 @@ function startTimer() {
         setInterval(
             function () {
 
-                if (
-                    examSubmitted
-                ) {
-
-                    clearInterval(
-                        timer
-                    );
-
-                    return;
-                }
-
-
-                const endTime =
-                    Date.parse(
-                        activeExamAttempt.endAt
-                    );
-
-                timeRemaining =
-                    Number.isFinite(endTime)
-                        ? Math.max(
-                            0,
-                            Math.ceil(
-                                (
-                                    endTime -
-                                    Date.now()
-                                ) / 1000
-                            )
-                        )
-                        : timeRemaining - 1;
-
+                timeRemaining--;
 
                 updateTimerDisplay();
 
 
                 if (
-                    timeRemaining <=
-                    300
-                ) {
-
-                    if (timerDisplay) {
-
-                        timerDisplay.style.color =
-                            "#ef4444";
-                    }
-                }
-
-
-                if (
-                    timeRemaining <=
-                    0
+                    timeRemaining <= 0
                 ) {
 
                     clearInterval(
                         timer
                     );
 
+                    timer =
+                        null;
 
                     alert(
                         "Time is up! Your examination will now be submitted."
                     );
 
-
                     calculateResult();
+
                 }
 
             },
             1000
         );
-}
-
-
-/* =========================================================
-   UPDATE TIMER
-========================================================= */
-
-function updateTimerDisplay() {
-
-    if (!timerDisplay) {
-
-        return;
-    }
-
-
-    const minutes =
-        Math.floor(
-            timeRemaining / 60
-        );
-
-
-    const seconds =
-        timeRemaining % 60;
-
-
-    timerDisplay.textContent =
-        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
 
@@ -3157,52 +2873,18 @@ function buildSubmissionAnswers() {
             index
         ) => {
 
-            const userAnswer =
-                userAnswers[index];
-
-
-            const correctAnswer =
-                getCorrectAnswer(
-                    question
-                );
-
-
-            const isCorrect =
-                isAnswerCorrect(
-                    question,
-                    userAnswer
-                );
-
-
             return {
 
                 question_id:
-                    question.id ||
-                    null,
+                    question.id,
 
                 question_number:
-                    question.question_number ||
-                    index + 1,
-
-                question_text:
-                    getQuestionText(
-                        question
-                    ),
+                    question.question_number,
 
                 answer:
-                    userAnswer !== null &&
-                    userAnswer !== undefined
-                        ? userAnswer
-                        : "",
-
-                correct_answer:
-                    correctAnswer !== null &&
-                    correctAnswer !== undefined
-                        ? correctAnswer
-                        : "",
-
-                is_correct:
-                    isCorrect
+                    userAnswers[
+                        index
+                    ] ?? null
 
             };
 
@@ -3215,20 +2897,7 @@ function buildSubmissionAnswers() {
    SAVE SUBMISSION
 ========================================================= */
 
-async function saveSubmission(
-    score
-) {
-
-    if (
-        typeof supabaseClient ===
-        "undefined"
-    ) {
-
-        throw new Error(
-            "Supabase client is not available."
-        );
-    }
-
+async function saveSubmission() {
 
     if (
         !examData ||
@@ -3251,60 +2920,135 @@ async function saveSubmission(
     }
 
 
+    const studentExamSession =
+        readStudentExamSession() || {};
+
+
+    const examAccessCode =
+        studentExamSession.examAccessCode ||
+        "";
+
+
+    if (
+        !examAccessCode
+    ) {
+
+        throw new Error(
+            "Examination access information is missing."
+        );
+    }
+
+
+    /*
+     * Only the student's answers are sent.
+     *
+     * Correct answers remain inside Supabase.
+     */
+
     const submissionAnswers =
         buildSubmissionAnswers();
 
 
     console.log(
-        "Submission answers:",
+        "Submitting student answers:",
         submissionAnswers
     );
 
 
     const {
-        error: submissionError
+        data,
+        error
     } =
-        await supabaseClient
-            .from("submissions")
-            .insert({
+        await supabaseClient.rpc(
+            "submit_student_exam",
+            {
 
-                exam_id:
+                p_exam_id:
                     examData.id,
 
-                student_name:
+                p_access_code:
+                    examAccessCode,
+
+                p_student_name:
                     savedStudentName,
 
-                answers:
-                    submissionAnswers,
+                p_answers:
+                    submissionAnswers
 
-                score:
-                    Number(score)
-
-            });
-
-
-    if (
-        submissionError
-    ) {
-
-        console.error(
-            "Submission save error:",
-            submissionError
+            }
         );
 
 
+    if (
+        error
+    ) {
+
+        console.error(
+            "Examination submission error:",
+            error
+        );
+
         throw new Error(
-            "Your examination was scored, but the result could not be saved. Please try again."
+            "Your examination could not be submitted. Please try again."
         );
     }
 
 
+    const result =
+        Array.isArray(
+            data
+        )
+            ? data[0]
+            : data;
+
+
+    if (
+        !result
+    ) {
+
+        throw new Error(
+            "The examination result could not be calculated."
+        );
+    }
+
+
+    const score =
+        Number(
+            result.score || 0
+        );
+
+
+    const totalQuestions =
+        Number(
+            result.total_questions || 0
+        );
+
+
+    const percentage =
+        Number(
+            result.percentage || 0
+        );
+
+
     console.log(
-        "EXAMINATION SUBMISSION SAVED SUCCESSFULLY."
+        "SERVER-SIDE EXAM RESULT:",
+        {
+
+            score,
+            totalQuestions,
+            percentage
+
+        }
     );
 
 
-    return true;
+    return {
+
+        score,
+        totalQuestions,
+        percentage
+
+    };
 }
 
 
@@ -3326,137 +3070,94 @@ async function calculateResult() {
         true;
 
 
-    if (timer) {
+    if (
+        timer
+    ) {
 
         clearInterval(
             timer
         );
+
+        timer =
+            null;
     }
 
 
-    if (submitBtn) {
+    saveActiveExamAttempt();
+
+
+    if (
+        submitBtn
+    ) {
 
         submitBtn.disabled =
             true;
-
-
-        submitBtn.innerHTML =
-            '<i class="fa-solid fa-spinner fa-spin"></i> Saving Result...';
     }
 
 
-    /* =====================================================
-       CALCULATE SCORE
-    ===================================================== */
+    if (
+        nextBtn
+    ) {
 
-    let score =
-        0;
+        nextBtn.disabled =
+            true;
+    }
 
-
-    questions.forEach(
-        (
-            question,
-            index
-        ) => {
-
-            const userAnswer =
-                userAnswers[index];
-
-
-            if (
-                userAnswer === null ||
-                userAnswer === undefined ||
-                String(
-                    userAnswer
-                ).trim() === ""
-            ) {
-
-                return;
-            }
-
-
-            const correct =
-                isAnswerCorrect(
-                    question,
-                    userAnswer
-                );
-
-
-            console.log(
-                `Question ${index + 1}:`,
-                {
-
-                    userAnswer:
-                        userAnswer,
-
-                    correctAnswer:
-                        getCorrectAnswer(
-                            question
-                        ),
-
-                    correct:
-                        correct
-
-                }
-            );
-
-
-            if (
-                correct
-            ) {
-
-                score++;
-            }
-
-        }
-    );
-
-
-    const percentage =
-        questions.length > 0
-            ? Number(
-                (
-                    (
-                        score /
-                        questions.length
-                    ) * 100
-                ).toFixed(2)
-            )
-            : 0;
-
-
-    console.log(
-        "FINAL EXAM RESULT:",
-        {
-
-            score:
-                score,
-
-            total:
-                questions.length,
-
-            percentage:
-                percentage
-
-        }
-    );
-
-
-    /* =====================================================
-       SAVE TO SUPABASE
-    ===================================================== */
 
     try {
 
-        await saveSubmission(
-            score
+        const result =
+            await saveSubmission();
+
+
+        stopExamMode();
+
+
+        localStorage.setItem(
+            "examResult",
+            JSON.stringify({
+
+                examId:
+                    examData.id,
+
+                examTitle:
+                    examData.title,
+
+                studentName:
+                    savedStudentName,
+
+                score:
+                    result.score,
+
+                totalQuestions:
+                    result.totalQuestions,
+
+                percentage:
+                    result.percentage,
+
+                submittedAt:
+                    new Date().toISOString(),
+
+                answers:
+                    userAnswers
+
+            })
         );
+
+
+        localStorage.removeItem(
+            ACTIVE_EXAM_ATTEMPT_KEY
+        );
+
+
+        window.location.href =
+            "result.html";
 
 
     } catch (error) {
 
         console.error(
-            "Could not save examination submission:",
+            "Could not submit examination:",
             error
         );
 
@@ -3465,140 +3166,29 @@ async function calculateResult() {
             false;
 
 
-        if (submitBtn) {
+        if (
+            submitBtn
+        ) {
 
             submitBtn.disabled =
                 false;
+        }
 
 
-            submitBtn.innerHTML =
-                '<i class="fa-solid fa-check"></i> Submit Examination';
+        if (
+            nextBtn
+        ) {
+
+            nextBtn.disabled =
+                false;
         }
 
 
         alert(
             error.message ||
-            "Your result could not be saved. Please try again."
+            "Your examination could not be submitted. Please try again."
         );
-
-
-        return;
     }
-
-
-    stopExamMode();
-
-
-    localStorage.removeItem(
-        ACTIVE_EXAM_ATTEMPT_KEY
-    );
-
-
-    /* =====================================================
-       SAVE RESULT LOCALLY
-    ===================================================== */
-
-    localStorage.setItem(
-        "examScore",
-        String(score)
-    );
-
-
-    localStorage.setItem(
-        "totalQuestions",
-        String(
-            questions.length
-        )
-    );
-
-
-    localStorage.setItem(
-        "examPercentage",
-        String(
-            percentage
-        )
-    );
-
-
-    localStorage.setItem(
-        "examId",
-        examData
-            ? examData.id
-            : ""
-    );
-
-
-    localStorage.setItem(
-        "selectedExamId",
-        examData
-            ? examData.id
-            : ""
-    );
-
-
-    localStorage.setItem(
-        "examTitle",
-        examData
-            ? examData.title
-            : ""
-    );
-
-
-    localStorage.setItem(
-        "selectedExam",
-        examData
-            ? examData.title
-            : ""
-    );
-
-
-    localStorage.setItem(
-        "studentAnswers",
-        JSON.stringify(
-            userAnswers
-        )
-    );
-
-
-    localStorage.setItem(
-        "completedExam",
-        JSON.stringify({
-
-            examId:
-                examData
-                    ? examData.id
-                    : "",
-
-            examTitle:
-                examData
-                    ? examData.title
-                    : "",
-
-            score:
-                score,
-
-            totalQuestions:
-                questions.length,
-
-            percentage:
-                percentage,
-
-            studentName:
-                savedStudentName,
-
-            answers:
-                userAnswers
-
-        })
-    );
-
-
-    /* =====================================================
-       GO TO RESULT
-    ===================================================== */
-
-    window.location.href =
-        "result.html";
 }
 
 
@@ -3606,58 +3196,18 @@ async function calculateResult() {
    SUBMIT BUTTON
 ========================================================= */
 
-if (submitBtn) {
+if (
+    submitBtn
+) {
 
     submitBtn.addEventListener(
         "click",
         function () {
 
             if (
-                examSubmitted
-            ) {
-
-                return;
-            }
-
-
-            const unanswered =
-                userAnswers.filter(
-                    answer =>
-                        answer === null ||
-                        answer === undefined ||
-                        String(
-                            answer
-                        ).trim() === ""
-                ).length;
-
-
-            if (
-                unanswered > 0
-            ) {
-
-                const proceed =
-                    confirm(
-                        `You have ${unanswered} unanswered question(s). Do you want to submit your examination?`
-                    );
-
-
-                if (
-                    !proceed
-                ) {
-
-                    return;
-                }
-            }
-
-
-            const confirmSubmit =
                 confirm(
                     "Are you sure you want to submit your examination?"
-                );
-
-
-            if (
-                confirmSubmit
+                )
             ) {
 
                 calculateResult();
@@ -3669,56 +3219,22 @@ if (submitBtn) {
 
 
 /* =========================================================
-   PREVENT ACCIDENTAL EXIT
+   INITIAL LOAD
 ========================================================= */
 
-window.addEventListener(
-    "beforeunload",
-    function (event) {
+console.log(
+    "Gracextol Examination Page Loaded."
+);
 
-        saveActiveExamAttempt();
+console.log(
+    "Selected Exam ID:",
+    selectedExamId
+);
 
-        if (
-            !examSubmitted &&
-            questions.length > 0
-        ) {
-
-            event.preventDefault();
-
-            event.returnValue =
-                "";
-        }
-
-    }
+console.log(
+    "Student:",
+    savedStudentName
 );
 
 
-/* =========================================================
-   INITIALIZE EXAMINATION
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        console.log(
-            "Gracextol Examination Page Loaded."
-        );
-
-
-        console.log(
-            "Selected Exam ID:",
-            selectedExamId
-        );
-
-
-        console.log(
-            "Student:",
-            savedStudentName
-        );
-
-
-        loadExamination();
-
-    }
-);
+loadExamination();
