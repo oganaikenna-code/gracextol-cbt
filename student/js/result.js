@@ -103,31 +103,58 @@ async function loadResultPage() {
 
     try {
 
-        /* -----------------------------------------------
-           LOAD COMPLETED EXAM
-        ------------------------------------------------ */
+        console.log(
+            "Gracextol Result Page: Loading result..."
+        );
 
+
+        /* =================================================
+           LOAD SAVED RESULT
+        ================================================= */
+
+        let resultData = null;
+
+
+        /*
+         * Current exam.js versions may use either
+         * completedExam or examResult.
+         */
         const savedCompletedExam =
             localStorage.getItem(
                 "completedExam"
             );
 
 
+        const savedExamResult =
+            localStorage.getItem(
+                "examResult"
+            );
+
+
+        /* -----------------------------------------------
+           TRY completedExam FIRST
+        ------------------------------------------------ */
+
         if (savedCompletedExam) {
 
             try {
 
-                completedExam =
+                resultData =
                     JSON.parse(
                         savedCompletedExam
                     );
+
+                console.log(
+                    "COMPLETED EXAM RESULT:",
+                    resultData
+                );
 
             }
 
             catch (error) {
 
                 console.error(
-                    "Unable to parse completed exam:",
+                    "Unable to parse completedExam:",
                     error
                 );
 
@@ -137,26 +164,149 @@ async function loadResultPage() {
 
 
         /* -----------------------------------------------
-           DISPLAY STUDENT NAME
+           TRY examResult SECOND
         ------------------------------------------------ */
 
-        if (studentNameElement) {
+        if (!resultData && savedExamResult) {
 
-            studentNameElement.textContent =
-                savedStudentName ||
-                completedExam?.studentName ||
-                "Student";
+            try {
+
+                resultData =
+                    JSON.parse(
+                        savedExamResult
+                    );
+
+                console.log(
+                    "EXAM RESULT:",
+                    resultData
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Unable to parse examResult:",
+                    error
+                );
+
+            }
 
         }
 
 
         /* -----------------------------------------------
-           GET EXAM ID
+           FALLBACK TO INDIVIDUAL RESULT VALUES
         ------------------------------------------------ */
 
+        if (!resultData) {
+
+            const savedScore =
+                localStorage.getItem(
+                    "examScore"
+                );
+
+
+            const savedTotal =
+                localStorage.getItem(
+                    "totalQuestions"
+                );
+
+
+            const savedPercentage =
+                localStorage.getItem(
+                    "examPercentage"
+                );
+
+
+            if (
+                savedScore !== null ||
+                savedTotal !== null ||
+                savedPercentage !== null
+            ) {
+
+                resultData = {
+
+                    examId:
+                        localStorage.getItem(
+                            "selectedExamId"
+                        ) ||
+                        localStorage.getItem(
+                            "examId"
+                        ) ||
+                        "",
+
+                    examTitle:
+                        localStorage.getItem(
+                            "examTitle"
+                        ) ||
+                        localStorage.getItem(
+                            "selectedExam"
+                        ) ||
+                        "",
+
+                    studentName:
+                        localStorage.getItem(
+                            "studentName"
+                        ) ||
+                        "Student",
+
+                    score:
+                        Number(
+                            savedScore
+                        ) || 0,
+
+                    totalQuestions:
+                        Number(
+                            savedTotal
+                        ) || 0,
+
+                    percentage:
+                        Number(
+                            savedPercentage
+                        ) || 0
+
+                };
+
+
+                console.log(
+                    "LEGACY RESULT VALUES:",
+                    resultData
+                );
+
+            }
+
+        }
+
+
+        /* =================================================
+           DISPLAY STUDENT NAME
+        ================================================= */
+
+        const studentName =
+            resultData?.studentName ||
+            savedStudentName ||
+            "Student";
+
+
+        if (studentNameElement) {
+
+            studentNameElement.textContent =
+                studentName;
+
+        }
+
+
+        /* =================================================
+           GET EXAM ID
+        ================================================= */
+
         const examId =
+            resultData?.examId ||
             selectedExamId ||
-            completedExam?.examId;
+            localStorage.getItem(
+                "examId"
+            );
 
 
         if (!examId) {
@@ -176,9 +326,9 @@ async function loadResultPage() {
         }
 
 
-        /* -----------------------------------------------
+        /* =================================================
            CHECK SUPABASE
-        ------------------------------------------------ */
+        ================================================= */
 
         if (
             typeof supabaseClient ===
@@ -200,33 +350,29 @@ async function loadResultPage() {
         }
 
 
-        /* -----------------------------------------------
+        /* =================================================
            LOAD EXAM SETTINGS
-        ------------------------------------------------ */
+        ================================================= */
 
         const {
             data: exam,
             error: examError
         } =
             await supabaseClient
-
                 .from("exams")
-
                 .select(
                     "id, title, show_result, allow_retake"
                 )
-
                 .eq(
                     "id",
                     examId
                 )
-
                 .maybeSingle();
 
 
-        /* -----------------------------------------------
+        /* =================================================
            DATABASE ERROR
-        ------------------------------------------------ */
+        ================================================= */
 
         if (examError) {
 
@@ -234,12 +380,6 @@ async function loadResultPage() {
                 "Error loading exam settings:",
                 examError
             );
-
-            /*
-               SECURITY-FIRST FALLBACK:
-               Never expose result when
-               exam settings cannot be verified.
-            */
 
             showSubmissionOnly();
 
@@ -252,9 +392,9 @@ async function loadResultPage() {
         }
 
 
-        /* -----------------------------------------------
+        /* =================================================
            EXAM NOT FOUND
-        ------------------------------------------------ */
+        ================================================= */
 
         if (!exam) {
 
@@ -273,9 +413,9 @@ async function loadResultPage() {
         }
 
 
-        /* -----------------------------------------------
+        /* =================================================
            SAVE EXAM SETTINGS
-        ------------------------------------------------ */
+        ================================================= */
 
         examData =
             exam;
@@ -299,7 +439,109 @@ async function loadResultPage() {
                 "SHOW RESULT = TRUE"
             );
 
-            showFullResult();
+
+            if (!resultData) {
+
+                console.warn(
+                    "No saved examination result was found."
+                );
+
+                showSubmissionOnly();
+
+            }
+
+            else {
+
+                /* -----------------------------------------
+                   NORMALIZE SERVER RESULT
+                ----------------------------------------- */
+
+                const score =
+                    Number(
+                        resultData.score
+                    ) || 0;
+
+
+                const totalQuestions =
+                    Number(
+                        resultData.totalQuestions ??
+                        resultData.total_questions
+                    ) || 0;
+
+
+                let percentage =
+                    Number(
+                        resultData.percentage
+                    );
+
+
+                if (
+                    Number.isNaN(
+                        percentage
+                    )
+                ) {
+
+                    percentage =
+                        totalQuestions > 0
+                            ? Number(
+                                (
+                                    (
+                                        score /
+                                        totalQuestions
+                                    ) * 100
+                                ).toFixed(2)
+                            )
+                            : 0;
+
+                }
+
+
+                /* -----------------------------------------
+                   STORE NORMALIZED RESULT
+                ----------------------------------------- */
+
+                completedExam = {
+
+                    examId:
+                        examId,
+
+                    examTitle:
+                        resultData.examTitle ||
+                        exam.title ||
+                        "",
+
+                    studentName:
+                        studentName,
+
+                    score:
+                        score,
+
+                    totalQuestions:
+                        totalQuestions,
+
+                    percentage:
+                        percentage,
+
+                    answers:
+                        resultData.answers ||
+                        []
+
+                };
+
+
+                console.log(
+                    "FINAL RESULT TO DISPLAY:",
+                    completedExam
+                );
+
+
+                /* -----------------------------------------
+                   DISPLAY RESULT
+                ----------------------------------------- */
+
+                showFullResult();
+
+            }
 
         }
 
@@ -341,9 +583,9 @@ async function loadResultPage() {
         }
 
 
-        /* -----------------------------------------------
+        /* =================================================
            FINISH LOADING
-        ------------------------------------------------ */
+        ================================================= */
 
         finishLoading();
 
@@ -356,11 +598,6 @@ async function loadResultPage() {
             "Unexpected result page error:",
             error
         );
-
-
-        /*
-           SECURITY-FIRST FALLBACK
-        */
 
         showSubmissionOnly();
 
@@ -452,17 +689,27 @@ function showFullResult() {
 
     }
 
-const scoreCircle =
-    document.querySelector(".score-circle");
 
-if (scoreCircle) {
+    const scoreCircle =
+        document.querySelector(
+            ".score-circle"
+        );
 
-    scoreCircle.style.setProperty(
-        "--score-progress",
-        percentage * 3.6
-    );
 
-}
+    if (scoreCircle) {
+
+        scoreCircle.style.setProperty(
+            "--score-progress",
+            percentage * 3.6
+        );
+
+    }
+
+
+    /* -----------------------------------------------
+       DISPLAY CORRECT ANSWERS
+    ------------------------------------------------ */
+
     if (correctAnswersElement) {
 
         correctAnswersElement.textContent =
@@ -470,6 +717,10 @@ if (scoreCircle) {
 
     }
 
+
+    /* -----------------------------------------------
+       DISPLAY TOTAL QUESTIONS
+    ------------------------------------------------ */
 
     if (totalQuestionsElement) {
 
@@ -799,20 +1050,29 @@ function retakeExam() {
         "examScore"
     );
 
+
     localStorage.removeItem(
         "totalQuestions"
     );
+
 
     localStorage.removeItem(
         "examPercentage"
     );
 
+
     localStorage.removeItem(
         "studentAnswers"
     );
 
+
     localStorage.removeItem(
         "completedExam"
+    );
+
+
+    localStorage.removeItem(
+        "examResult"
     );
 
 
@@ -847,17 +1107,21 @@ function goHome() {
         "examScore"
     );
 
+
     localStorage.removeItem(
         "totalQuestions"
     );
+
 
     localStorage.removeItem(
         "examPercentage"
     );
 
+
     localStorage.removeItem(
         "studentAnswers"
     );
+
 
     localStorage.removeItem(
         "completedExam"
@@ -865,20 +1129,29 @@ function goHome() {
 
 
     localStorage.removeItem(
+        "examResult"
+    );
+
+
+    localStorage.removeItem(
         "gracextolActiveExamAttempt"
     );
+
 
     localStorage.removeItem(
         "selectedExamId"
     );
 
+
     localStorage.removeItem(
         "selectedExam"
     );
 
+
     localStorage.removeItem(
         "examId"
     );
+
 
     localStorage.removeItem(
         "examTitle"

@@ -799,7 +799,11 @@ function saveStudentExamSession(
         showResult:
             exam.show_result !== false,
 
-        accessCode:
+        /* IMPORTANT:
+           exam.js expects examAccessCode
+        */
+
+        examAccessCode:
             exam.access_code || "",
 
         startedAt:
