@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Accept Teacher Invitation | Gracextol CBT</title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Gracextol Supabase Client -->
+    <script src="../../assets/js/supabase-client.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f4fb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #222;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo h1 {
+            color: #6a1b9a;
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .logo p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .teacher-name {
+            text-align: center;
+            font-weight: bold;
+            color: #6a1b9a;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d8d8d8;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #6a1b9a;
+            box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.08);
+        }
+
+        .password-note {
+            font-size: 12px;
+            color: #777;
+            margin-top: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #6a1b9a;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background: #58147f;
+        }
+
+        button:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            margin-bottom: 20px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            background: #fdeaea;
+            color: #b42318;
+            border: 1px solid #f3b8b8;
+        }
+
+        .message.success {
+            display: block;
+            background: #eaf8ef;
+            color: #187a3d;
+            border: 1px solid #b8e3c5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #6a1b9a;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+            <h1>Gracextol CBT</h1>
+            <p>Electronic Examination Platform</p>
+        </div>
+
+        <!-- Loading -->
+        <div id="loadingSection" class="loading">
+            Verifying your invitation...
+        </div>
+
+        <!-- Main invitation form -->
+        <div id="inviteSection" class="hidden">
+
+            <h2>Accept Teacher Invitation</h2>
+
+            <p class="intro">
+                You have been invited to join an organization
+                as a teacher on Gracextol CBT.
+            </p>
+
+            <div
+                id="teacherNameDisplay"
+                class="teacher-name"
+            ></div>
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+            <form id="acceptForm">
+
+                <div class="form-group">
+                    <label for="password">
+                        Create Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <div class="password-note">
+                        Password must be at least 6 characters.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                        required
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    id="submitButton"
+                >
+                    Complete Registration
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- Success -->
+        <div
+            id="successSection"
+            class="hidden"
+        >
+
+            <h2>Invitation Accepted</h2>
+
+            <div
+                id="successMessage"
+                class="message success"
+            >
+                Your teacher account has been successfully
+                activated.
+            </div>
+
+            <p class="intro">
+                You can now sign in using your email address
+                and the password you just created.
+            </p>
+
+            <a
+                href="login.html"
+                class="login-link"
+            >
+                Go to Teacher Login
+            </a>
+
+        </div>
+
+        <div class="footer">
+            © 2026 Gracextol CBT
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const loadingSection =
+        document.getElementById("loadingSection");
+
+    const inviteSection =
+        document.getElementById("inviteSection");
+
+    const successSection =
+        document.getElementById("successSection");
+
+    const teacherNameDisplay =
+        document.getElementById("teacherNameDisplay");
+
+    const acceptForm =
+        document.getElementById("acceptForm");
+
+    const passwordInput =
+        document.getElementById("password");
+
+    const confirmPasswordInput =
+        document.getElementById("confirmPassword");
+
+    const submitButton =
+        document.getElementById("submitButton");
+
+    const message =
+        document.getElementById("message");
+
+
+    function showError(text) {
+
+        message.textContent = text;
+        message.className = "message error";
+
+    }
+
+
+    function hideMessage() {
+
+        message.textContent = "";
+        message.className = "message";
+
+    }
+
+
+    async function initializeInvitation() {
+
+        try {
+
+            /*
+             * Supabase may return an invitation using
+             * a code in the URL.
+             *
+             * If a code exists, exchange it for a session.
+             */
+
+            const url =
+                new URL(window.location.href);
+
+            const code =
+                url.searchParams.get("code");
+
+            if (code) {
+
+                const {
+                    error: exchangeError
+                } =
+                    await supabaseClient.auth.exchangeCodeForSession(
+                        code
+                    );
+
+                if (exchangeError) {
+
+                    console.error(
+                        "Invitation code exchange failed:",
+                        exchangeError
+                    );
+
+                    throw new Error(
+                        "This invitation link is invalid or has expired."
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Get the authenticated invitation session.
+             */
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            if (error) {
+
+                console.error(
+                    "Session error:",
+                    error
+                );
+
+                throw new Error(
+                    "Unable to verify your invitation."
+                );
+
+            }
+
+
+            const session =
+                data?.session;
+
+
+            if (!session || !session.user) {
+
+                throw new Error(
+                    "No valid invitation session was found. Please open the invitation link from your email again."
+                );
+
+            }
+
+
+            const user =
+                session.user;
+
+
+            /*
+             * Read the teacher's information
+             * from the invitation metadata.
+             */
+
+            const metadata =
+                user.user_metadata || {};
+
+
+            const teacherName =
+                metadata.name ||
+                metadata.username ||
+                "Teacher";
+
+
+            teacherNameDisplay.textContent =
+                teacherName;
+
+
+            /*
+             * Invitation verified successfully.
+             */
+
+            loadingSection.classList.add("hidden");
+
+            inviteSection.classList.remove("hidden");
+
+
+        }
+        catch (error) {
+
+            console.error(
+                "Invitation initialization error:",
+                error
+            );
+
+            loadingSection.classList.add("hidden");
+
+            inviteSection.classList.remove("hidden");
+
+            showError(
+                error.message ||
+                "Unable to verify this invitation."
+            );
+
+            acceptForm.classList.add("hidden");
+
+        }
+
+    }
+
+
+    acceptForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            hideMessage();
+
+
+            const password =
+                passwordInput.value.trim();
+
+            const confirmPassword =
+                confirmPasswordInput.value.trim();
+
+
+            if (password.length < 6) {
+
+                showError(
+                    "Password must be at least 6 characters."
+                );
+
+                return;
+
+            }
+
+
+            if (password !== confirmPassword) {
+
+                showError(
+                    "The passwords do not match."
+                );
+
+                return;
+
+            }
+
+
+            submitButton.disabled = true;
+
+            submitButton.textContent =
+                "Creating Account...";
+
+
+            try {
+
+                /*
+                 * Set the password for the invited
+                 * Supabase Auth user.
+                 */
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient.auth.updateUser({
+                        password: password
+                    });
+
+
+                if (error) {
+
+                    console.error(
+                        "Password update failed:",
+                        error
+                    );
+
+                    throw new Error(
+                        error.message ||
+                        "Unable to create your password."
+                    );
+
+                }
+
+
+                if (!data?.user) {
+
+                    throw new Error(
+                        "Your account could not be completed."
+                    );
+
+                }
+
+
+                /*
+                 * Account successfully completed.
+                 *
+                 * Sign out so the teacher can use the
+                 * normal Teacher Login page.
+                 */
+
+                await supabaseClient.auth.signOut();
+
+
+                inviteSection.classList.add("hidden");
+
+                successSection.classList.remove("hidden");
+
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Teacher account setup error:",
+                    error
+                );
+
+                showError(
+                    error.message ||
+                    "Something went wrong while completing your account."
+                );
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    "Complete Registration";
+
+            }
+
+        }
+    );
+
+
+    /*
+     * Start invitation verification.
+     */
+
+    initializeInvitation();
+
+</script>
+
+</body>
+</html>
