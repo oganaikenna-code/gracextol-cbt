@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Teachers | Gracextol CBT
+    </title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================================
+         ORGANIZATION CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/organization.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
+        .organization-page {
+
+            min-height: 100vh;
+
+            padding:
+                40px 45px;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ====================================================== */
+
+        .page-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .page-header-text h1 {
+
+            margin: 0;
+
+            font-size: 30px;
+
+            line-height: 1.2;
+
+            color: #111827;
+
+        }
+
+
+        .page-header-text p {
+
+            margin:
+                8px 0 0;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           HEADER ACTIONS
+        ====================================================== */
+
+        .page-header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .dashboard-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            min-height: 44px;
+
+            padding:
+                0 18px;
+
+            border:
+                1px solid #ddd6fe;
+
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: #6d28d9;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .dashboard-btn:hover {
+
+            background: #f5f3ff;
+
+            border-color: #c4b5fd;
+
+        }
+
+
+        .dashboard-btn:active {
+
+            transform:
+                translateY(1px);
+
+        }
+
+
+        /* =====================================================
+           ADD TEACHER BUTTON
+        ====================================================== */
+
+        .add-teacher-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            min-height: 44px;
+
+            padding:
+                0 18px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #6d28d9;
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .add-teacher-btn:hover {
+
+            background: #5b21b6;
+
+        }
+
+
+        .add-teacher-btn:active {
+
+            transform:
+                translateY(1px);
+
+        }
+
+
+        /* =====================================================
+           CARD
+        ====================================================== */
+
+        .teachers-card {
+
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 15px 45px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    .06
+                );
+
+            overflow: hidden;
+
+        }
+
+
+        .teachers-card-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding:
+                22px 25px;
+
+            border-bottom:
+                1px solid #eef0f5;
+
+        }
+
+
+        .teachers-card-header h2 {
+
+            margin: 0;
+
+            font-size: 17px;
+
+            color: #111827;
+
+        }
+
+
+        .teacher-count {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 28px;
+
+            height: 28px;
+
+            padding:
+                0 8px;
+
+            border-radius: 20px;
+
+            background: #f3e8ff;
+
+            color: #6d28d9;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =====================================================
+           TABLE
+        ====================================================== */
+
+        .table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+        }
+
+
+        .teachers-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 650px;
+
+        }
+
+
+        .teachers-table th {
+
+            padding:
+                15px 25px;
+
+            background: #fafafa;
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: .06em;
+
+            text-transform: uppercase;
+
+            text-align: left;
+
+        }
+
+
+        .teachers-table td {
+
+            padding:
+                17px 25px;
+
+            border-top:
+                1px solid #f0f1f5;
+
+            color: #374151;
+
+            font-size: 13px;
+
+        }
+
+
+        .teacher-name {
+
+            color: #111827;
+
+            font-weight: 700;
+
+        }
+
+
+        .teacher-email {
+
+            color: #6b7280;
+
+        }
+
+
+        /* =====================================================
+           STATUS
+        ====================================================== */
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding:
+                6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .status-badge.active {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+        }
+
+
+        .status-badge.inactive {
+
+            background: #fee2e2;
+
+            color: #b91c1c;
+
+        }
+
+
+        .status-badge.pending {
+
+            background: #fef3c7;
+
+            color: #b45309;
+
+        }
+
+
+        .status-dot {
+
+            width: 6px;
+
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: currentColor;
+
+        }
+
+
+        /* =====================================================
+           EMPTY / LOADING / ERROR
+        ====================================================== */
+
+        .table-state {
+
+            padding:
+                60px 25px;
+
+            text-align: center;
+
+        }
+
+
+        .table-state-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            margin:
+                0 auto 18px;
+
+            border-radius: 16px;
+
+            background: #f3e8ff;
+
+            color: #6d28d9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+
+        }
+
+
+        .table-state h3 {
+
+            margin:
+                0 0 7px;
+
+            color: #111827;
+
+            font-size: 16px;
+
+        }
+
+
+        .table-state p {
+
+            max-width: 430px;
+
+            margin:
+                0 auto;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .loading-spinner {
+
+            width: 32px;
+
+            height: 32px;
+
+            margin:
+                0 auto 15px;
+
+            border:
+                3px solid #e9d5ff;
+
+            border-top-color:
+                #6d28d9;
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s linear infinite;
+
+        }
+
+
+        @keyframes spin {
+
+            to {
+
+                transform:
+                    rotate(360deg);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MODAL
+        ====================================================== */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(
+                    15,
+                    23,
+                    42,
+                    .55
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 2000;
+
+        }
+
+
+        .modal-overlay.hidden {
+
+            display: none;
+
+        }
+
+
+        .teacher-modal {
+
+            width: 100%;
+
+            max-width: 500px;
+
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    .20
+                );
+
+            overflow: hidden;
+
+        }
+
+
+        .modal-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                22px 25px;
+
+            border-bottom:
+                1px solid #eef0f5;
+
+        }
+
+
+        .modal-header h2 {
+
+            margin: 0;
+
+            font-size: 20px;
+
+            color: #111827;
+
+        }
+
+
+        .modal-header p {
+
+            margin:
+                5px 0 0;
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .modal-close {
+
+            width: 36px;
+
+            height: 36px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #f5f6fa;
+
+            color: #6b7280;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+        }
+
+
+        .modal-close:hover {
+
+            background: #f3e8ff;
+
+            color: #6d28d9;
+
+        }
+
+
+        .modal-body {
+
+            padding: 25px;
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ====================================================== */
+
+        .form-group {
+
+            margin-bottom: 19px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #374151;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding:
+                0 14px;
+
+            border:
+                1px solid #d9deea;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            background: #ffffff;
+
+            color: #111827;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease;
+
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #6d28d9;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(
+                    109,
+                    40,
+                    217,
+                    .10
+                );
+
+        }
+
+
+        .form-help {
+
+            margin-top: 7px;
+
+            color: #9ca3af;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .modal-message {
+
+            min-height: 20px;
+
+            margin:
+                5px 0 15px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .modal-message.error {
+
+            color: #b91c1c;
+
+        }
+
+
+        .modal-message.success {
+
+            color: #15803d;
+
+        }
+
+
+        .modal-footer {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            padding:
+                18px 25px;
+
+            border-top:
+                1px solid #eef0f5;
+
+        }
+
+
+        .modal-btn {
+
+            min-height: 43px;
+
+            padding:
+                0 17px;
+
+            border-radius: 9px;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .modal-btn.cancel {
+
+            border:
+                1px solid #d9deea;
+
+            background: #ffffff;
+
+            color: #6b7280;
+
+        }
+
+
+        .modal-btn.cancel:hover {
+
+            background: #f9fafb;
+
+        }
+
+
+        .modal-btn.submit {
+
+            border: none;
+
+            background: #6d28d9;
+
+            color: #ffffff;
+
+        }
+
+
+        .modal-btn.submit:hover {
+
+            background: #5b21b6;
+
+        }
+
+
+        .modal-btn:disabled {
+
+            opacity: .6;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (
+            max-width: 700px
+        ) {
+
+            .organization-page {
+
+                padding:
+                    25px 16px;
+
+            }
+
+
+            .page-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+
+            .page-header-actions {
+
+                width: 100%;
+
+                flex-direction: column;
+
+            }
+
+
+            .dashboard-btn,
+            .add-teacher-btn {
+
+                width: 100%;
+
+            }
+
+
+            .teachers-card-header {
+
+                padding: 18px;
+
+            }
+
+
+            .teachers-table th,
+            .teachers-table td {
+
+                padding:
+                    14px 18px;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 500px
+        ) {
+
+            .modal-body {
+
+                padding: 20px;
+
+            }
+
+
+            .modal-footer {
+
+                padding:
+                    16px 20px;
+
+            }
+
+
+            .modal-footer .modal-btn {
+
+                flex: 1;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PAGE
+    ====================================================== -->
+
+    <main class="organization-page">
+
+
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <header class="page-header">
+
+            <div class="page-header-text">
+
+                <h1>
+                    Teachers
+                </h1>
+
+                <p>
+                    Manage teachers who can create
+                    examinations for your organization.
+                </p>
+
+            </div>
+
+
+            <!-- HEADER ACTIONS -->
+
+            <div class="page-header-actions">
+
+                <!-- DASHBOARD BUTTON -->
+
+                <a
+                    href="dashboard.html"
+                    class="dashboard-btn"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Dashboard
+
+                </a>
+
+
+                <!-- ADD TEACHER BUTTON -->
+
+                <button
+                    type="button"
+                    id="addTeacherButton"
+                    class="add-teacher-btn"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Teacher
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             TEACHERS CARD
+        ================================================== -->
+
+        <section class="teachers-card">
+
+
+            <div class="teachers-card-header">
+
+                <h2>
+                    Organization Teachers
+                </h2>
+
+
+                <span
+                    id="teacherCount"
+                    class="teacher-count"
+                >
+                    0
+                </span>
+
+            </div>
+
+
+            <div
+                id="teachersContent"
+            ></div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         ADD TEACHER MODAL
+    ====================================================== -->
+
+    <div
+        id="teacherModal"
+        class="modal-overlay hidden"
+    >
+
+        <div
+            class="teacher-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="teacherModalTitle"
+        >
+
+
+            <!-- HEADER -->
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2 id="teacherModalTitle">
+                        Add Teacher
+                    </h2>
+
+                    <p>
+                        Add a teacher to your organization.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="closeTeacherModal"
+                    class="modal-close"
+                    aria-label="Close"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form
+                id="teacherForm"
+                novalidate
+            >
+
+                <div class="modal-body">
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="teacherName"
+                        >
+                            Teacher Name
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="teacherName"
+                            name="teacherName"
+                            placeholder="Enter teacher's full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="teacherEmail"
+                        >
+                            Email Address
+                        </label>
+
+
+                        <input
+                            type="email"
+                            id="teacherEmail"
+                            name="teacherEmail"
+                            placeholder="teacher@example.com"
+                            autocomplete="email"
+                            required
+                        >
+
+
+                        <p class="form-help">
+                            The teacher will eventually receive
+                            the account invitation at this email.
+                        </p>
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div
+                        id="teacherFormMessage"
+                        class="modal-message"
+                    ></div>
+
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        id="cancelTeacherButton"
+                        class="modal-btn cancel"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        id="sendInvitationButton"
+                        class="modal-btn submit"
+                    >
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                        Send Invitation
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <!-- =====================================================
+         PAGE JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="../js/teachers.js"
+    ></script>
+
+
+</body>
+
+</html>

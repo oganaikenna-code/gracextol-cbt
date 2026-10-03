@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Organization Login | Gracextol CBT
+    </title>
+
+
+    <!-- GOOGLE FONT -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- ORGANIZATION CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/organization.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <main class="organization-auth-page">
+
+
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <section class="organization-auth-brand">
+
+            <div class="brand-content">
+
+                <img
+                    src="../../assets/images/graextolcbt-logo.png"
+                    alt="Gracextol CBT"
+                    class="brand-logo"
+                >
+
+
+                <p class="brand-eyebrow">
+                    GRACEXTOL CBT
+                </p>
+
+
+                <h1>
+                    Welcome back to your
+                    organization portal.
+                </h1>
+
+
+                <p class="brand-description">
+
+                    Manage your organization, teachers,
+                    students and examinations from one
+                    centralized platform.
+
+                </p>
+
+
+                <div class="brand-points">
+
+
+                    <div class="brand-point">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        <span>
+                            Organization administration
+                        </span>
+
+                    </div>
+
+
+                    <div class="brand-point">
+
+                        <i class="fa-solid fa-user-group"></i>
+
+                        <span>
+                            Manage your users
+                        </span>
+
+                    </div>
+
+
+                    <div class="brand-point">
+
+                        <i class="fa-solid fa-file-circle-check"></i>
+
+                        <span>
+                            Manage examinations
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             LOGIN
+        ================================================== -->
+
+        <section class="organization-auth-form-section">
+
+
+            <div class="organization-auth-card">
+
+
+                <div class="form-header">
+
+                    <span class="form-eyebrow">
+                        ORGANIZATION LOGIN
+                    </span>
+
+
+                    <h2>
+                        Sign in to your organization
+                    </h2>
+
+
+                    <p>
+                        Use the administrator email and
+                        password associated with your
+                        organization account.
+                    </p>
+
+                </div>
+
+
+
+                <!-- LOGIN FORM -->
+
+                <form
+                    id="organizationLoginForm"
+                    novalidate
+                >
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="loginEmail"
+                        >
+                            Admin Email
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                placeholder="admin@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="loginPassword"
+                        >
+                            Password
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                id="toggleLoginPassword"
+                                class="password-toggle"
+                                aria-label="Show password"
+                            >
+
+                                <i
+                                    class="fa-solid fa-eye"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MESSAGE -->
+
+                    <div
+                        id="loginMessage"
+                        class="auth-message"
+                        aria-live="polite"
+                    ></div>
+
+
+
+                    <!-- LOGIN BUTTON -->
+
+                    <button
+                        type="submit"
+                        id="loginButton"
+                        class="organization-auth-btn"
+                    >
+
+                        <i class="fa-solid fa-right-to-bracket"></i>
+
+                        Sign In
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- REGISTER -->
+
+                <div class="auth-footer">
+
+                    <span>
+                        Don't have an organization account?
+                    </span>
+
+
+                    <a href="register.html">
+                        Register Organization
+                    </a>
+
+                </div>
+
+
+
+                <!-- BACK -->
+
+                <a
+                    href="../../index.html"
+                    class="back-link"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back to Gracextol
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- SUPABASE -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- GRACEXTOL SUPABASE -->
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <!-- ORGANIZATION LOGIN -->
+
+    <script
+        src="../js/login.js"
+    ></script>
+
+
+</body>
+
+</html>

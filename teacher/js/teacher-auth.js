@@ -274,6 +274,7 @@ registerForm.addEventListener(
 
 
         try {
+
             /* ================================
                CREATE SUPABASE AUTH ACCOUNT
             ================================= */
@@ -292,6 +293,7 @@ registerForm.addEventListener(
 
                         emailRedirectTo:
                             "https://gracextol.com/teacher/pages/login.html",
+
                         data: {
 
                             username: username
@@ -490,12 +492,131 @@ loginForm.addEventListener(
 
 
             /* ================================
+               VERIFY TEACHER PROFILE
+            ================================= */
+
+            const {
+                data: profile,
+                error: profileError
+            } =
+                await supabaseClient
+                    .from("users")
+                    .select(
+                        `
+                        id,
+                        auth_id,
+                        username,
+                        email,
+                        teacher,
+                        role,
+                        is_active
+                        `
+                    )
+                    .eq(
+                        "auth_id",
+                        data.user.id
+                    )
+                    .maybeSingle();
+
+
+            if (profileError) {
+
+                console.error(
+                    "Profile verification error:",
+                    profileError
+                );
+
+                await supabaseClient.auth.signOut();
+
+                showMessage(
+                    "Unable to verify your teacher account. Please try again."
+                );
+
+                return;
+
+            }
+
+
+            /* ================================
+               PROFILE NOT FOUND
+            ================================= */
+
+            if (!profile) {
+
+                console.warn(
+                    "Teacher profile not found after login."
+                );
+
+                await supabaseClient.auth.signOut();
+
+                showMessage(
+                    "Your teacher profile could not be found."
+                );
+
+                return;
+
+            }
+
+
+            /* ================================
+               CHECK TEACHER ROLE
+            ================================= */
+
+            if (
+                profile.teacher !==
+                "teacher"
+            ) {
+
+                console.warn(
+                    "Authenticated account is not a teacher."
+                );
+
+                await supabaseClient.auth.signOut();
+
+                showMessage(
+                    "You do not have permission to access the teacher portal."
+                );
+
+                return;
+
+            }
+
+
+            /* ================================
+               CHECK ACCOUNT STATUS
+            ================================= */
+
+            if (
+                profile.is_active !== true
+            ) {
+
+                console.warn(
+                    "Teacher account is inactive."
+                );
+
+                await supabaseClient.auth.signOut();
+
+                showMessage(
+                    "Your Gracextol account has been deactivated. Please contact the platform administrator."
+                );
+
+                return;
+
+            }
+
+
+            /* ================================
                LOGIN SUCCESS
             ================================= */
 
             console.log(
                 "Authenticated teacher:",
                 data.user
+            );
+
+            console.log(
+                "Teacher profile:",
+                profile
             );
 
 
@@ -543,56 +664,82 @@ loginForm.addEventListener(
 
     }
 );
+
+
 /* =========================================
    PASSWORD VISIBILITY
 ========================================= */
 
 const passwordToggles =
-    document.querySelectorAll(".password-toggle");
+    document.querySelectorAll(
+        ".password-toggle"
+    );
 
 
-passwordToggles.forEach(function (toggle) {
+passwordToggles.forEach(
+    function (toggle) {
 
-    toggle.addEventListener("click", function () {
+        toggle.addEventListener(
+            "click",
+            function () {
 
-        const targetId =
-            this.dataset.target;
-
-        const passwordInput =
-            document.getElementById(targetId);
-
-        const icon =
-            this.querySelector("i");
+                const targetId =
+                    this.dataset.target;
 
 
-        if (passwordInput.type === "password") {
+                const passwordInput =
+                    document.getElementById(
+                        targetId
+                    );
 
-            passwordInput.type = "text";
 
-            icon.classList.remove("fa-eye");
+                const icon =
+                    this.querySelector("i");
 
-            icon.classList.add("fa-eye-slash");
 
-            this.setAttribute(
-                "aria-label",
-                "Hide password"
-            );
+                if (
+                    passwordInput.type ===
+                    "password"
+                ) {
 
-        } else {
+                    passwordInput.type =
+                        "text";
 
-            passwordInput.type = "password";
+                    icon.classList.remove(
+                        "fa-eye"
+                    );
 
-            icon.classList.remove("fa-eye-slash");
+                    icon.classList.add(
+                        "fa-eye-slash"
+                    );
 
-            icon.classList.add("fa-eye");
+                    this.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
 
-            this.setAttribute(
-                "aria-label",
-                "Show password"
-            );
+                } else {
 
-        }
+                    passwordInput.type =
+                        "password";
 
-    });
+                    icon.classList.remove(
+                        "fa-eye-slash"
+                    );
 
-});
+                    icon.classList.add(
+                        "fa-eye"
+                    );
+
+                    this.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);

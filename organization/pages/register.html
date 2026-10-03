@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Organization Registration | Gracextol CBT
+    </title>
+
+
+    <!-- GOOGLE FONT -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- ORGANIZATION CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../css/organization.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <main class="organization-auth-page">
+
+
+        <!-- =================================================
+             LEFT / BRAND
+        ================================================== -->
+
+        <section class="organization-auth-brand">
+
+            <div class="brand-content">
+
+                <img
+                    src="../../assets/images/graextolcbt-logo.png"
+                    alt="Gracextol CBT"
+                    class="brand-logo"
+                >
+
+
+                <p class="brand-eyebrow">
+                    GRACEXTOL CBT
+                </p>
+
+
+                <h1>
+                    Bring your organization
+                    into the future of CBT.
+                </h1>
+
+
+                <p class="brand-description">
+
+                    Create your organization account and
+                    access a centralized examination platform
+                    for administrators, teachers and students.
+
+                </p>
+
+
+                <div class="brand-points">
+
+                    <div class="brand-point">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        <span>
+                            Organization management
+                        </span>
+
+                    </div>
+
+
+                    <div class="brand-point">
+
+                        <i class="fa-solid fa-users"></i>
+
+                        <span>
+                            Manage teachers and students
+                        </span>
+
+                    </div>
+
+
+                    <div class="brand-point">
+
+                        <i class="fa-solid fa-file-circle-check"></i>
+
+                        <span>
+                            Create and manage examinations
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             REGISTRATION FORM
+        ================================================== -->
+
+        <section class="organization-auth-form-section">
+
+            <div class="organization-auth-card">
+
+
+                <div class="form-header">
+
+                    <span class="form-eyebrow">
+                        ORGANIZATION REGISTRATION
+                    </span>
+
+
+                    <h2>
+                        Create your organization account
+                    </h2>
+
+
+                    <p>
+
+                        Register your organization.
+                        Your account will be reviewed by
+                        the Gracextol platform administrator
+                        before activation.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- FORM -->
+
+                <form
+                    id="organizationRegistrationForm"
+                    novalidate
+                >
+
+
+                    <!-- ORGANIZATION NAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="organizationName"
+                        >
+                            Organization Name
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-building"></i>
+
+                            <input
+                                type="text"
+                                id="organizationName"
+                                placeholder="e.g. Grace International School"
+                                autocomplete="organization"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ADMIN USERNAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="adminUsername"
+                        >
+                            Admin Username
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="adminUsername"
+                                placeholder="e.g. Grace Admin"
+                                autocomplete="username"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="adminEmail"
+                        >
+                            Admin Email
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="adminEmail"
+                                placeholder="admin@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="adminPassword"
+                        >
+                            Password
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="adminPassword"
+                                placeholder="Minimum 8 characters"
+                                autocomplete="new-password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle"
+                                aria-label="Show password"
+                            >
+
+                                <i
+                                    class="fa-solid fa-eye"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="confirmPassword"
+                        >
+                            Confirm Password
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                id="toggleConfirmPassword"
+                                class="password-toggle"
+                                aria-label="Show confirm password"
+                            >
+
+                                <i
+                                    class="fa-solid fa-eye"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MESSAGE -->
+
+                    <div
+                        id="registrationMessage"
+                        class="auth-message"
+                        aria-live="polite"
+                    ></div>
+
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        id="registrationButton"
+                        class="organization-auth-btn"
+                    >
+
+                        <i class="fa-solid fa-building-circle-check"></i>
+
+                        Register Organization
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- LOGIN -->
+
+                <div class="auth-footer">
+
+                    <span>
+                        Already registered?
+                    </span>
+
+
+                    <a href="login.html">
+                        Organization Login
+                    </a>
+
+                </div>
+
+
+
+                <!-- BACK -->
+
+                <a
+                    href="../../index.html"
+                    class="back-link"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back to Gracextol
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- SUPABASE -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- GRACEXTOL SUPABASE CLIENT -->
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <!-- REGISTRATION JS -->
+
+    <script
+        src="../js/register.js"
+    ></script>
+
+
+</body>
+
+</html>

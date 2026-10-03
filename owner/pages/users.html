@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Users | Gracextol Owner
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/owner.css"
+    >
+
+</head>
+
+
+<body data-page="users">
+
+
+    <!-- =====================================================
+         PAGE LOADER
+    ====================================================== -->
+
+    <div
+        id="pageLoader"
+        class="page-loader"
+    >
+
+        <div class="spinner"></div>
+
+        <p>
+            Loading users...
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         APPLICATION
+    ====================================================== -->
+
+    <div
+        id="app"
+        class="app hidden"
+    >
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- BRAND -->
+
+            <div class="brand">
+
+
+                <div class="brand-logo">
+
+                    <img
+                        src="../../assets/images/graextolcbt-logo.png"
+                        alt="Gracextol CBT"
+                    >
+
+                </div>
+
+
+                <div class="brand-text">
+
+                    <h1>
+                        Gracextol
+                    </h1>
+
+                    <span>
+                        Owner Portal
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="sidebar-nav">
+
+
+                <a
+                    href="dashboard.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        ▦
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="users.html"
+                    class="nav-item active"
+                >
+
+                    <span class="nav-icon">
+                        👥
+                    </span>
+
+                    <span>
+                        Users
+                    </span>
+
+                </a>
+
+
+                <button
+                    type="button"
+                    class="nav-item disabled"
+                >
+
+                    <span class="nav-icon">
+                        🏢
+                    </span>
+
+                    <span>
+                        Organizations
+                    </span>
+
+                    <small>
+                        Soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item disabled"
+                >
+
+                    <span class="nav-icon">
+                        📝
+                    </span>
+
+                    <span>
+                        Examinations
+                    </span>
+
+                    <small>
+                        Soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item disabled"
+                >
+
+                    <span class="nav-icon">
+                        📊
+                    </span>
+
+                    <span>
+                        Results
+                    </span>
+
+                    <small>
+                        Soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item disabled"
+                >
+
+                    <span class="nav-icon">
+                        💳
+                    </span>
+
+                    <span>
+                        Subscriptions
+                    </span>
+
+                    <small>
+                        Soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item disabled"
+                >
+
+                    <span class="nav-icon">
+                        💰
+                    </span>
+
+                    <span>
+                        Payments
+                    </span>
+
+                    <small>
+                        Soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item disabled"
+                >
+
+                    <span class="nav-icon">
+                        🤖
+                    </span>
+
+                    <span>
+                        AI Usage
+                    </span>
+
+                    <small>
+                        Soon
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="nav-item disabled"
+                >
+
+                    <span class="nav-icon">
+                        ⚙
+                    </span>
+
+                    <span>
+                        Settings
+                    </span>
+
+                    <small>
+                        Soon
+                    </small>
+
+                </button>
+
+
+            </nav>
+
+
+            <!-- SIDEBAR FOOTER -->
+
+            <div class="sidebar-bottom">
+
+
+                <button
+                    id="logoutBtn"
+                    type="button"
+                    class="logout-btn"
+                >
+
+                    <span>
+                        ↪
+                    </span>
+
+                    Sign Out
+
+                </button>
+
+
+            </div>
+
+
+        </aside>
+
+
+        <!-- =================================================
+             MAIN CONTENT
+        ================================================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+
+                <div>
+
+                    <p class="eyebrow">
+                        Platform Administration
+                    </p>
+
+                    <h2>
+                        Users
+                    </h2>
+
+                </div>
+
+
+                <div class="owner-profile">
+
+
+                    <div class="owner-avatar">
+
+                        <img
+                            src="../../assets/images/graextolcbt-logo.png"
+                            alt="Gracextol CBT"
+                        >
+
+                    </div>
+
+
+                    <div class="owner-info">
+
+                        <strong id="ownerName">
+                            Iyke
+                        </strong>
+
+                        <span>
+                            Owner
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </header>
+
+
+            <!-- PAGE HEADING -->
+
+            <section class="page-heading">
+
+
+                <div>
+
+
+                    <p class="eyebrow">
+                        User Management
+                    </p>
+
+
+                    <h3>
+                        Platform Users
+                    </h3>
+
+
+                    <p>
+                        View and manage registered
+                        Gracextol users.
+                    </p>
+
+
+                </div>
+
+
+                <div class="user-summary">
+
+
+                    <div>
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong id="userCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Active
+                        </span>
+
+                        <strong id="activeCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- USERS PANEL -->
+
+            <section class="panel">
+
+
+                <!-- TOOLBAR -->
+
+                <div class="table-toolbar">
+
+
+                    <div class="search-box">
+
+                        <input
+                            type="search"
+                            id="userSearch"
+                            placeholder="Search by name or email..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="roleFilter"
+                    >
+
+                        <option value="all">
+                            All roles
+                        </option>
+
+                        <option value="owner">
+                            Owner
+                        </option>
+
+                        <option value="teacher">
+                            Teacher
+                        </option>
+
+                        <option value="student">
+                            Student
+                        </option>
+
+                    </select>
+
+
+                </div>
+
+
+                <!-- TABLE -->
+
+                <div class="table-wrapper">
+
+
+                    <table class="users-table">
+
+
+                        <thead>
+
+
+                            <tr>
+
+                                <th>
+                                    User
+                                </th>
+
+                                <th>
+                                    Role
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Created
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+
+                        </thead>
+
+
+                        <tbody id="usersTableBody">
+
+
+                            <tr>
+
+                                <td
+                                    colspan="5"
+                                    class="empty-row"
+                                >
+                                    Loading users...
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+        id="toast"
+        class="toast"
+        role="alert"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- SUPABASE -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <!-- OWNER JS -->
+
+    <script
+        src="../js/owner.js"
+    ></script>
+
+
+</body>
+
+</html>

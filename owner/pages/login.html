@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Owner Login | Gracextol CBT
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/owner.css"
+    >
+
+</head>
+
+
+<body class="owner-login-page">
+
+
+    <main class="owner-login-wrapper">
+
+        <section class="owner-login-card">
+
+
+            <!-- LOGO -->
+
+            <div class="owner-login-logo">
+
+                <img
+                    src="../../assets/images/graextolcbt-logo.png"
+                    alt="Gracextol CBT"
+                >
+
+            </div>
+
+
+            <!-- HEADING -->
+
+            <div class="owner-login-heading">
+
+                <p class="eyebrow">
+                    Gracextol Platform
+                </p>
+
+                <h1>
+                    Owner Login
+                </h1>
+
+                <p>
+                    Sign in to manage the Gracextol platform.
+                </p>
+
+            </div>
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                id="ownerLoginForm"
+                class="owner-login-form"
+            >
+
+
+                <!-- EMAIL -->
+
+                <div class="owner-form-group">
+
+                    <label for="ownerEmail">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="ownerEmail"
+                        name="email"
+                        placeholder="Enter your email address"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="owner-form-group">
+
+                    <label for="ownerPassword">
+                        Password
+                    </label>
+
+                    <div class="owner-password-wrapper">
+
+                        <input
+                            type="password"
+                            id="ownerPassword"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="toggleOwnerPassword"
+                            class="owner-password-toggle"
+                            aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="ownerLoginMessage"
+                    class="owner-login-message"
+                    aria-live="polite"
+                ></div>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    id="ownerLoginButton"
+                    class="owner-login-button"
+                >
+                    Sign In as Owner
+                </button>
+
+
+            </form>
+
+
+            <!-- SECURITY NOTE -->
+
+            <div class="owner-login-note">
+
+                <span>
+                    🔐
+                </span>
+
+                <p>
+                    This area is restricted to authorized
+                    Gracextol platform owners.
+                </p>
+
+            </div>
+
+
+            <!-- BACK -->
+
+            <a
+                href="../../index.html"
+                class="owner-back-link"
+            >
+                ← Back to Gracextol
+            </a>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- SUPABASE -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <!-- OWNER LOGIN JS -->
+
+    <script
+        src="../js/login.js"
+    ></script>
+
+
+</body>
+
+</html>

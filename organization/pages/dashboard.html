@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Organization Dashboard | Gracextol CBT
+    </title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ====================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           LAYOUT
+        ====================================================== */
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ====================================================== */
+
+        .sidebar {
+            width: 250px;
+            background: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+
+        /* =====================================================
+           BRAND
+        ====================================================== */
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 24px 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+
+        .brand-logo img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+
+        .brand-text h1 {
+            font-size: 19px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+
+        .brand-text span {
+            display: block;
+            margin-top: 2px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #7c3aed;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ====================================================== */
+
+        .sidebar-nav {
+            padding: 20px 12px;
+            flex: 1;
+        }
+
+
+        .nav-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            transition:
+                background .2s ease,
+                color .2s ease;
+        }
+
+
+        .nav-item:hover {
+            background: #f8f5ff;
+            color: #7c3aed;
+        }
+
+
+        .nav-item.active {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+
+
+        .nav-icon {
+            width: 22px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+
+        /* =====================================================
+           SIDEBAR BOTTOM
+        ====================================================== */
+
+        .sidebar-bottom {
+            padding: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+
+        .logout-btn {
+            width: 100%;
+            border: 0;
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 11px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s ease;
+        }
+
+
+        .logout-btn:hover {
+            background: #fee2e2;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+        ====================================================== */
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 32px;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ====================================================== */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            color: #7c3aed;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+
+        .topbar h2 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+
+        /* =====================================================
+           ADMIN PROFILE
+        ====================================================== */
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .admin-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #ede9fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7c3aed;
+        }
+
+
+        .admin-info strong {
+            display: block;
+            font-size: 14px;
+        }
+
+
+        .admin-info span {
+            display: block;
+            margin-top: 2px;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+
+        /* =====================================================
+           WELCOME CARD
+        ====================================================== */
+
+        .welcome-card {
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #6d28d9
+                );
+            color: white;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .welcome-card .eyebrow {
+            color: #ddd6fe;
+        }
+
+
+        .welcome-card h3 {
+            font-size: 24px;
+            margin-bottom: 7px;
+        }
+
+
+        .welcome-card p {
+            color: #ede9fe;
+            font-size: 13px;
+        }
+
+
+        .organization-badge {
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .15
+                );
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .25
+                );
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+
+        /* =====================================================
+           STATISTICS
+        ====================================================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+
+        .stat-card-link {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                border-color .2s ease;
+        }
+
+
+        .stat-card-link:hover {
+            transform: translateY(-3px);
+            border-color: #c4b5fd;
+            box-shadow:
+                0 12px 30px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    .10
+                );
+        }
+
+
+        .stat-card-link:active {
+            transform: translateY(-1px);
+        }
+
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: #f3e8ff;
+            color: #7c3aed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+
+        .stat-card span {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+
+        .stat-card strong {
+            font-size: 23px;
+            color: #111827;
+        }
+
+
+        /* =====================================================
+           QUICK ACCESS
+        ====================================================== */
+
+        .section-title {
+            margin-bottom: 15px;
+        }
+
+
+        .section-title h3 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+
+        .section-title p {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+
+        .quick-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 22px;
+            text-decoration: none;
+            color: inherit;
+            transition: .2s ease;
+        }
+
+
+        .quick-card:hover {
+            border-color: #c4b5fd;
+            transform: translateY(-2px);
+            box-shadow:
+                0 10px 25px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    .06
+                );
+        }
+
+
+        .quick-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #f3e8ff;
+            color: #7c3aed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+
+        .quick-card h4 {
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+
+        .quick-card p {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #64748b;
+        }
+
+
+        /* =====================================================
+           LOADING
+        ====================================================== */
+
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+
+        .spinner {
+            width: 35px;
+            height: 35px;
+            border: 4px solid #ede9fe;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin-bottom: 12px;
+        }
+
+
+        .page-loader p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+        .hidden {
+            display: none !important;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (
+            max-width: 900px
+        ) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+
+            .main-content {
+                margin-left: 210px;
+                width: calc(100% - 210px);
+                padding: 22px;
+            }
+
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .quick-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (
+            max-width: 650px
+        ) {
+
+            .sidebar {
+                display: none;
+            }
+
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 18px;
+            }
+
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+
+            .admin-profile {
+                display: none;
+            }
+
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .welcome-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PAGE LOADER
+    ====================================================== -->
+
+    <div
+        id="pageLoader"
+        class="page-loader"
+    >
+
+        <div class="spinner"></div>
+
+        <p>
+            Loading organization dashboard...
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         APPLICATION
+    ====================================================== -->
+
+    <div
+        id="app"
+        class="app hidden"
+    >
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- BRAND -->
+
+            <div class="brand">
+
+                <div class="brand-logo">
+
+                    <img
+                        src="../../assets/images/graextolcbt-logo.png"
+                        alt="Gracextol CBT"
+                    >
+
+                </div>
+
+
+                <div class="brand-text">
+
+                    <h1>
+                        Gracextol
+                    </h1>
+
+                    <span>
+                        Organization Portal
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="sidebar-nav">
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="dashboard.html"
+                    class="nav-item active"
+                >
+
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </span>
+
+                    Dashboard
+
+                </a>
+
+
+                <!-- TEACHERS -->
+
+                <a
+                    href="teachers.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </span>
+
+                    Teachers
+
+                </a>
+
+
+                <!-- STUDENTS -->
+
+                <a
+                    href="students.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </span>
+
+                    Students
+
+                </a>
+
+
+                <!-- EXAMINATIONS -->
+
+                <a
+                    href="examinations.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </span>
+
+                    Examinations
+
+                </a>
+
+
+                <!-- RESULTS -->
+
+                <a
+                    href="results.html"
+                    class="nav-item"
+                >
+
+                    <span class="nav-icon">
+                        <i class="fa-solid fa-chart-column"></i>
+                    </span>
+
+                    Results
+
+                </a>
+
+            </nav>
+
+
+            <!-- SIDEBAR BOTTOM -->
+
+            <div class="sidebar-bottom">
+
+                <button
+                    id="logoutBtn"
+                    class="logout-btn"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    &nbsp;
+
+                    Sign Out
+
+                </button>
+
+            </div>
+
+
+        </aside>
+
+
+        <!-- =================================================
+             MAIN CONTENT
+        ================================================== -->
+
+        <main class="main-content">
+
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="eyebrow">
+                        Organization Administration
+                    </p>
+
+                    <h2>
+                        Dashboard
+                    </h2>
+
+                </div>
+
+
+                <div class="admin-profile">
+
+                    <div class="admin-avatar">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+
+                    <div class="admin-info">
+
+                        <strong id="adminName">
+                            Loading...
+                        </strong>
+
+                        <span>
+                            Organization Admin
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- WELCOME -->
+
+            <section class="welcome-card">
+
+                <div>
+
+                    <p class="eyebrow">
+                        Welcome Back
+                    </p>
+
+                    <h3>
+
+                        Hello,
+
+                        <span id="welcomeName">
+                            Admin
+                        </span>.
+
+                    </h3>
+
+                    <p id="organizationName">
+                        Loading organization...
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="organization-badge"
+                    id="organizationStatus"
+                >
+                    Active
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <section class="stats-grid">
+
+
+                <!-- TEACHERS -->
+
+                <a
+                    href="teachers.html"
+                    class="stat-card stat-card-link"
+                >
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-chalkboard-user"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Teachers
+                        </span>
+
+                        <strong id="teacherCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </a>
+
+
+                <!-- STUDENTS -->
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-user-graduate"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Students
+                        </span>
+
+                        <strong id="studentCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- EXAMINATIONS -->
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-file-lines"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Examinations
+                        </span>
+
+                        <strong id="examCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- RESULTS -->
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Results
+                        </span>
+
+                        <strong id="resultCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 QUICK ACCESS
+            ================================================== -->
+
+            <section>
+
+                <div class="section-title">
+
+                    <h3>
+                        Organization Management
+                    </h3>
+
+                    <p>
+                        Manage your school's examination activities.
+                    </p>
+
+                </div>
+
+
+                <div class="quick-grid">
+
+
+                    <!-- TEACHERS -->
+
+                    <a
+                        href="teachers.html"
+                        class="quick-card"
+                    >
+
+                        <div class="quick-icon">
+
+                            <i class="fa-solid fa-chalkboard-user"></i>
+
+                        </div>
+
+                        <h4>
+                            Teachers
+                        </h4>
+
+                        <p>
+                            Add and manage teachers who will
+                            create examinations for your organization.
+                        </p>
+
+                    </a>
+
+
+                    <!-- STUDENTS -->
+
+                    <a
+                        href="students.html"
+                        class="quick-card"
+                    >
+
+                        <div class="quick-icon">
+
+                            <i class="fa-solid fa-user-graduate"></i>
+
+                        </div>
+
+                        <h4>
+                            Students
+                        </h4>
+
+                        <p>
+                            View students connected to your
+                            organization's examinations.
+                        </p>
+
+                    </a>
+
+
+                    <!-- RESULTS -->
+
+                    <a
+                        href="results.html"
+                        class="quick-card"
+                    >
+
+                        <div class="quick-icon">
+
+                            <i class="fa-solid fa-chart-column"></i>
+
+                        </div>
+
+                        <h4>
+                            Results
+                        </h4>
+
+                        <p>
+                            View examination results produced
+                            by your organization's teachers.
+                        </p>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <script>
+
+        /* =====================================================
+           ORGANIZATION DASHBOARD
+        ====================================================== */
+
+        const pageLoader =
+            document.getElementById(
+                "pageLoader"
+            );
+
+
+        const app =
+            document.getElementById(
+                "app"
+            );
+
+
+        const adminName =
+            document.getElementById(
+                "adminName"
+            );
+
+
+        const welcomeName =
+            document.getElementById(
+                "welcomeName"
+            );
+
+
+        const organizationName =
+            document.getElementById(
+                "organizationName"
+            );
+
+
+        const organizationStatus =
+            document.getElementById(
+                "organizationStatus"
+            );
+
+
+        const teacherCount =
+            document.getElementById(
+                "teacherCount"
+            );
+
+
+        const studentCount =
+            document.getElementById(
+                "studentCount"
+            );
+
+
+        const examCount =
+            document.getElementById(
+                "examCount"
+            );
+
+
+        const resultCount =
+            document.getElementById(
+                "resultCount"
+            );
+
+
+        /* =====================================================
+           LOAD DASHBOARD
+        ====================================================== */
+
+        async function loadDashboard() {
+
+            try {
+
+
+                /* ---------------------------------------------
+                   VERIFY SUPABASE
+                --------------------------------------------- */
+
+                if (
+                    typeof supabaseClient ===
+                    "undefined"
+                ) {
+
+                    throw new Error(
+                        "Supabase client is not available."
+                    );
+
+                }
+
+
+                /* ---------------------------------------------
+                   GET AUTHENTICATED USER
+                --------------------------------------------- */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: authError
+                } =
+                    await supabaseClient
+                        .auth
+                        .getUser();
+
+
+                if (authError) {
+                    throw authError;
+                }
+
+
+                if (!user) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "Organization admin auth user:",
+                    user.id
+                );
+
+
+                /* ---------------------------------------------
+                   GET ADMIN PROFILE
+                --------------------------------------------- */
+
+                const {
+                    data: profile,
+                    error: profileError
+                } =
+                    await supabaseClient
+                        .from("users")
+                        .select("*")
+                        .eq(
+                            "auth_id",
+                            user.id
+                        )
+                        .maybeSingle();
+
+
+                if (profileError) {
+
+                    console.error(
+                        "Profile error:",
+                        profileError
+                    );
+
+                    throw profileError;
+
+                }
+
+
+                if (!profile) {
+
+                    await supabaseClient
+                        .auth
+                        .signOut();
+
+
+                    alert(
+                        "Your user profile could not be found."
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "Organization admin profile:",
+                    profile
+                );
+
+
+                /* ---------------------------------------------
+                   VERIFY ROLE
+                --------------------------------------------- */
+
+                if (
+                    profile.role !==
+                    "organization_admin"
+                ) {
+
+                    await supabaseClient
+                        .auth
+                        .signOut();
+
+
+                    alert(
+                        "You do not have permission to access the Organization Portal."
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                /* ---------------------------------------------
+                   VERIFY ACTIVE ACCOUNT
+                --------------------------------------------- */
+
+                if (
+                    profile.is_active !== true
+                ) {
+
+                    await supabaseClient
+                        .auth
+                        .signOut();
+
+
+                    alert(
+                        "Your organization account is inactive."
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                /* ---------------------------------------------
+                   DISPLAY ADMIN NAME
+                --------------------------------------------- */
+
+                const name =
+                    profile.full_name ||
+                    profile.username ||
+                    profile.name ||
+                    profile.email ||
+                    "Organization Admin";
+
+
+                adminName.textContent =
+                    name;
+
+
+                welcomeName.textContent =
+                    name;
+
+
+                /* ---------------------------------------------
+                   ORGANIZATION ID
+                --------------------------------------------- */
+
+                const organizationId =
+                    profile.organization_id;
+
+
+                if (!organizationId) {
+
+                    console.warn(
+                        "Organization admin has no organization_id."
+                    );
+
+
+                    organizationName.textContent =
+                        "Organization not linked yet.";
+
+                } else {
+
+                    await loadOrganization(
+                        organizationId
+                    );
+
+
+                    await loadStatistics(
+                        organizationId
+                    );
+
+                }
+
+
+                /* ---------------------------------------------
+                   SHOW APPLICATION
+                --------------------------------------------- */
+
+                pageLoader.classList.add(
+                    "hidden"
+                );
+
+
+                app.classList.remove(
+                    "hidden"
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Dashboard error:",
+                    error
+                );
+
+
+                pageLoader.innerHTML = `
+
+                    <div
+                        style="
+                            text-align:center;
+                            padding:30px;
+                            max-width:500px;
+                        "
+                    >
+
+                        <h3
+                            style="
+                                margin-bottom:10px;
+                                color:#dc2626;
+                            "
+                        >
+                            Unable to load dashboard
+                        </h3>
+
+
+                        <p
+                            style="
+                                color:#64748b;
+                                font-size:13px;
+                                line-height:1.6;
+                            "
+                        >
+                            ${escapeHtml(
+                                error.message ||
+                                "An unexpected error occurred."
+                            )}
+                        </p>
+
+
+                        <button
+                            onclick="
+                                window.location.href='login.html'
+                            "
+                            style="
+                                margin-top:18px;
+                                padding:10px 18px;
+                                border:0;
+                                border-radius:8px;
+                                background:#7c3aed;
+                                color:white;
+                                cursor:pointer;
+                                font-weight:700;
+                            "
+                        >
+                            Return to Login
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           LOAD ORGANIZATION
+        ====================================================== */
+
+        async function loadOrganization(
+            organizationId
+        ) {
+
+            const {
+                data: organization,
+                error
+            } =
+                await supabaseClient
+                    .from("organizations")
+                    .select("*")
+                    .eq(
+                        "id",
+                        organizationId
+                    )
+                    .maybeSingle();
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            if (!organization) {
+
+                organizationName.textContent =
+                    "Organization not found.";
+
+                return;
+
+            }
+
+
+            organizationName.textContent =
+                organization.name ||
+                "Organization";
+
+
+            if (
+                organization.status
+            ) {
+
+                organizationStatus.textContent =
+                    organization.status;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           LOAD ORGANIZATION STATISTICS
+        ====================================================== */
+
+        async function loadStatistics(
+            organizationId
+        ) {
+
+            try {
+
+                console.log(
+                    "DASHBOARD: Loading organization statistics..."
+                );
+
+
+                /* ---------------------------------------------
+                   TEACHERS
+                --------------------------------------------- */
+
+                const {
+                    count: teachers,
+                    error: teachersError
+                } =
+                    await supabaseClient
+                        .from("users")
+                        .select(
+                            "id",
+                            {
+                                count: "exact",
+                                head: true
+                            }
+                        )
+                        .eq(
+                            "organization_id",
+                            organizationId
+                        )
+                        .eq(
+                            "role",
+                            "teacher"
+                        );
+
+
+                if (teachersError) {
+                    throw teachersError;
+                }
+
+
+                teacherCount.textContent =
+                    teachers || 0;
+
+
+                /* ---------------------------------------------
+                   GET ORGANIZATION TEACHERS
+                --------------------------------------------- */
+
+                const {
+                    data: organizationTeachers,
+                    error: teacherQueryError
+                } =
+                    await supabaseClient
+                        .from("users")
+                        .select(
+                            "auth_id, username, email"
+                        )
+                        .eq(
+                            "organization_id",
+                            organizationId
+                        )
+                        .eq(
+                            "role",
+                            "teacher"
+                        );
+
+
+                if (teacherQueryError) {
+                    throw teacherQueryError;
+                }
+
+
+                const teacherAuthIds =
+                    (organizationTeachers || [])
+                        .map(
+                            function (teacher) {
+
+                                return teacher.auth_id;
+
+                            }
+                        )
+                        .filter(
+                            function (authId) {
+
+                                return !!authId;
+
+                            }
+                        );
+
+
+                /*
+                 * If there are no teachers,
+                 * there can be no organization
+                 * examinations or results.
+                 */
+
+                if (
+                    teacherAuthIds.length === 0
+                ) {
+
+                    studentCount.textContent =
+                        "0";
+
+                    examCount.textContent =
+                        "0";
+
+                    resultCount.textContent =
+                        "0";
+
+                    return;
+
+                }
+
+
+                /* ---------------------------------------------
+                   ORGANIZATION EXAMINATIONS
+
+                   exams.created_by stores the teacher's
+                   auth_id.
+                --------------------------------------------- */
+
+                const {
+                    data: exams,
+                    error: examError
+                } =
+                    await supabaseClient
+                        .from("exams")
+                        .select(
+                            "id, created_by"
+                        )
+                        .in(
+                            "created_by",
+                            teacherAuthIds
+                        );
+
+
+                if (examError) {
+                    throw examError;
+                }
+
+
+                const organizationExams =
+                    exams || [];
+
+
+                examCount.textContent =
+                    organizationExams.length;
+
+
+                /*
+                 * If there are no examinations,
+                 * there can be no results.
+                 */
+
+                if (
+                    organizationExams.length === 0
+                ) {
+
+                    studentCount.textContent =
+                        "0";
+
+                    resultCount.textContent =
+                        "0";
+
+                    return;
+
+                }
+
+
+                /* ---------------------------------------------
+                   ORGANIZATION RESULTS / SUBMISSIONS
+                --------------------------------------------- */
+
+                const examIds =
+                    organizationExams.map(
+                        function (exam) {
+
+                            return exam.id;
+
+                        }
+                    );
+
+
+                const {
+                    data: submissions,
+                    error: submissionError
+                } =
+                    await supabaseClient
+                        .from("submissions")
+                        .select(
+                            "id, exam_id, student_name"
+                        )
+                        .in(
+                            "exam_id",
+                            examIds
+                        );
+
+
+                if (submissionError) {
+                    throw submissionError;
+                }
+
+
+                const organizationSubmissions =
+                    submissions || [];
+
+
+                /*
+                 * Each submission represents one
+                 * examination result.
+                 */
+
+                resultCount.textContent =
+                    organizationSubmissions.length;
+
+
+                /* ---------------------------------------------
+                   UNIQUE STUDENTS
+
+                   The current student examination flow
+                   records student_name on submissions
+                   instead of creating authenticated
+                   student users.
+
+                   Therefore we count unique student
+                   names from the organization's
+                   submissions.
+                --------------------------------------------- */
+
+                const uniqueStudents =
+                    new Set();
+
+
+                organizationSubmissions.forEach(
+                    function (submission) {
+
+                        if (
+                            submission.student_name
+                        ) {
+
+                            uniqueStudents.add(
+                                submission.student_name
+                                    .trim()
+                                    .toLowerCase()
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                studentCount.textContent =
+                    uniqueStudents.size;
+
+
+                console.log(
+                    "DASHBOARD: Statistics loaded:",
+                    {
+                        teachers:
+                            teachers || 0,
+
+                        students:
+                            uniqueStudents.size,
+
+                        examinations:
+                            organizationExams.length,
+
+                        results:
+                            organizationSubmissions.length
+                    }
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "DASHBOARD: Statistics error:",
+                    error
+                );
+
+
+                /*
+                 * Keep the dashboard visible even
+                 * if one statistics query fails.
+                 */
+
+                teacherCount.textContent =
+                    "0";
+
+                studentCount.textContent =
+                    "0";
+
+                examCount.textContent =
+                    "0";
+
+                resultCount.textContent =
+                    "0";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ====================================================== */
+
+        document
+            .getElementById(
+                "logoutBtn"
+            )
+            .addEventListener(
+                "click",
+                async function () {
+
+                    await supabaseClient
+                        .auth
+                        .signOut();
+
+
+                    window.location.href =
+                        "login.html";
+
+                }
+            );
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ====================================================== */
+
+        function escapeHtml(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value;
+
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =====================================================
+           START DASHBOARD
+        ====================================================== */
+
+        loadDashboard();
+
+    </script>
+
+
+</body>
+
+</html>

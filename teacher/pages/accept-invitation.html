@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -8,382 +10,1023 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Accept Teacher Invitation | Gracextol CBT</title>
+    <title>
+        Accept Teacher Invitation | Gracextol CBT
+    </title>
 
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- Gracextol Supabase Client -->
-    <script src="../../assets/js/supabase-client.js"></script>
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <!-- =====================================================
+         GRACEXTOL SUPABASE CLIENT
+    ====================================================== -->
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
 
     <style>
+
+        /* =====================================================
+           RESET
+        ====================================================== */
+
         * {
+
             box-sizing: border-box;
+
             margin: 0;
+
             padding: 0;
+
         }
+
+
+        /* =====================================================
+           BODY
+        ====================================================== */
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: #f6f4fb;
+
             min-height: 100vh;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             padding: 20px;
+
             color: #222;
+
         }
+
+
+        /* =====================================================
+           CONTAINER
+        ====================================================== */
 
         .container {
+
             width: 100%;
+
             max-width: 460px;
+
         }
+
+
+        /* =====================================================
+           CARD
+        ====================================================== */
 
         .card {
+
             background: #ffffff;
+
             border-radius: 14px;
+
             padding: 35px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+
+            box-shadow:
+                0 8px 30px
+                rgba(0, 0, 0, 0.08);
+
         }
+
+
+        /* =====================================================
+           LOGO
+        ====================================================== */
 
         .logo {
+
             text-align: center;
+
             margin-bottom: 25px;
+
         }
+
 
         .logo h1 {
+
             color: #6a1b9a;
+
             font-size: 28px;
+
             margin-bottom: 6px;
+
         }
+
 
         .logo p {
+
             color: #777;
+
             font-size: 14px;
+
         }
+
+
+        /* =====================================================
+           HEADINGS
+        ====================================================== */
 
         h2 {
+
             text-align: center;
+
             font-size: 22px;
+
             margin-bottom: 10px;
+
         }
+
+
+        /* =====================================================
+           INTRO
+        ====================================================== */
 
         .intro {
+
             text-align: center;
+
             color: #666;
+
             font-size: 14px;
+
             line-height: 1.6;
+
             margin-bottom: 25px;
+
         }
+
+
+        /* =====================================================
+           TEACHER NAME
+        ====================================================== */
 
         .teacher-name {
+
             text-align: center;
+
             font-weight: bold;
+
             color: #6a1b9a;
+
             margin-bottom: 25px;
+
         }
+
+
+        /* =====================================================
+           FORM GROUP
+        ====================================================== */
 
         .form-group {
+
             margin-bottom: 18px;
+
         }
+
+
+        /* =====================================================
+           LABEL
+        ====================================================== */
 
         label {
+
             display: block;
+
             margin-bottom: 7px;
+
             font-size: 14px;
+
             font-weight: 600;
+
         }
 
-        input {
+
+        /* =====================================================
+           PASSWORD WRAPPER
+        ====================================================== */
+
+        .password-wrapper {
+
+            position: relative;
+
             width: 100%;
-            padding: 13px 14px;
-            border: 1px solid #d8d8d8;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
+
         }
 
-        input:focus {
-            border-color: #6a1b9a;
-            box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.08);
+
+        /* =====================================================
+           PASSWORD INPUT
+        ====================================================== */
+
+        .password-wrapper input {
+
+            width: 100%;
+
+            padding:
+                13px
+                48px
+                13px
+                14px;
+
+            border:
+                1px solid #d8d8d8;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
         }
+
+
+        /* =====================================================
+           INPUT FOCUS
+        ====================================================== */
+
+        .password-wrapper input:focus {
+
+            border-color: #6a1b9a;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(106, 27, 154, 0.08);
+
+        }
+
+
+        /* =====================================================
+           PASSWORD TOGGLE
+        ====================================================== */
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 12px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            width: auto;
+
+            padding: 5px;
+
+            margin: 0;
+
+            border: none;
+
+            background: transparent;
+
+            color: #777;
+
+            font-size: 18px;
+
+            line-height: 1;
+
+            cursor: pointer;
+
+        }
+
+
+        .password-toggle:hover {
+
+            background: transparent;
+
+            color: #6a1b9a;
+
+        }
+
+
+        .password-toggle:focus {
+
+            outline: none;
+
+        }
+
+
+        /* =====================================================
+           PASSWORD NOTE
+        ====================================================== */
 
         .password-note {
+
             font-size: 12px;
+
             color: #777;
+
             margin-top: 6px;
+
         }
 
-        button {
+
+        /* =====================================================
+           SUBMIT BUTTON
+        ====================================================== */
+
+        #submitButton {
+
             width: 100%;
+
             padding: 14px;
+
             border: none;
+
             border-radius: 8px;
+
             background: #6a1b9a;
+
             color: white;
+
             font-size: 15px;
+
             font-weight: bold;
+
             cursor: pointer;
+
             margin-top: 8px;
+
         }
 
-        button:hover {
+
+        #submitButton:hover {
+
             background: #58147f;
+
         }
 
-        button:disabled {
+
+        #submitButton:disabled {
+
             background: #aaa;
+
             cursor: not-allowed;
+
         }
+
+
+        /* =====================================================
+           MESSAGE
+        ====================================================== */
 
         .message {
+
             display: none;
+
             margin-bottom: 20px;
+
             padding: 12px 14px;
+
             border-radius: 8px;
+
             font-size: 14px;
+
             line-height: 1.5;
+
         }
+
 
         .message.error {
+
             display: block;
+
             background: #fdeaea;
+
             color: #b42318;
-            border: 1px solid #f3b8b8;
+
+            border:
+                1px solid #f3b8b8;
+
         }
+
 
         .message.success {
+
             display: block;
+
             background: #eaf8ef;
+
             color: #187a3d;
-            border: 1px solid #b8e3c5;
+
+            border:
+                1px solid #b8e3c5;
+
         }
+
+
+        /* =====================================================
+           LOADING
+        ====================================================== */
 
         .loading {
+
             text-align: center;
+
             padding: 20px 0;
+
             color: #666;
+
             font-size: 14px;
+
         }
+
+
+        /* =====================================================
+           HIDDEN
+        ====================================================== */
 
         .hidden {
+
             display: none !important;
+
         }
 
-        .login-link {
-            display: block;
-            text-align: center;
-            margin-top: 18px;
-            color: #6a1b9a;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-        }
 
-        .login-link:hover {
-            text-decoration: underline;
-        }
+        /* =====================================================
+           FOOTER
+        ====================================================== */
 
         .footer {
+
             text-align: center;
+
             margin-top: 20px;
+
             color: #888;
+
             font-size: 12px;
+
         }
+
+
+        /* =====================================================
+           ACTIVATION MESSAGE
+        ====================================================== */
+
+        .activation-message {
+
+            text-align: center;
+
+            padding: 20px 0;
+
+        }
+
+
+        .activation-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            margin:
+                0 auto 18px;
+
+            border-radius: 50%;
+
+            background: #eaf8ef;
+
+            color: #187a3d;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 28px;
+
+        }
+
+
+        .activation-message h2 {
+
+            color: #222;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .activation-message p {
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+        }
+
+
     </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
+
 
     <div class="card">
 
+
+        <!-- =================================================
+             LOGO
+        ================================================== -->
+
         <div class="logo">
-            <h1>Gracextol CBT</h1>
-            <p>Electronic Examination Platform</p>
+
+            <h1>
+                Gracextol CBT
+            </h1>
+
+            <p>
+                Electronic Examination Platform
+            </p>
+
         </div>
 
-        <!-- Loading -->
-        <div id="loadingSection" class="loading">
+
+        <!-- =================================================
+             LOADING
+        ================================================== -->
+
+        <div
+            id="loadingSection"
+            class="loading"
+        >
+
             Verifying your invitation...
+
         </div>
 
-        <!-- Main invitation form -->
-        <div id="inviteSection" class="hidden">
 
-            <h2>Accept Teacher Invitation</h2>
+        <!-- =================================================
+             INVITATION FORM
+        ================================================== -->
+
+        <div
+            id="inviteSection"
+            class="hidden"
+        >
+
+
+            <h2>
+                Accept Teacher Invitation
+            </h2>
+
 
             <p class="intro">
+
                 You have been invited to join an organization
                 as a teacher on Gracextol CBT.
+
             </p>
+
+
+            <!-- TEACHER NAME -->
 
             <div
                 id="teacherNameDisplay"
                 class="teacher-name"
             ></div>
 
+
+            <!-- MESSAGE -->
+
             <div
                 id="message"
                 class="message"
             ></div>
 
-            <form id="acceptForm">
+
+            <!-- =================================================
+                 FORM
+            ================================================== -->
+
+            <form
+                id="acceptForm"
+            >
+
+
+                <!-- =================================================
+                     CREATE PASSWORD
+                ================================================== -->
 
                 <div class="form-group">
-                    <label for="password">
+
+                    <label
+                        for="password"
+                    >
                         Create Password
                     </label>
 
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        autocomplete="new-password"
-                        required
-                    >
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                            aria-label="Show password"
+                            title="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
 
                     <div class="password-note">
-                        Password must be at least 6 characters.
+
+                        Password must be at least
+                        6 characters.
+
                     </div>
+
                 </div>
 
+
+                <!-- =================================================
+                     CONFIRM PASSWORD
+                ================================================== -->
+
                 <div class="form-group">
-                    <label for="confirmPassword">
+
+                    <label
+                        for="confirmPassword"
+                    >
                         Confirm Password
                     </label>
 
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        placeholder="Confirm your password"
-                        autocomplete="new-password"
-                        required
-                    >
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm your password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="toggleConfirmPassword"
+                            aria-label="Show password"
+                            title="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
                 </div>
+
+
+                <!-- =================================================
+                     SUBMIT
+                ================================================== -->
 
                 <button
                     type="submit"
                     id="submitButton"
                 >
+
                     Complete Registration
+
                 </button>
+
 
             </form>
 
         </div>
 
-        <!-- Success -->
+
+        <!-- =================================================
+             ACTIVATION / REDIRECT STATE
+        ================================================== -->
+
         <div
-            id="successSection"
+            id="activationSection"
             class="hidden"
         >
 
-            <h2>Invitation Accepted</h2>
+            <div class="activation-message">
 
-            <div
-                id="successMessage"
-                class="message success"
-            >
-                Your teacher account has been successfully
-                activated.
+
+                <div class="activation-icon">
+
+                    ✓
+
+                </div>
+
+
+                <h2>
+                    Account Activated
+                </h2>
+
+
+                <p>
+
+                    Your teacher account has been
+                    successfully activated.
+
+                    <br>
+
+                    Taking you to your Teacher Dashboard...
+
+                </p>
+
+
             </div>
 
-            <p class="intro">
-                You can now sign in using your email address
-                and the password you just created.
-            </p>
-
-            <a
-                href="login.html"
-                class="login-link"
-            >
-                Go to Teacher Login
-            </a>
-
         </div>
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
 
         <div class="footer">
+
             © 2026 Gracextol CBT
+
         </div>
 
+
     </div>
+
 
 </div>
 
 
 <script>
 
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+
     const loadingSection =
-        document.getElementById("loadingSection");
+        document.getElementById(
+            "loadingSection"
+        );
+
 
     const inviteSection =
-        document.getElementById("inviteSection");
+        document.getElementById(
+            "inviteSection"
+        );
 
-    const successSection =
-        document.getElementById("successSection");
+
+    const activationSection =
+        document.getElementById(
+            "activationSection"
+        );
+
 
     const teacherNameDisplay =
-        document.getElementById("teacherNameDisplay");
+        document.getElementById(
+            "teacherNameDisplay"
+        );
+
 
     const acceptForm =
-        document.getElementById("acceptForm");
+        document.getElementById(
+            "acceptForm"
+        );
+
 
     const passwordInput =
-        document.getElementById("password");
+        document.getElementById(
+            "password"
+        );
+
 
     const confirmPasswordInput =
-        document.getElementById("confirmPassword");
+        document.getElementById(
+            "confirmPassword"
+        );
+
 
     const submitButton =
-        document.getElementById("submitButton");
+        document.getElementById(
+            "submitButton"
+        );
+
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
 
-    function showError(text) {
+    const togglePassword =
+        document.getElementById(
+            "togglePassword"
+        );
 
-        message.textContent = text;
-        message.className = "message error";
+
+    const toggleConfirmPassword =
+        document.getElementById(
+            "toggleConfirmPassword"
+        );
+
+
+    /* =========================================================
+       SHOW ERROR
+    ========================================================= */
+
+    function showError(
+        text
+    ) {
+
+        message.textContent =
+            text;
+
+        message.className =
+            "message error";
 
     }
 
+
+    /* =========================================================
+       HIDE MESSAGE
+    ========================================================= */
 
     function hideMessage() {
 
-        message.textContent = "";
-        message.className = "message";
+        message.textContent =
+            "";
+
+        message.className =
+            "message";
 
     }
 
+
+    /* =========================================================
+       PASSWORD VISIBILITY
+    ========================================================= */
+
+    function setupPasswordToggle(
+        button,
+        input
+    ) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const showing =
+                    input.type ===
+                    "text";
+
+
+                if (showing) {
+
+                    input.type =
+                        "password";
+
+                    button.textContent =
+                        "👁";
+
+                    button.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+
+                    button.setAttribute(
+                        "title",
+                        "Show password"
+                    );
+
+                }
+
+                else {
+
+                    input.type =
+                        "text";
+
+                    button.textContent =
+                        "🙈";
+
+                    button.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+
+                    button.setAttribute(
+                        "title",
+                        "Hide password"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    setupPasswordToggle(
+        togglePassword,
+        passwordInput
+    );
+
+
+    setupPasswordToggle(
+        toggleConfirmPassword,
+        confirmPasswordInput
+    );
+
+
+    /* =========================================================
+       INITIALIZE INVITATION
+    ========================================================= */
 
     async function initializeInvitation() {
 
         try {
 
+
             /*
-             * Supabase may return an invitation using
-             * a code in the URL.
+             * Supabase may return an invitation
+             * using a code in the URL.
              *
-             * If a code exists, exchange it for a session.
+             * If a code exists, exchange it
+             * for a session.
              */
 
             const url =
-                new URL(window.location.href);
+                new URL(
+                    window.location.href
+                );
+
 
             const code =
-                url.searchParams.get("code");
+                url.searchParams.get(
+                    "code"
+                );
+
 
             if (code) {
+
+                console.log(
+                    "Invitation code detected."
+                );
+
 
                 const {
                     error: exchangeError
                 } =
-                    await supabaseClient.auth.exchangeCodeForSession(
-                        code
-                    );
+                    await supabaseClient.auth
+                        .exchangeCodeForSession(
+                            code
+                        );
+
 
                 if (exchangeError) {
 
@@ -392,24 +1035,39 @@
                         exchangeError
                     );
 
+
                     throw new Error(
                         "This invitation link is invalid or has expired."
                     );
 
                 }
 
+
+                /*
+                 * Remove the code from the
+                 * browser URL after successful
+                 * exchange.
+                 */
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
+
             }
 
 
-            /*
-             * Get the authenticated invitation session.
-             */
+            /* =================================================
+               GET AUTHENTICATED SESSION
+            ================================================== */
 
             const {
                 data,
                 error
             } =
-                await supabaseClient.auth.getSession();
+                await supabaseClient.auth
+                    .getSession();
 
 
             if (error) {
@@ -418,6 +1076,7 @@
                     "Session error:",
                     error
                 );
+
 
                 throw new Error(
                     "Unable to verify your invitation."
@@ -430,7 +1089,10 @@
                 data?.session;
 
 
-            if (!session || !session.user) {
+            if (
+                !session ||
+                !session.user
+            ) {
 
                 throw new Error(
                     "No valid invitation session was found. Please open the invitation link from your email again."
@@ -439,17 +1101,22 @@
             }
 
 
+            /* =================================================
+               USER
+            ================================================== */
+
             const user =
                 session.user;
 
 
             /*
-             * Read the teacher's information
-             * from the invitation metadata.
+             * Read teacher information from
+             * invitation metadata.
              */
 
             const metadata =
-                user.user_metadata || {};
+                user.user_metadata ||
+                {};
 
 
             const teacherName =
@@ -462,16 +1129,28 @@
                 teacherName;
 
 
-            /*
-             * Invitation verified successfully.
-             */
+            console.log(
+                "Invitation session verified:",
+                user.id
+            );
 
-            loadingSection.classList.add("hidden");
 
-            inviteSection.classList.remove("hidden");
+            /* =================================================
+               SHOW FORM
+            ================================================== */
+
+            loadingSection.classList.add(
+                "hidden"
+            );
+
+
+            inviteSection.classList.remove(
+                "hidden"
+            );
 
 
         }
+
         catch (error) {
 
             console.error(
@@ -479,39 +1158,67 @@
                 error
             );
 
-            loadingSection.classList.add("hidden");
 
-            inviteSection.classList.remove("hidden");
+            loadingSection.classList.add(
+                "hidden"
+            );
+
+
+            inviteSection.classList.remove(
+                "hidden"
+            );
+
 
             showError(
                 error.message ||
                 "Unable to verify this invitation."
             );
 
-            acceptForm.classList.add("hidden");
+
+            acceptForm.classList.add(
+                "hidden"
+            );
 
         }
 
     }
 
 
+    /* =========================================================
+       ACCEPT INVITATION / SET PASSWORD
+    ========================================================= */
+
     acceptForm.addEventListener(
         "submit",
-        async function(event) {
+        async function (
+            event
+        ) {
 
             event.preventDefault();
+
 
             hideMessage();
 
 
+            /* =================================================
+               GET PASSWORDS
+            ================================================== */
+
             const password =
                 passwordInput.value.trim();
+
 
             const confirmPassword =
                 confirmPasswordInput.value.trim();
 
 
-            if (password.length < 6) {
+            /* =================================================
+               VALIDATE PASSWORD LENGTH
+            ================================================== */
+
+            if (
+                password.length < 6
+            ) {
 
                 showError(
                     "Password must be at least 6 characters."
@@ -522,7 +1229,14 @@
             }
 
 
-            if (password !== confirmPassword) {
+            /* =================================================
+               VALIDATE PASSWORD MATCH
+            ================================================== */
+
+            if (
+                password !==
+                confirmPassword
+            ) {
 
                 showError(
                     "The passwords do not match."
@@ -533,7 +1247,13 @@
             }
 
 
-            submitButton.disabled = true;
+            /* =================================================
+               DISABLE BUTTON
+            ================================================== */
+
+            submitButton.disabled =
+                true;
+
 
             submitButton.textContent =
                 "Creating Account...";
@@ -541,18 +1261,27 @@
 
             try {
 
-                /*
-                 * Set the password for the invited
-                 * Supabase Auth user.
-                 */
+
+                /* =================================================
+                   SET PASSWORD
+                ================================================== */
+
+                console.log(
+                    "Activating teacher account..."
+                );
+
 
                 const {
                     data,
                     error
                 } =
-                    await supabaseClient.auth.updateUser({
-                        password: password
-                    });
+                    await supabaseClient.auth
+                        .updateUser(
+                            {
+                                password:
+                                    password
+                            }
+                        );
 
 
                 if (error) {
@@ -562,6 +1291,7 @@
                         error
                     );
 
+
                     throw new Error(
                         error.message ||
                         "Unable to create your password."
@@ -570,7 +1300,13 @@
                 }
 
 
-                if (!data?.user) {
+                /* =================================================
+                   VERIFY USER
+                ================================================== */
+
+                if (
+                    !data?.user
+                ) {
 
                     throw new Error(
                         "Your account could not be completed."
@@ -579,22 +1315,55 @@
                 }
 
 
+                console.log(
+                    "Teacher account successfully activated:",
+                    data.user.id
+                );
+
+
+                /* =================================================
+                   SHOW ACTIVATION MESSAGE
+                ================================================== */
+
+                inviteSection.classList.add(
+                    "hidden"
+                );
+
+
+                activationSection.classList.remove(
+                    "hidden"
+                );
+
+
                 /*
-                 * Account successfully completed.
+                 * IMPORTANT:
                  *
-                 * Sign out so the teacher can use the
-                 * normal Teacher Login page.
+                 * We DO NOT sign the teacher out here.
+                 *
+                 * The invitation session is already
+                 * authenticated. Keeping that session
+                 * allows the teacher to enter the existing
+                 * Teacher Dashboard without logging in again.
                  */
 
-                await supabaseClient.auth.signOut();
 
+                /* =================================================
+                   REDIRECT TO EXISTING TEACHER DASHBOARD
+                ================================================== */
 
-                inviteSection.classList.add("hidden");
+                setTimeout(
+                    function () {
 
-                successSection.classList.remove("hidden");
+                        window.location.href =
+                            "teacher.html";
+
+                    },
+                    1200
+                );
 
 
             }
+
             catch (error) {
 
                 console.error(
@@ -602,12 +1371,16 @@
                     error
                 );
 
+
                 showError(
                     error.message ||
                     "Something went wrong while completing your account."
                 );
 
-                submitButton.disabled = false;
+
+                submitButton.disabled =
+                    false;
+
 
                 submitButton.textContent =
                     "Complete Registration";
@@ -618,13 +1391,16 @@
     );
 
 
-    /*
-     * Start invitation verification.
-     */
+    /* =========================================================
+       START INVITATION VERIFICATION
+    ========================================================= */
 
     initializeInvitation();
 
+
 </script>
 
+
 </body>
+
 </html>

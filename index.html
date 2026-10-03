@@ -10,7 +10,9 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Gracextol CBT | Welcome</title>
+    <title>
+        Gracextol CBT | Welcome
+    </title>
 
 
     <!-- =====================================================
@@ -48,1150 +50,1293 @@
          PAGE CSS
     ====================================================== -->
 
- <style>
+    <style>
 
-  /* =================================================
-   GRACEXTOL CBT — LANDING PAGE
-   LIGHTER DARK THEME
-================================================= */
+        /* =================================================
+           RESET
+        ================================================= */
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* =================================================
-   RESET
-================================================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
+        /* =================================================
+           COLOUR PALETTE
+        ================================================= */
 
-/* =================================================
-   COLOUR PALETTE
-================================================= */
+        :root {
 
-:root {
+            --primary: #8b5cf6;
 
-    --primary: #8b5cf6;
+            --primary-bright: #b09aff;
 
-    --primary-bright: #b09aff;
+            --primary-dark: #7c3aed;
 
-    --primary-dark: #7c3aed;
+            --blue: #60a5fa;
 
-    --blue: #60a5fa;
+            --blue-bright: #93c5fd;
 
-    --blue-bright: #93c5fd;
+            --dark: #f8fafc;
 
-    --dark: #f8fafc;
+            --text: #dbe4f5;
 
-    --text: #dbe4f5;
+            --muted: #a5b1c7;
 
-    --muted: #a5b1c7;
+            --background: #11162a;
 
-    --background: #11162a;
+            --surface: #1b243d;
 
-    --surface: #1b243d;
+            --surface-dark: #161e35;
 
-    --surface-dark: #161e35;
+            --border: rgba(
+                148,
+                163,
+                184,
+                0.18
+            );
 
-    --border: rgba(
-        148,
-        163,
-        184,
-        0.18
-    );
-
-    --purple-soft: rgba(
-        139,
-        92,
-        246,
-        0.15
-    );
-
-    --blue-soft: rgba(
-        96,
-        165,
-        250,
-        0.13
-    );
-
-}
-
-
-/* =================================================
-   BODY
-================================================= */
-
-body {
-
-    min-height: 100vh;
-
-    font-family: "Inter", sans-serif;
-
-    color: var(--text);
-
-    overflow-x: hidden;
-
-    background:
-
-        radial-gradient(
-            circle at 0% 0%,
-            rgba(
-                109,
-                40,
-                217,
-                0.22
-            ),
-            transparent 32%
-        ),
-
-        radial-gradient(
-            circle at 100% 0%,
-            rgba(
-                37,
-                99,
-                235,
-                0.15
-            ),
-            transparent 30%
-        ),
-
-        linear-gradient(
-            135deg,
-            #11162a 0%,
-            #151b31 50%,
-            #10172b 100%
-        );
-
-}
-
-
-/* =================================================
-   PAGE
-================================================= */
-
-.page {
-
-    min-height: 100vh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    position: relative;
-
-    overflow: hidden;
-
-}
-
-
-/* =================================================
-   DECORATIVE BACKGROUND CIRCLES
-================================================= */
-
-.background-circle {
-
-    position: absolute;
-
-    border-radius: 50%;
-
-    pointer-events: none;
-
-    z-index: 0;
-
-}
-
-
-.background-circle.one {
-
-    width: 270px;
-
-    height: 270px;
-
-    top: -145px;
-
-    left: -105px;
-
-    border: 1px solid rgba(
-        139,
-        92,
-        246,
-        0.14
-    );
-
-}
-
-
-.background-circle.two {
-
-    width: 250px;
-
-    height: 250px;
-
-    bottom: -145px;
-
-    right: -100px;
-
-    border: 1px solid rgba(
-        96,
-        165,
-        250,
-        0.11
-    );
-
-}
-
-
-/* =================================================
-   DOT PATTERN
-================================================= */
-
-.dots {
-
-    position: absolute;
-
-    width: 75px;
-
-    height: 60px;
-
-    background-image:
-
-        radial-gradient(
-            rgba(
-                167,
+            --purple-soft: rgba(
                 139,
-                250,
-                0.55
-            ) 2px,
-            transparent 2px
-        );
-
-    background-size: 17px 17px;
-
-    opacity: 0.42;
-
-    pointer-events: none;
-
-}
-
-
-.dots.top {
-
-    top: 32px;
-
-    left: 25px;
-
-}
-
-
-.dots.bottom {
-
-    bottom: 35px;
-
-    right: 30px;
-
-}
-
-
-/* =================================================
-   MAIN
-================================================= */
-
-.main {
-
-    width: min(
-        980px,
-        92%
-    );
-
-    margin: 0 auto;
-
-    flex: 1;
-
-    position: relative;
-
-    z-index: 2;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-}
-
-
-/* =================================================
-   BRAND
-================================================= */
-
-.brand {
-
-    text-align: center;
-
-    padding-top: 22px;
-
-}
-
-
-.brand-logo {
-
-    width: 62px;
-
-    height: 62px;
-
-    margin: 0 auto 7px;
-
-}
-
-
-.brand-logo img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: contain;
-
-    display: block;
-
-}
-
-
-.brand-name {
-
-    color: var(--dark);
-
-    font-size: 29px;
-
-    line-height: 1;
-
-    font-weight: 800;
-
-    letter-spacing: -1.2px;
-
-}
-
-
-.brand-name span {
-
-    color: var(--primary-bright);
-
-}
-
-
-.brand-tagline {
-
-    margin-top: 7px;
-
-    color: #9aa6bd;
-
-    font-size: 11px;
-
-    letter-spacing: 2.5px;
-
-    font-weight: 500;
-
-}
-
-
-.brand-tagline span {
-
-    color: var(--primary);
-
-    margin: 0 4px;
-
-}
-
-
-/* =================================================
-   HERO IMAGE WRAPPER
-================================================= */
-
-.hero-image-wrapper {
-
-    position: relative;
-
-    width: 335px;
-
-    height: 335px;
-
-    margin-top: 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-}
-
-
-/* =================================================
-   IMAGE GLOW
-================================================= */
-
-.hero-image-wrapper::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 350px;
-
-    height: 350px;
-
-    border-radius: 50%;
-
-    background:
-
-        radial-gradient(
-            circle,
-            rgba(
-                124,
-                58,
-                237,
-                0.24
-            ),
-            rgba(
-                37,
-                99,
-                235,
-                0.07
-            ) 58%,
-            transparent 73%
-        );
-
-    z-index: 0;
-
-}
-
-
-/* =================================================
-   IMAGE BORDER
-================================================= */
-
-.hero-image-wrapper::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 1px;
-
-    border-radius: 50%;
-
-    border: 6px solid rgba(
-        139,
-        92,
-        246,
-        0.30
-    );
-
-    box-shadow:
-
-        0 0 0 1px rgba(
-            167,
-            139,
-            250,
-            0.08
-        ),
-
-        0 0 35px rgba(
-            109,
-            40,
-            217,
-            0.18
-        );
-
-    z-index: 2;
-
-    pointer-events: none;
-
-}
-
-
-/* =================================================
-   IMAGE
-================================================= */
-
-.hero-image {
-
-    width: 325px;
-
-    height: 325px;
-
-    border-radius: 50%;
-
-    overflow: hidden;
-
-    position: relative;
-
-    z-index: 1;
-
-    background: #1a2138;
-
-}
-
-
-.hero-image img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-    object-position: center;
-
-    display: block;
-
-}
-
-
-/* =================================================
-   WELCOME
-================================================= */
-
-.welcome {
-
-    text-align: center;
-
-    margin-top: 19px;
-
-}
-
-
-.welcome h1 {
-
-    color: #f8fafc;
-
-    font-size: 30px;
-
-    line-height: 1.15;
-
-    font-weight: 800;
-
-    letter-spacing: -1px;
-
-}
-
-
-.welcome h1 span {
-
-    color: var(--primary-bright);
-
-}
-
-
-.welcome p {
-
-    margin-top: 6px;
-
-    color: var(--muted);
-
-    font-size: 12px;
-
-}
-
-
-/* =================================================
-   CHOICES
-================================================= */
-
-.choices {
-
-    width: min(
-        760px,
-        100%
-    );
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 16px;
-
-    margin-top: 19px;
-
-    margin-bottom: 12px;
-
-}
-
-
-/* =================================================
-   CHOICE CARD
-================================================= */
-
-.choice-card {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 16px;
-
-    padding: 17px 20px;
-
-    min-height: 120px;
-
-    text-decoration: none;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #1b243d,
-            #161e35
-        );
-
-    border: 1px solid rgba(
-        148,
-        163,
-        184,
-        0.18
-    );
-
-    border-radius: 17px;
-
-    box-shadow:
-
-        0 12px 30px rgba(
-            0,
-            0,
-            0,
-            0.20
-        );
-
-    transition:
-
-        transform 0.25s ease,
-
-        box-shadow 0.25s ease,
-
-        border-color 0.25s ease,
-
-        background 0.25s ease;
-
-}
-
-
-/* =================================================
-   CARD HOVER
-================================================= */
-
-.choice-card:hover {
-
-    transform: translateY(-4px);
-
-    background:
-
-        linear-gradient(
-            145deg,
-            #202a47,
-            #19213a
-        );
-
-    box-shadow:
-
-        0 18px 38px rgba(
-            0,
-            0,
-            0,
-            0.30
-        );
-
-}
-
-
-/* =================================================
-   STUDENT HOVER
-================================================= */
-
-.student-card:hover {
-
-    border-color: rgba(
-        139,
-        92,
-        246,
-        0.45
-    );
-
-}
-
-
-/* =================================================
-   TEACHER HOVER
-================================================= */
-
-.teacher-card:hover {
-
-    border-color: rgba(
-        96,
-        165,
-        250,
-        0.40
-    );
-
-}
-
-
-/* =================================================
-   CARD ICON
-================================================= */
-
-.choice-icon {
-
-    width: 65px;
-
-    height: 65px;
-
-    flex-shrink: 0;
-
-    border-radius: 18px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 26px;
-
-}
-
-
-/* =================================================
-   STUDENT ICON
-================================================= */
-
-.student-icon {
-
-    color: #b09aff;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(
-                109,
-                40,
-                217,
-                0.30
-            ),
-            rgba(
-                124,
-                58,
-                237,
-                0.12
-            )
-        );
-
-    border: 1px solid rgba(
-        139,
-        92,
-        246,
-        0.14
-    );
-
-}
-
-
-/* =================================================
-   TEACHER ICON
-================================================= */
-
-.teacher-icon {
-
-    color: #7db5ff;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(
-                37,
-                99,
-                235,
-                0.25
-            ),
-            rgba(
-                59,
-                130,
+                92,
                 246,
-                0.10
-            )
-        );
+                0.15
+            );
 
-    border: 1px solid rgba(
-        96,
-        165,
-        250,
-        0.13
-    );
+            --blue-soft: rgba(
+                96,
+                165,
+                250,
+                0.13
+            );
 
-}
+        }
 
 
-/* =================================================
-   CARD CONTENT
-================================================= */
+        /* =================================================
+           BODY
+        ================================================= */
 
-.choice-content {
+        body {
 
-    flex: 1;
+            min-height: 100vh;
 
-    min-width: 0;
+            font-family:
+                "Inter",
+                sans-serif;
 
-}
+            color: var(--text);
 
+            overflow-x: hidden;
 
-.choice-content h2 {
+            background:
 
-    color: #f8fafc;
+                radial-gradient(
+                    circle at 0% 0%,
+                    rgba(
+                        109,
+                        40,
+                        217,
+                        0.22
+                    ),
+                    transparent 32%
+                ),
 
-    font-size: 18px;
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(
+                        37,
+                        99,
+                        235,
+                        0.15
+                    ),
+                    transparent 30%
+                ),
 
-    font-weight: 800;
+                linear-gradient(
+                    135deg,
+                    #11162a 0%,
+                    #151b31 50%,
+                    #10172b 100%
+                );
 
-    margin-bottom: 4px;
+        }
 
-}
 
+        /* =================================================
+           PAGE
+        ================================================= */
 
-.choice-content p {
+        .page {
 
-    color: #a0abc0;
+            min-height: 100vh;
 
-    font-size: 10px;
+            display: flex;
 
-    line-height: 1.5;
+            flex-direction: column;
 
-    max-width: 270px;
+            position: relative;
 
-}
+            overflow: hidden;
 
+        }
 
-/* =================================================
-   ACTION
-================================================= */
 
-.action {
+        /* =================================================
+           DECORATIVE BACKGROUND CIRCLES
+        ================================================= */
 
-    display: inline-flex;
+        .background-circle {
 
-    align-items: center;
+            position: absolute;
 
-    gap: 7px;
+            border-radius: 50%;
 
-    margin-top: 8px;
+            pointer-events: none;
 
-    font-size: 10px;
+            z-index: 0;
 
-    font-weight: 700;
+        }
 
-}
 
+        .background-circle.one {
 
-.student-action {
+            width: 270px;
 
-    color: #b09aff;
+            height: 270px;
 
-}
+            top: -145px;
 
+            left: -105px;
 
-.teacher-action {
+            border:
+                1px solid
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.14
+                );
 
-    color: #7db5ff;
+        }
 
-}
 
+        .background-circle.two {
 
-.action i {
+            width: 250px;
 
-    transition:
-        transform 0.2s ease;
+            height: 250px;
 
-}
+            bottom: -145px;
 
+            right: -100px;
 
-.choice-card:hover .action i {
+            border:
+                1px solid
+                rgba(
+                    96,
+                    165,
+                    250,
+                    0.11
+                );
 
-    transform: translateX(4px);
+        }
 
-}
 
+        /* =================================================
+           DOT PATTERN
+        ================================================= */
 
-/* =================================================
-   FOOTER
-================================================= */
+        .dots {
 
-.footer {
+            position: absolute;
 
-    position: relative;
+            width: 75px;
 
-    z-index: 2;
+            height: 60px;
 
-    text-align: center;
+            background-image:
 
-    padding: 8px 20px 12px;
+                radial-gradient(
+                    rgba(
+                        167,
+                        139,
+                        250,
+                        0.55
+                    ) 2px,
+                    transparent 2px
+                );
 
-    color: #687590;
+            background-size: 17px 17px;
 
-    font-size: 10px;
+            opacity: 0.42;
 
-}
+            pointer-events: none;
 
+        }
 
-/* =================================================
-   TABLET
-================================================= */
 
-@media (max-width: 700px) {
+        .dots.top {
 
-    .hero-image-wrapper {
+            top: 32px;
 
-        width: 300px;
+            left: 25px;
 
-        height: 300px;
+        }
 
-    }
 
+        .dots.bottom {
 
-    .hero-image-wrapper::before {
+            bottom: 35px;
 
-        width: 315px;
+            right: 30px;
 
-        height: 315px;
+        }
 
-    }
 
+        /* =================================================
+           MAIN
+        ================================================= */
 
-    .hero-image {
+        .main {
 
-        width: 290px;
+            width: min(
+                980px,
+                92%
+            );
 
-        height: 290px;
+            margin: 0 auto;
 
-    }
+            flex: 1;
 
+            position: relative;
 
-    .welcome h1 {
+            z-index: 2;
 
-        font-size: 27px;
+            display: flex;
 
-    }
+            flex-direction: column;
 
+            align-items: center;
 
-    .choices {
+        }
 
-        width: 100%;
 
-    }
+        /* =================================================
+           BRAND
+        ================================================= */
 
-}
+        .brand {
 
+            text-align: center;
 
-/* =================================================
-   MOBILE
-================================================= */
+            padding-top: 22px;
 
-@media (max-width: 560px) {
+        }
 
-    .main {
 
-        width: 90%;
+        .brand-logo {
 
-    }
+            width: 62px;
 
+            height: 62px;
 
-    .brand {
+            margin: 0 auto 7px;
 
-        padding-top: 18px;
+        }
 
-    }
 
+        .brand-logo img {
 
-    .brand-logo {
+            width: 100%;
 
-        width: 56px;
+            height: 100%;
 
-        height: 56px;
+            object-fit: contain;
 
-    }
+            display: block;
 
+        }
 
-    .brand-name {
 
-        font-size: 25px;
+        .brand-name {
 
-    }
+            color: var(--dark);
 
+            font-size: 29px;
 
-    .brand-tagline {
+            line-height: 1;
 
-        font-size: 9px;
+            font-weight: 800;
 
-        letter-spacing: 2px;
+            letter-spacing: -1.2px;
 
-    }
+        }
 
 
-    .hero-image-wrapper {
+        .brand-name span {
 
-        width: 260px;
+            color: var(--primary-bright);
 
-        height: 260px;
+        }
 
-        margin-top: 17px;
 
-    }
+        .brand-tagline {
 
+            margin-top: 7px;
 
-    .hero-image-wrapper::before {
+            color: #9aa6bd;
 
-        width: 274px;
+            font-size: 11px;
 
-        height: 274px;
+            letter-spacing: 2.5px;
 
-    }
+            font-weight: 500;
 
+        }
 
-    .hero-image {
 
-        width: 250px;
+        .brand-tagline span {
 
-        height: 250px;
+            color: var(--primary);
 
-    }
+            margin: 0 4px;
 
+        }
 
-    .welcome {
 
-        margin-top: 17px;
+        /* =================================================
+           HERO IMAGE WRAPPER
+        ================================================= */
 
-    }
+        .hero-image-wrapper {
 
+            position: relative;
 
-    .welcome h1 {
+            width: 335px;
 
-        font-size: 24px;
+            height: 335px;
 
-    }
+            margin-top: 20px;
 
+            display: flex;
 
-    .welcome p {
+            align-items: center;
 
-        font-size: 11px;
+            justify-content: center;
 
-    }
+        }
 
 
-    .choices {
+        /* =================================================
+           IMAGE GLOW
+        ================================================= */
 
-        grid-template-columns: 1fr;
+        .hero-image-wrapper::before {
 
-        gap: 12px;
+            content: "";
 
-        margin-top: 17px;
+            position: absolute;
 
-    }
+            width: 350px;
 
+            height: 350px;
 
-    .choice-card {
+            border-radius: 50%;
 
-        min-height: 105px;
+            background:
 
-        padding: 15px;
+                radial-gradient(
+                    circle,
+                    rgba(
+                        124,
+                        58,
+                        237,
+                        0.24
+                    ),
+                    rgba(
+                        37,
+                        99,
+                        235,
+                        0.07
+                    ) 58%,
+                    transparent 73%
+                );
 
-    }
+            z-index: 0;
 
+        }
 
-    .choice-icon {
 
-        width: 58px;
+        /* =================================================
+           IMAGE BORDER
+        ================================================= */
 
-        height: 58px;
+        .hero-image-wrapper::after {
 
-        border-radius: 16px;
+            content: "";
 
-        font-size: 23px;
+            position: absolute;
 
-    }
+            inset: 1px;
 
+            border-radius: 50%;
 
-    .choice-content h2 {
+            border:
+                6px solid
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.30
+                );
 
-        font-size: 17px;
+            box-shadow:
 
-    }
+                0 0 0 1px
+                rgba(
+                    167,
+                    139,
+                    250,
+                    0.08
+                ),
 
+                0 0 35px
+                rgba(
+                    109,
+                    40,
+                    217,
+                    0.18
+                );
 
-    .choice-content p {
+            z-index: 2;
 
-        font-size: 10px;
+            pointer-events: none;
 
-    }
+        }
 
 
-    .action {
+        /* =================================================
+           IMAGE
+        ================================================= */
 
-        font-size: 10px;
+        .hero-image {
 
-    }
+            width: 325px;
 
+            height: 325px;
 
-    .dots {
+            border-radius: 50%;
 
-        display: none;
+            overflow: hidden;
 
-    }
+            position: relative;
 
-}
+            z-index: 1;
 
+            background: #1a2138;
 
-/* =================================================
-   VERY SMALL PHONES
-================================================= */
+        }
 
-@media (max-width: 380px) {
 
-    .hero-image-wrapper {
+        .hero-image img {
 
-        width: 230px;
+            width: 100%;
 
-        height: 230px;
+            height: 100%;
 
-    }
+            object-fit: cover;
 
+            object-position: center;
 
-    .hero-image-wrapper::before {
+            display: block;
 
-        width: 243px;
+        }
 
-        height: 243px;
 
-    }
+        /* =================================================
+           WELCOME
+        ================================================= */
 
+        .welcome {
 
-    .hero-image {
+            text-align: center;
 
-        width: 220px;
+            margin-top: 19px;
 
-        height: 220px;
+        }
 
-    }
 
+        .welcome h1 {
 
-    .welcome h1 {
+            color: #f8fafc;
 
-        font-size: 22px;
+            font-size: 30px;
 
-    }
+            line-height: 1.15;
 
-}
-</style>
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .welcome h1 span {
+
+            color: var(--primary-bright);
+
+        }
+
+
+        .welcome p {
+
+            margin-top: 6px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        /* =================================================
+           CHOICES
+        ================================================= */
+
+        .choices {
+
+            width: min(
+                760px,
+                100%
+            );
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 16px;
+
+            margin-top: 19px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        /* =================================================
+           CHOICE CARD
+        ================================================= */
+
+        .choice-card {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            padding: 17px 20px;
+
+            min-height: 120px;
+
+            text-decoration: none;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #1b243d,
+                    #161e35
+                );
+
+            border:
+                1px solid
+                rgba(
+                    148,
+                    163,
+                    184,
+                    0.18
+                );
+
+            border-radius: 17px;
+
+            box-shadow:
+
+                0 12px 30px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.20
+                );
+
+            transition:
+
+                transform 0.25s ease,
+
+                box-shadow 0.25s ease,
+
+                border-color 0.25s ease,
+
+                background 0.25s ease;
+
+        }
+
+
+        /* =================================================
+           CARD HOVER
+        ================================================= */
+
+        .choice-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #202a47,
+                    #19213a
+                );
+
+            box-shadow:
+
+                0 18px 38px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.30
+                );
+
+        }
+
+
+        /* =================================================
+           STUDENT HOVER
+        ================================================= */
+
+        .student-card:hover {
+
+            border-color:
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.45
+                );
+
+        }
+
+
+        /* =================================================
+           TEACHER HOVER
+        ================================================= */
+
+        .teacher-card:hover {
+
+            border-color:
+                rgba(
+                    96,
+                    165,
+                    250,
+                    0.40
+                );
+
+        }
+
+
+        /* =================================================
+           ORGANIZATION HOVER
+        ================================================= */
+
+        .organization-card:hover {
+
+            border-color:
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.45
+                );
+
+        }
+
+
+        /* =================================================
+           OWNER HOVER
+        ================================================= */
+
+        .owner-card:hover {
+
+            border-color:
+                rgba(
+                    96,
+                    165,
+                    250,
+                    0.40
+                );
+
+        }
+
+
+        /* =================================================
+           CARD ICON
+        ================================================= */
+
+        .choice-icon {
+
+            width: 65px;
+
+            height: 65px;
+
+            flex-shrink: 0;
+
+            border-radius: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 26px;
+
+        }
+
+
+        /* =================================================
+           STUDENT ICON
+        ================================================= */
+
+        .student-icon {
+
+            color: #b09aff;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(
+                        109,
+                        40,
+                        217,
+                        0.30
+                    ),
+                    rgba(
+                        124,
+                        58,
+                        237,
+                        0.12
+                    )
+                );
+
+            border:
+                1px solid
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.14
+                );
+
+        }
+
+
+        /* =================================================
+           TEACHER ICON
+        ================================================= */
+
+        .teacher-icon {
+
+            color: #7db5ff;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(
+                        37,
+                        99,
+                        235,
+                        0.25
+                    ),
+                    rgba(
+                        59,
+                        130,
+                        246,
+                        0.10
+                    )
+                );
+
+            border:
+                1px solid
+                rgba(
+                    96,
+                    165,
+                    250,
+                    0.13
+                );
+
+        }
+
+
+        /* =================================================
+           ORGANIZATION ICON
+        ================================================= */
+
+        .organization-icon {
+
+            color: #c4b5fd;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(
+                        124,
+                        58,
+                        237,
+                        0.30
+                    ),
+                    rgba(
+                        139,
+                        92,
+                        246,
+                        0.12
+                    )
+                );
+
+            border:
+                1px solid
+                rgba(
+                    139,
+                    92,
+                    246,
+                    0.16
+                );
+
+        }
+
+
+        /* =================================================
+           OWNER ICON
+        ================================================= */
+
+        .owner-icon {
+
+            color: #93c5fd;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(
+                        37,
+                        99,
+                        235,
+                        0.25
+                    ),
+                    rgba(
+                        59,
+                        130,
+                        246,
+                        0.10
+                    )
+                );
+
+            border:
+                1px solid
+                rgba(
+                    96,
+                    165,
+                    250,
+                    0.14
+                );
+
+        }
+
+
+        /* =================================================
+           CARD CONTENT
+        ================================================= */
+
+        .choice-content {
+
+            flex: 1;
+
+            min-width: 0;
+
+        }
+
+
+        .choice-content h2 {
+
+            color: #f8fafc;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .choice-content p {
+
+            color: #a0abc0;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+
+            max-width: 270px;
+
+        }
+
+
+        /* =================================================
+           ACTION
+        ================================================= */
+
+        .action {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 8px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        .student-action {
+
+            color: #b09aff;
+
+        }
+
+
+        .teacher-action {
+
+            color: #7db5ff;
+
+        }
+
+
+        .organization-action {
+
+            color: #c4b5fd;
+
+        }
+
+
+        .owner-action {
+
+            color: #93c5fd;
+
+        }
+
+
+        .action i {
+
+            transition:
+                transform 0.2s ease;
+
+        }
+
+
+        .choice-card:hover
+        .action i {
+
+            transform:
+                translateX(4px);
+
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        .footer {
+
+            position: relative;
+
+            z-index: 2;
+
+            text-align: center;
+
+            padding: 8px 20px 12px;
+
+            color: #687590;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =================================================
+           TABLET
+        ================================================= */
+
+        @media (max-width: 700px) {
+
+            .hero-image-wrapper {
+
+                width: 300px;
+
+                height: 300px;
+
+            }
+
+
+            .hero-image-wrapper::before {
+
+                width: 315px;
+
+                height: 315px;
+
+            }
+
+
+            .hero-image {
+
+                width: 290px;
+
+                height: 290px;
+
+            }
+
+
+            .welcome h1 {
+
+                font-size: 27px;
+
+            }
+
+
+            .choices {
+
+                width: 100%;
+
+            }
+
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 560px) {
+
+            .main {
+
+                width: 90%;
+
+            }
+
+
+            .brand {
+
+                padding-top: 18px;
+
+            }
+
+
+            .brand-logo {
+
+                width: 56px;
+
+                height: 56px;
+
+            }
+
+
+            .brand-name {
+
+                font-size: 25px;
+
+            }
+
+
+            .brand-tagline {
+
+                font-size: 9px;
+
+                letter-spacing: 2px;
+
+            }
+
+
+            .hero-image-wrapper {
+
+                width: 260px;
+
+                height: 260px;
+
+                margin-top: 17px;
+
+            }
+
+
+            .hero-image-wrapper::before {
+
+                width: 274px;
+
+                height: 274px;
+
+            }
+
+
+            .hero-image {
+
+                width: 250px;
+
+                height: 250px;
+
+            }
+
+
+            .welcome {
+
+                margin-top: 17px;
+
+            }
+
+
+            .welcome h1 {
+
+                font-size: 24px;
+
+            }
+
+
+            .welcome p {
+
+                font-size: 11px;
+
+            }
+
+
+            .choices {
+
+                grid-template-columns: 1fr;
+
+                gap: 12px;
+
+                margin-top: 17px;
+
+            }
+
+
+            .choice-card {
+
+                min-height: 105px;
+
+                padding: 15px;
+
+            }
+
+
+            .choice-icon {
+
+                width: 58px;
+
+                height: 58px;
+
+                border-radius: 16px;
+
+                font-size: 23px;
+
+            }
+
+
+            .choice-content h2 {
+
+                font-size: 17px;
+
+            }
+
+
+            .choice-content p {
+
+                font-size: 10px;
+
+            }
+
+
+            .action {
+
+                font-size: 10px;
+
+            }
+
+
+            .dots {
+
+                display: none;
+
+            }
+
+        }
+
+
+        /* =================================================
+           VERY SMALL PHONES
+        ================================================= */
+
+        @media (max-width: 380px) {
+
+            .hero-image-wrapper {
+
+                width: 230px;
+
+                height: 230px;
+
+            }
+
+
+            .hero-image-wrapper::before {
+
+                width: 243px;
+
+                height: 243px;
+
+            }
+
+
+            .hero-image {
+
+                width: 220px;
+
+                height: 220px;
+
+            }
+
+
+            .welcome h1 {
+
+                font-size: 22px;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -1199,245 +1344,326 @@ body {
 <body>
 
 
-    <!-- =====================================================
-         PAGE
-    ====================================================== -->
-
-    <div class="page">
+<div class="page">
 
 
-        <!-- Decorative elements -->
+    <!-- =================================================
+         DECORATIVE ELEMENTS
+    ================================================== -->
 
-        <div class="background-circle one"></div>
+    <div class="background-circle one"></div>
 
-        <div class="background-circle two"></div>
+    <div class="background-circle two"></div>
 
-        <div class="dots top"></div>
+    <div class="dots top"></div>
 
-        <div class="dots bottom"></div>
+    <div class="dots bottom"></div>
 
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="main">
 
 
         <!-- =================================================
-             MAIN
+             BRAND
         ================================================== -->
 
-        <main class="main">
+        <header class="brand">
 
+            <div class="brand-logo">
 
-            <!-- =================================================
-                 BRAND
-            ================================================== -->
-
-            <header class="brand">
-
-
-                <div class="brand-logo">
-
-                    <img
-                        src="assets/images/graextolcbt-logo.png"
-                        alt="Gracextol CBT Logo"
-                    >
-
-                </div>
-
-
-                <div class="brand-name">
-
-                    GRACEXTOL <span>CBT</span>
-
-                </div>
-
-
-                <div class="brand-tagline">
-
-                    Learn
-                    <span>•</span>
-                    Practice
-                    <span>•</span>
-                    Excel
-
-                </div>
-
-
-            </header>
-
-
-
-            <!-- =================================================
-                 HERO IMAGE
-            ================================================== -->
-
-            <div class="hero-image-wrapper">
-
-
-                <div class="hero-image">
-
-                    <img
-                        src="assets/images/Gracextol image.png"
-                        alt="Student taking a computer based examination"
-                    >
-
-                </div>
-
+                <img
+                    src="assets/images/graextolcbt-logo.png"
+                    alt="Gracextol CBT Logo"
+                >
 
             </div>
 
 
+            <div class="brand-name">
 
-            <!-- =================================================
-                 WELCOME
-            ================================================== -->
+                GRACEXTOL
+                <span>CBT</span>
 
-            <section class="welcome">
+            </div>
 
 
-                <h1>
+            <div class="brand-tagline">
 
-                    Welcome to
-                    <span>Gracextol CBT</span>
+                Learn
 
-                </h1>
+                <span>•</span>
 
+                Practice
 
-                <p>
+                <span>•</span>
 
-                    Select how you would like to continue.
+                Excel
 
-                </p>
+            </div>
 
-
-            </section>
-
-
-
-            <!-- =================================================
-                 STUDENT / TEACHER
-            ================================================== -->
-
-            <section class="choices">
-
-
-                <!-- =============================================
-                     STUDENT
-                ============================================== -->
-
-                <a
-                    href="student/pages/index.html"
-                    class="choice-card student-card"
-                >
-
-
-                    <div class="choice-icon student-icon">
-
-                        <i class="fa-solid fa-user-graduate"></i>
-
-                    </div>
-
-
-                    <div class="choice-content">
-
-
-                        <h2>
-
-                            Student
-
-                        </h2>
-
-
-                        <p>
-
-                            Enter your details and access
-                            your examination.
-
-                        </p>
-
-
-                        <span class="action student-action">
-
-                            Continue as Student
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </span>
-
-
-                    </div>
-
-
-                </a>
-
-
-
-                <!-- =============================================
-                     TEACHER
-                ============================================== -->
-
-                <a
-                    href="teacher/pages/login.html"
-                    class="choice-card teacher-card"
-                >
-
-
-                    <div class="choice-icon teacher-icon">
-
-                        <i class="fa-solid fa-chalkboard-user"></i>
-
-                    </div>
-
-
-                    <div class="choice-content">
-
-
-                        <h2>
-
-                            Teacher
-
-                        </h2>
-
-
-                        <p>
-
-                            Sign in to create, manage and
-                            publish examinations.
-
-                        </p>
-
-
-                        <span class="action teacher-action">
-
-                            Continue as Teacher
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </span>
-
-
-                    </div>
-
-
-                </a>
-
-
-            </section>
-
-
-        </main>
-
+        </header>
 
 
         <!-- =================================================
-             FOOTER
+             HERO IMAGE
         ================================================== -->
 
-        <footer class="footer">
+        <div class="hero-image-wrapper">
 
-            © 2026 Gracextol CBT. All rights reserved.
+            <div class="hero-image">
 
-        </footer>
+                <img
+                    src="assets/images/Gracextol image.png"
+                    alt="Student taking a computer based examination"
+                >
+
+            </div>
+
+        </div>
 
 
-    </div>
+        <!-- =================================================
+             WELCOME
+        ================================================== -->
+
+        <section class="welcome">
+
+            <h1>
+
+                Welcome to
+                <span>Gracextol CBT</span>
+
+            </h1>
+
+
+            <p>
+
+                Select how you would like to continue.
+
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             FOUR USER GATEWAYS
+        ================================================== -->
+
+        <section class="choices">
+
+
+            <!-- =============================================
+                 STUDENT
+            ============================================== -->
+
+            <a
+                href="student/pages/index.html"
+                class="choice-card student-card"
+            >
+
+                <div class="choice-icon student-icon">
+
+                    <i class="fa-solid fa-user-graduate"></i>
+
+                </div>
+
+
+                <div class="choice-content">
+
+                    <h2>
+                        Student
+                    </h2>
+
+
+                    <p>
+
+                        Enter your details and access
+                        your examination.
+
+                    </p>
+
+
+                    <span
+                        class="action student-action"
+                    >
+
+                        Continue as Student
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                        ></i>
+
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- =============================================
+                 TEACHER
+            ============================================== -->
+
+            <a
+                href="teacher/pages/login.html"
+                class="choice-card teacher-card"
+            >
+
+                <div class="choice-icon teacher-icon">
+
+                    <i
+                        class="fa-solid fa-chalkboard-user"
+                    ></i>
+
+                </div>
+
+
+                <div class="choice-content">
+
+                    <h2>
+                        Teacher
+                    </h2>
+
+
+                    <p>
+
+                        Sign in to create, manage and
+                        publish examinations.
+
+                    </p>
+
+
+                    <span
+                        class="action teacher-action"
+                    >
+
+                        Continue as Teacher
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                        ></i>
+
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- =============================================
+                 ORGANIZATION
+            ============================================== -->
+
+            <a
+                href="organization/pages/login.html"
+                class="choice-card organization-card"
+            >
+
+                <div
+                    class="choice-icon organization-icon"
+                >
+
+                    <i
+                        class="fa-solid fa-building"
+                    ></i>
+
+                </div>
+
+
+                <div class="choice-content">
+
+                    <h2>
+                        Organization
+                    </h2>
+
+
+                    <p>
+
+                        Manage your organization,
+                        teachers, students and examinations.
+
+                    </p>
+
+
+                    <span
+                        class="action organization-action"
+                    >
+
+                        Continue as Organization
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                        ></i>
+
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- =============================================
+                 OWNER
+            ============================================== -->
+
+            <a
+                href="owner/pages/login.html"
+                class="choice-card owner-card"
+            >
+
+                <div class="choice-icon owner-icon">
+
+                    <i
+                        class="fa-solid fa-user-shield"
+                    ></i>
+
+                </div>
+
+
+                <div class="choice-content">
+
+                   <h2>
+    Admin
+</h2>
+
+<p>
+    Sign in to manage the
+    Gracextol platform.
+</p>
+
+<span class="action owner-action">
+    Continue as Admin
+    <i class="fa-solid fa-arrow-right"></i>
+</span>
+
+                </div>
+
+            </a>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        © 2026 Gracextol CBT.
+        All rights reserved.
+
+    </footer>
+
+
+</div>
 
 
 </body>

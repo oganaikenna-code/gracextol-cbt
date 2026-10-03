@@ -5,20 +5,26 @@
 
 (async function () {
 
-    console.log("Checking teacher authentication...");
+    console.log(
+        "Checking teacher authentication..."
+    );
 
 
     /* =========================================
        CHECK SUPABASE
     ========================================= */
 
-    if (typeof supabaseClient === "undefined") {
+    if (
+        typeof supabaseClient ===
+        "undefined"
+    ) {
 
         console.error(
             "Supabase client is not available."
         );
 
-        window.location.href = "login.html";
+        window.location.href =
+            "login.html";
 
         return;
 
@@ -43,7 +49,8 @@
             sessionError
         );
 
-        window.location.href = "login.html";
+        window.location.href =
+            "login.html";
 
         return;
 
@@ -87,7 +94,15 @@
         await supabaseClient
             .from("users")
             .select(
-                "id, auth_id, username, email, teacher"
+                `
+                id,
+                auth_id,
+                username,
+                email,
+                teacher,
+                role,
+                is_active
+                `
             )
             .eq(
                 "auth_id",
@@ -146,7 +161,8 @@
     ========================================= */
 
     if (
-        profile.teacher !== "teacher"
+        profile.teacher !==
+        "teacher"
     ) {
 
         console.warn(
@@ -155,6 +171,32 @@
 
         alert(
             "You do not have permission to access the teacher portal."
+        );
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    /* =========================================
+       CHECK ACCOUNT STATUS
+    ========================================= */
+
+    if (
+        profile.is_active !== true
+    ) {
+
+        console.warn(
+            "Teacher account is inactive."
+        );
+
+        alert(
+            "Your Gracextol account has been deactivated. Please contact the platform administrator."
         );
 
         await supabaseClient.auth.signOut();
@@ -183,7 +225,14 @@
             profile.username,
 
         email:
-            profile.email
+            profile.email,
+
+        role:
+            profile.role ||
+            "teacher",
+
+        isActive:
+            profile.is_active === true
 
     };
 
