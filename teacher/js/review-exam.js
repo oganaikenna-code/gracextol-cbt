@@ -6,6 +6,8 @@
 
 document.addEventListener("DOMContentLoaded", async function () {
 
+    if (!(await window.teacherAccessReady)) return;
+
     /* =====================================================
        ELEMENTS
     ===================================================== */

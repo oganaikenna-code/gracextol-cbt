@@ -1392,7 +1392,9 @@ if (retryBtn) {
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    async () => {
+
+        if (!(await window.teacherAccessReady)) return;
 
         loadExaminations();
 

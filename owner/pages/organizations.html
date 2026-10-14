@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -10,17 +9,10 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        Organizations | Gracextol CBT
-    </title>
-
+    <title>Organizations | Gracextol CBT</title>
 
     <!-- GOOGLE FONT -->
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
         rel="preconnect"
@@ -33,182 +25,68 @@
         rel="stylesheet"
     >
 
-
     <!-- FONT AWESOME -->
-
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-
     <!-- OWNER CSS -->
-
     <link
         rel="stylesheet"
         href="../css/owner.css"
     >
 
-
     <!-- ORGANIZATIONS CSS -->
-
     <link
         rel="stylesheet"
         href="../css/organizations.css"
     >
-
 </head>
-
 
 <body>
 
-
     <main class="organizations-page">
 
-
-        <!-- =================================================
-             HEADER
-        ================================================== -->
-
+        <!-- HEADER -->
         <header class="organizations-header">
 
             <div class="organizations-header-left">
 
                 <div class="organizations-header-logo">
-
                     <img
                         src="../../assets/images/graextolcbt-logo.png"
                         alt="Gracextol CBT"
                     >
-
                 </div>
 
-
                 <div>
-
-                    <h1>
-                        Organizations
-                    </h1>
+                    <h1>Organizations</h1>
 
                     <p>
-                        Review, approve and manage organizations on Gracextol CBT.
+                        Review, approve and manage organizations on
+                        Gracextol CBT.
                     </p>
-
                 </div>
 
             </div>
 
         </header>
 
-
-
-        <!-- =================================================
-             MANUAL OWNER CREATION
-        ================================================== -->
-
-        <section class="create-organization-card">
-
-
-            <div class="section-title">
-
-                <h2>
-                    Create Organization Manually
-                </h2>
-
-                <p>
-                    Use this for organizations you onboard directly.
-                    Self-registered organizations appear below as pending.
-                </p>
-
-            </div>
-
-
-            <form
-                id="organizationForm"
-                class="organization-form"
-            >
-
-
-                <div class="form-group">
-
-                    <label for="organizationName">
-                        Organization Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="organizationName"
-                        placeholder="e.g. Gracextol International School"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="organizationSlug">
-                        Slug
-                    </label>
-
-                    <input
-                        type="text"
-                        id="organizationSlug"
-                        placeholder="e.g. gracextol-international-school"
-                    >
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    id="createOrganizationButton"
-                    class="create-btn"
-                >
-
-                    <i class="fa-solid fa-plus"></i>
-
-                    Create Organization
-
-                </button>
-
-
-            </form>
-
-
-            <div
-                id="organizationMessage"
-                class="organization-message"
-            ></div>
-
-
-        </section>
-
-
-
-        <!-- =================================================
-             ORGANIZATION MANAGEMENT
-        ================================================== -->
-
+        <!-- ORGANIZATION MANAGEMENT -->
         <section class="organizations-list-card">
 
-
-            <!-- TOP -->
-
+            <!-- SECTION HEADER -->
             <div class="organizations-list-top">
 
                 <div>
-
-                    <h2>
-                        Organization Management
-                    </h2>
+                    <h2>Organization Management</h2>
 
                     <p class="list-description">
-                        Review organizations and manage their access.
+                        Review organization registrations, view their
+                        administrators and teachers, and manage access.
                     </p>
-
                 </div>
-
 
                 <span
                     id="organizationCount"
@@ -219,12 +97,8 @@
 
             </div>
 
-
-
             <!-- STATUS FILTERS -->
-
             <div class="organization-filters">
-
 
                 <button
                     type="button"
@@ -234,7 +108,6 @@
                     All
                 </button>
 
-
                 <button
                     type="button"
                     class="organization-filter"
@@ -242,7 +115,6 @@
                 >
                     Pending
                 </button>
-
 
                 <button
                     type="button"
@@ -252,7 +124,6 @@
                     Active
                 </button>
 
-
                 <button
                     type="button"
                     class="organization-filter"
@@ -260,7 +131,6 @@
                 >
                     Inactive
                 </button>
-
 
                 <button
                     type="button"
@@ -270,49 +140,32 @@
                     Rejected
                 </button>
 
-
             </div>
 
-
-
-            <!-- TABLE -->
-
+            <!-- ORGANIZATIONS TABLE -->
             <div class="table-wrapper">
 
                 <table class="organizations-table">
 
                     <thead>
-
                         <tr>
-
-                            <th>
-                                Organization
-                            </th>
-
-                            <th>
-                                Administrator
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                            <th>
-                                Created
-                            </th>
-
-                            <th>
-                                Action
-                            </th>
-
+                            <th>Organization</th>
+                            <th>Administrator</th>
+                            <th>Teachers</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Action</th>
                         </tr>
-
                     </thead>
 
-
-                    <tbody
-                        id="organizationsTableBody"
-                    ></tbody>
+                    <tbody id="organizationsTableBody">
+                        <tr>
+                            <td colspan="6">
+                                <i class="fa-solid fa-spinner fa-spin"></i>
+                                Loading organizations...
+                            </td>
+                        </tr>
+                    </tbody>
 
                 </table>
 
@@ -320,29 +173,15 @@
 
         </section>
 
-
     </main>
 
-
-
     <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-    ></script>
+    <script src="../../assets/js/supabase-client.js"></script>
 
-
-    <script
-        src="../../assets/js/supabase-client.js"
-    ></script>
-
-
-    <!-- ORGANIZATION JS -->
-
-    <script
-        src="../js/organizations.js"
-    ></script>
-
+    <!-- ORGANIZATIONS JAVASCRIPT -->
+    <script src="../js/organizations.js"></script>
 
 </body>
 

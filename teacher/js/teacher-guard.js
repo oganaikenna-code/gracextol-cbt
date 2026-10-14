@@ -3,7 +3,7 @@
    TEACHER ACCESS GUARD
 ========================================= */
 
-(async function () {
+window.teacherAccessReady = (async function () {
 
     console.log(
         "Checking teacher authentication..."
@@ -99,9 +99,9 @@
                 auth_id,
                 username,
                 email,
-                teacher,
                 role,
-                is_active
+                is_active,
+                organization_id
                 `
             )
             .eq(
@@ -160,10 +160,7 @@
        CHECK TEACHER ROLE
     ========================================= */
 
-    if (
-        profile.teacher !==
-        "teacher"
-    ) {
+    if (profile.role !== "teacher") {
 
         console.warn(
             "User is not a teacher."
@@ -210,6 +207,149 @@
 
 
     /* =========================================
+       CHECK ORGANIZATION STATUS
+    ========================================= */
+
+    if (profile.organization_id) {
+
+        const {
+            data: organization,
+            error: organizationError
+        } = await supabaseClient
+            .from("organizations")
+            .select("id, status")
+            .eq("id", profile.organization_id)
+            .maybeSingle();
+
+        if (
+            organizationError ||
+            !organization ||
+            organization.status !== "active"
+        ) {
+
+            console.warn(
+                "Teacher organization is inactive or could not be verified:",
+                organizationError
+            );
+
+            alert(
+                "Your organization is inactive or could not be verified. Please contact your Organization Admin."
+            );
+
+            await supabaseClient.auth.signOut();
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+    }
+
+
+    /* =========================================
+       CHECK SUBSCRIPTION ACCESS
+    ========================================= */
+
+    const {
+        data: subscriptionAccess,
+        error: subscriptionError
+    } = window.teacherGuardSkipSubscriptionCheck === true
+        ? {
+            data: {
+                has_access: true,
+                skipped: true
+            },
+            error: null
+        }
+        : await supabaseClient.rpc(
+            "get_my_subscription_access"
+        );
+
+
+    /* =========================================
+       SUBSCRIPTION CHECK ERROR
+    ========================================= */
+
+    if (subscriptionError) {
+
+        console.error(
+            "Subscription access check failed:",
+            subscriptionError
+        );
+
+        alert(
+            "Unable to verify your subscription. Please try again."
+        );
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    /* =========================================
+       SUBSCRIPTION ACCESS DENIED
+    ========================================= */
+
+    if (
+        !subscriptionAccess ||
+        subscriptionAccess.has_access !== true
+    ) {
+
+        console.warn(
+            "Teacher subscription access denied:",
+            subscriptionAccess
+        );
+
+
+        /* =========================================
+           ORGANIZATION TEACHER
+           Organization subscription is controlled
+           by the Organization Admin.
+        ========================================= */
+
+        if (
+            profile.organization_id
+        ) {
+
+            alert(
+                "Your organization's Gracextol subscription has expired or is inactive. Please contact your Organization Admin."
+            );
+
+            await supabaseClient.auth.signOut();
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        /* =========================================
+           INDEPENDENT TEACHER
+           Send teacher to payment page.
+        ========================================= */
+
+        alert(
+            "Your Gracextol subscription has expired. Please renew your subscription to continue."
+        );
+
+        window.location.href =
+            "payment.html";
+
+        return;
+
+    }
+
+
+    /* =========================================
        TEACHER VERIFIED
     ========================================= */
 
@@ -232,7 +372,13 @@
             "teacher",
 
         isActive:
-            profile.is_active === true
+            profile.is_active === true,
+
+        organizationId:
+            profile.organization_id || null,
+
+        subscription:
+            subscriptionAccess
 
     };
 
@@ -242,5 +388,65 @@
         profile.username
     );
 
+    console.log(
+        "Subscription access:",
+        subscriptionAccess
+    );
 
-})();
+
+    if (profile.organization_id) {
+        let organizationCheckInProgress = false;
+
+        const recheckOrganizationStatus = async () => {
+            if (organizationCheckInProgress) return;
+
+            organizationCheckInProgress = true;
+
+            try {
+                const {
+                    data: organization,
+                    error
+                } = await supabaseClient
+                    .from("organizations")
+                    .select("id, status")
+                    .eq("id", profile.organization_id)
+                    .maybeSingle();
+
+                if (error || !organization || organization.status !== "active") {
+                    console.warn(
+                        "Organization access was revoked:",
+                        error
+                    );
+
+                    await supabaseClient.auth.signOut();
+                    window.location.href = "login.html";
+                }
+            } catch (error) {
+                console.error(
+                    "Unable to recheck organization access:",
+                    error
+                );
+
+                await supabaseClient.auth.signOut();
+                window.location.href = "login.html";
+            } finally {
+                organizationCheckInProgress = false;
+            }
+        };
+
+        window.addEventListener("focus", recheckOrganizationStatus);
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "visible") {
+                recheckOrganizationStatus();
+            }
+        });
+        window.setInterval(recheckOrganizationStatus, 60000);
+    }
+
+    return true;
+
+})().then(allowed => allowed === true).catch(error => {
+    console.error("Teacher access verification failed:", error);
+    window.location.href = "login.html";
+    return false;
+});

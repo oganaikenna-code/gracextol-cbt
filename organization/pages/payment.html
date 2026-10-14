@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Organization Payment | Gracextol CBT
+    </title>
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+
+        .spinner {
+            width: 38px;
+            height: 38px;
+            border: 4px solid #ede9fe;
+            border-top-color: #7c3aed;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            margin-bottom: 14px;
+        }
+
+
+        .page-loader p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        .hidden {
+            display: none !important;
+        }
+
+
+        .page {
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+
+        .brand h1 {
+            font-size: 19px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+
+        .brand span {
+            display: block;
+            font-size: 10px;
+            color: #7c3aed;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-top: 2px;
+        }
+
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 9px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+
+        .back-btn:hover {
+            border-color: #c4b5fd;
+            color: #7c3aed;
+        }
+
+
+        .payment-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow:
+                0 10px 30px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    .05
+                );
+        }
+
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+
+        .eyebrow {
+            font-size: 11px;
+            color: #7c3aed;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 7px;
+        }
+
+
+        .page-heading h2 {
+            font-size: 25px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 7px;
+        }
+
+
+        .page-heading p {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+
+        .plan-summary {
+            background: #f8f5ff;
+            border: 1px solid #ddd6fe;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+
+        .plan-summary-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+
+        .plan-summary-header h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+
+        .plan-status {
+            padding: 7px 11px;
+            border-radius: 999px;
+            background: #ede9fe;
+            color: #7c3aed;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+
+        .plan-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+
+        .plan-detail {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 13px;
+        }
+
+
+        .plan-detail span {
+            display: block;
+            font-size: 10px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+
+        .plan-detail strong {
+            font-size: 14px;
+            color: #111827;
+        }
+
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+
+        .bank-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 13px;
+            overflow: hidden;
+        }
+
+
+        .bank-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+
+        .bank-row:last-child {
+            border-bottom: 0;
+        }
+
+
+        .bank-row span {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+
+        .bank-row strong {
+            font-size: 13px;
+            color: #111827;
+            text-align: right;
+        }
+
+
+        .notice {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            border-radius: 11px;
+            padding: 14px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 7px;
+        }
+
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .form-group input:focus {
+            border-color: #7c3aed;
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    124,
+                    58,
+                    237,
+                    .10
+                );
+        }
+
+
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+
+
+        .submit-btn {
+            width: 100%;
+            border: 0;
+            border-radius: 10px;
+            padding: 13px;
+            background: #7c3aed;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background .2s ease;
+        }
+
+
+        .submit-btn:hover {
+            background: #6d28d9;
+        }
+
+
+        .submit-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+
+        .message {
+            margin-top: 15px;
+            padding: 13px;
+            border-radius: 9px;
+            font-size: 12px;
+            line-height: 1.6;
+            display: none;
+        }
+
+
+        .message.success {
+            display: block;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+
+
+        .message.error {
+            display: block;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+
+        .pending-box {
+            display: none;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+            border-radius: 11px;
+            padding: 15px;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+
+        .pending-box.show {
+            display: block;
+        }
+
+
+        .success-panel {
+            display: none;
+            text-align: center;
+            padding: 25px 10px;
+        }
+
+
+        .success-panel.show {
+            display: block;
+        }
+
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+
+        .success-panel h3 {
+            font-size: 19px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+
+        .success-panel p {
+            max-width: 520px;
+            margin: 0 auto;
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        .dashboard-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            padding: 11px 16px;
+            border-radius: 9px;
+            background: #7c3aed;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        @media (max-width: 650px) {
+
+            .page {
+                padding: 18px 12px;
+            }
+
+
+            .payment-card {
+                padding: 20px;
+            }
+
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+
+            .plan-details {
+                grid-template-columns: 1fr;
+            }
+
+
+            .bank-row {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+
+            .bank-row strong {
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PAGE LOADER
+    ====================================================== -->
+
+    <div
+        id="pageLoader"
+        class="page-loader"
+    >
+
+        <div class="spinner"></div>
+
+        <p>
+            Loading payment information...
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         PAGE
+    ====================================================== -->
+
+    <div
+        id="page"
+        class="page hidden"
+    >
+
+        <div class="container">
+
+
+            <!-- TOPBAR -->
+
+            <div class="topbar">
+
+                <div class="brand">
+
+                    <img
+                        src="../../assets/images/graextolcbt-logo.png"
+                        alt="Gracextol CBT"
+                    >
+
+                    <div>
+
+                        <h1>
+                            Gracextol
+                        </h1>
+
+                        <span>
+                            Organization Portal
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="dashboard.html"
+                    class="back-btn"
+                >
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back to Dashboard
+
+                </a>
+
+            </div>
+
+
+            <!-- PAYMENT CARD -->
+
+            <div class="payment-card">
+
+
+                <div class="page-heading">
+
+                    <p class="eyebrow">
+                        Organization Subscription
+                    </p>
+
+                    <h2 id="pageTitle">
+                        Subscribe to Gracextol
+                    </h2>
+
+                    <p id="pageDescription">
+                        Complete your payment by bank transfer and submit
+                        the transaction reference for verification.
+                    </p>
+
+                </div>
+
+
+                <!-- PLAN SUMMARY -->
+
+                <div class="plan-summary">
+
+                    <div class="plan-summary-header">
+
+                        <h3>
+                            Organization Plan
+                        </h3>
+
+                        <div
+                            id="planStatus"
+                            class="plan-status"
+                        >
+                            Free Trial
+                        </div>
+
+                    </div>
+
+
+                    <div class="plan-details">
+
+
+                        <div class="plan-detail">
+
+                            <span>
+                                Plan
+                            </span>
+
+                            <strong id="planName">
+                                Organization
+                            </strong>
+
+                        </div>
+
+
+                        <div class="plan-detail">
+
+                            <span>
+                                Amount
+                            </span>
+
+                            <strong id="planPrice">
+                                ₦10,000
+                            </strong>
+
+                        </div>
+
+
+                        <div class="plan-detail">
+
+                            <span>
+                                Duration
+                            </span>
+
+                            <strong id="planDuration">
+                                30 days
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- PENDING PAYMENT -->
+
+                <div
+                    id="pendingBox"
+                    class="pending-box"
+                >
+
+                    <strong>
+                        Payment already submitted.
+                    </strong>
+
+                    <br>
+
+                    Your payment is currently awaiting Owner
+                    verification. Please do not submit another
+                    payment reference for this subscription.
+
+                </div>
+
+
+                <!-- PAYMENT CONTENT -->
+
+                <div id="paymentContent">
+
+
+                    <!-- BANK DETAILS -->
+
+                    <div class="section">
+
+                        <h3 class="section-title">
+                            Bank Transfer Details
+                        </h3>
+
+
+                        <div class="bank-box">
+
+
+                            <div class="bank-row">
+
+                                <span>
+                                    Bank Name
+                                </span>
+
+                                <strong>
+                                    FIRST BANK OF NIGERIA
+                                </strong>
+
+                            </div>
+
+
+                            <div class="bank-row">
+
+                                <span>
+                                    Account Name
+                                </span>
+
+                                <strong>
+                                    OGANA IKENNA GODSPOWER
+                                </strong>
+
+                            </div>
+
+
+                            <div class="bank-row">
+
+                                <span>
+                                    Account Number
+                                </span>
+
+                                <strong>
+                                    3036182928
+                                </strong>
+
+                            </div>
+
+
+                            <div class="bank-row">
+
+                                <span>
+                                    Amount
+                                </span>
+
+                                <strong id="bankAmount">
+                                    ₦10,000
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NOTICE -->
+
+                    <div class="section">
+
+                        <div class="notice">
+
+                            <strong>
+                                Important:
+                            </strong>
+
+                            Transfer exactly the subscription amount
+                            shown above, then enter the transaction
+                            reference supplied by your bank.
+
+                            Your subscription will only become active
+                            after the Owner verifies the payment.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PAYMENT FORM -->
+
+                    <div class="section">
+
+                        <h3 class="section-title">
+                            Submit Payment Reference
+                        </h3>
+
+
+                        <form id="paymentForm">
+
+
+                            <div class="form-group">
+
+                                <label for="paymentReference">
+                                    Bank Transaction Reference
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="paymentReference"
+                                    name="paymentReference"
+                                    placeholder="Enter your bank transaction reference"
+                                    autocomplete="off"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <button
+                                id="submitBtn"
+                                class="submit-btn"
+                                type="submit"
+                            >
+
+                                <i class="fa-solid fa-paper-plane"></i>
+
+                                &nbsp;
+
+                                Submit Payment
+
+                            </button>
+
+
+                            <div
+                                id="message"
+                                class="message"
+                            ></div>
+
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- SUCCESS -->
+
+                <div
+                    id="successPanel"
+                    class="success-panel"
+                >
+
+                    <div class="success-icon">
+
+                        <i class="fa-solid fa-check"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Payment Submitted Successfully
+                    </h3>
+
+
+                    <p>
+
+                        Your payment reference has been submitted
+                        successfully and is now awaiting Owner
+                        verification.
+
+                        You will receive access once the payment
+                        has been confirmed.
+
+                    </p>
+
+
+                    <a
+                        href="dashboard.html"
+                        class="dashboard-btn"
+                    >
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Return to Dashboard
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <script>
+
+
+        /* =====================================================
+           ELEMENTS
+        ====================================================== */
+
+        const pageLoader =
+            document.getElementById(
+                "pageLoader"
+            );
+
+
+        const page =
+            document.getElementById(
+                "page"
+            );
+
+
+        const pageTitle =
+            document.getElementById(
+                "pageTitle"
+            );
+
+
+        const pageDescription =
+            document.getElementById(
+                "pageDescription"
+            );
+
+
+        const planStatus =
+            document.getElementById(
+                "planStatus"
+            );
+
+
+        const planName =
+            document.getElementById(
+                "planName"
+            );
+
+
+        const planPrice =
+            document.getElementById(
+                "planPrice"
+            );
+
+
+        const planDuration =
+            document.getElementById(
+                "planDuration"
+            );
+
+
+        const bankAmount =
+            document.getElementById(
+                "bankAmount"
+            );
+
+
+        const paymentForm =
+            document.getElementById(
+                "paymentForm"
+            );
+
+
+        const paymentReference =
+            document.getElementById(
+                "paymentReference"
+            );
+
+
+        const submitBtn =
+            document.getElementById(
+                "submitBtn"
+            );
+
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        const pendingBox =
+            document.getElementById(
+                "pendingBox"
+            );
+
+
+        const paymentContent =
+            document.getElementById(
+                "paymentContent"
+            );
+
+
+        const successPanel =
+            document.getElementById(
+                "successPanel"
+            );
+
+
+        /* =====================================================
+           STATE
+        ====================================================== */
+
+        let currentUser = null;
+
+        let currentProfile = null;
+
+        let currentSubscription = null;
+
+        let currentPlan = null;
+
+
+        /* =====================================================
+           LOAD PAYMENT PAGE
+        ====================================================== */
+
+        async function loadPaymentPage() {
+
+            try {
+
+
+                if (
+                    typeof supabaseClient ===
+                    "undefined"
+                ) {
+
+                    throw new Error(
+                        "Supabase client is not available."
+                    );
+
+                }
+
+
+                /* ---------------------------------------------
+                   AUTHENTICATED USER
+                --------------------------------------------- */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error: authError
+                } =
+                    await supabaseClient
+                        .auth
+                        .getUser();
+
+
+                if (authError) {
+
+                    throw authError;
+
+                }
+
+
+                if (!user) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                currentUser = user;
+
+
+                /* ---------------------------------------------
+                   ADMIN PROFILE
+                --------------------------------------------- */
+
+                const {
+                    data: profile,
+                    error: profileError
+                } =
+                    await supabaseClient
+                        .from("users")
+                        .select(`
+                            id,
+                            auth_id,
+                            username,
+                            email,
+                            role,
+                            is_active,
+                            organization_id
+                        `)
+                        .eq(
+                            "auth_id",
+                            user.id
+                        )
+                        .maybeSingle();
+
+
+                if (profileError) {
+
+                    throw profileError;
+
+                }
+
+
+                if (!profile) {
+
+                    throw new Error(
+                        "Your organization admin profile could not be found."
+                    );
+
+                }
+
+
+                if (
+                    profile.role !==
+                    "organization_admin"
+                ) {
+
+                    throw new Error(
+                        "You do not have permission to access organization payments."
+                    );
+
+                }
+
+
+                if (
+                    profile.is_active !== true
+                ) {
+
+                    throw new Error(
+                        "Your organization admin account is inactive."
+                    );
+
+                }
+
+
+                if (
+                    !profile.organization_id
+                ) {
+
+                    throw new Error(
+                        "Your organization is not linked to your account."
+                    );
+
+                }
+
+
+                currentProfile =
+                    profile;
+
+
+                /* ---------------------------------------------
+                   ORGANIZATION SUBSCRIPTION
+                --------------------------------------------- */
+
+                const {
+                    data: subscription,
+                    error: subscriptionError
+                } =
+                    await supabaseClient
+                        .from("subscriptions")
+                        .select(`
+                            id,
+                            organization_id,
+                            plan_id,
+                            status,
+                            trial_start_date,
+                            trial_end_date,
+                            start_date,
+                            end_date,
+                            grace_period_start_date,
+                            grace_period_end_date,
+                            created_at
+                        `)
+                        .eq(
+                            "organization_id",
+                            profile.organization_id
+                        )
+                        .in(
+                            "status",
+                            [
+                                "trial",
+                                "active",
+                                "grace_period",
+                                "expired"
+                            ]
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        )
+                        .limit(1)
+                        .maybeSingle();
+
+
+                if (subscriptionError) {
+
+                    throw subscriptionError;
+
+                }
+
+
+                if (!subscription) {
+
+                    throw new Error(
+                        "No organization subscription was found."
+                    );
+
+                }
+
+
+                currentSubscription =
+                    subscription;
+
+
+                /* ---------------------------------------------
+                   PLAN
+                --------------------------------------------- */
+
+                const {
+                    data: plan,
+                    error: planError
+                } =
+                    await supabaseClient
+                        .from("plans")
+                        .select(`
+                            id,
+                            name,
+                            plan_type,
+                            price,
+                            currency,
+                            duration_days,
+                            trial_days,
+                            grace_period_days
+                        `)
+                        .eq(
+                            "id",
+                            subscription.plan_id
+                        )
+                        .maybeSingle();
+
+
+                if (planError) {
+
+                    throw planError;
+
+                }
+
+
+                if (!plan) {
+
+                    throw new Error(
+                        "Organization subscription plan could not be found."
+                    );
+
+                }
+
+
+                if (
+                    plan.plan_type !==
+                    "organization"
+                ) {
+
+                    throw new Error(
+                        "The selected subscription is not an organization plan."
+                    );
+
+                }
+
+
+                currentPlan =
+                    plan;
+
+
+                /* ---------------------------------------------
+                   RENDER PLAN
+                --------------------------------------------- */
+
+                renderPlan();
+
+
+                /* ---------------------------------------------
+                   CHECK EXISTING PAYMENT
+                --------------------------------------------- */
+
+                await checkPendingPayment();
+
+
+                /* ---------------------------------------------
+                   SHOW PAGE
+                --------------------------------------------- */
+
+                pageLoader.classList.add(
+                    "hidden"
+                );
+
+
+                page.classList.remove(
+                    "hidden"
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Payment page error:",
+                    error
+                );
+
+
+                pageLoader.innerHTML = `
+
+                    <div
+                        style="
+                            text-align:center;
+                            padding:30px;
+                            max-width:500px;
+                        "
+                    >
+
+                        <h3
+                            style="
+                                color:#dc2626;
+                                margin-bottom:10px;
+                            "
+                        >
+                            Unable to load payment page
+                        </h3>
+
+
+                        <p
+                            style="
+                                color:#64748b;
+                                font-size:13px;
+                                line-height:1.6;
+                            "
+                        >
+                            ${escapeHtml(
+                                error.message ||
+                                "An unexpected error occurred."
+                            )}
+                        </p>
+
+
+                        <a
+                            href="dashboard.html"
+                            style="
+                                display:inline-block;
+                                margin-top:18px;
+                                padding:10px 18px;
+                                border-radius:8px;
+                                background:#7c3aed;
+                                color:white;
+                                text-decoration:none;
+                                font-size:12px;
+                                font-weight:700;
+                            "
+                        >
+                            Return to Dashboard
+                        </a>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RENDER PLAN
+        ====================================================== */
+
+        function renderPlan() {
+
+
+            const amount =
+                Number(
+                    currentPlan.price || 0
+                );
+
+
+            const formattedAmount =
+                formatCurrency(
+                    amount
+                );
+
+
+            planName.textContent =
+                currentPlan.name ||
+                "Organization";
+
+
+            planPrice.textContent =
+                formattedAmount;
+
+
+            bankAmount.textContent =
+                formattedAmount;
+
+
+            planDuration.textContent =
+                `${currentPlan.duration_days || 30} days`;
+
+
+            /* ---------------------------------------------
+               TRIAL
+            --------------------------------------------- */
+
+            if (
+                currentSubscription.status ===
+                "trial"
+            ) {
+
+                pageTitle.textContent =
+                    "Subscribe to Gracextol";
+
+
+                pageDescription.textContent =
+                    "Your free trial is active. Complete your payment to continue your organization's access after the trial period.";
+
+
+                planStatus.textContent =
+                    "Free Trial";
+
+
+                planStatus.style.background =
+                    "#ede9fe";
+
+
+                planStatus.style.color =
+                    "#7c3aed";
+
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               GRACE PERIOD
+            --------------------------------------------- */
+
+            if (
+                currentSubscription.status ===
+                "grace_period"
+            ) {
+
+                pageTitle.textContent =
+                    "Renew Organization Subscription";
+
+
+                pageDescription.textContent =
+                    "Your organization is currently in its grace period. Renew now to maintain uninterrupted access.";
+
+
+                planStatus.textContent =
+                    "Grace Period";
+
+
+                planStatus.style.background =
+                    "#fef3c7";
+
+
+                planStatus.style.color =
+                    "#b45309";
+
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               EXPIRED
+            --------------------------------------------- */
+
+            if (
+                currentSubscription.status ===
+                "expired"
+            ) {
+
+                pageTitle.textContent =
+                    "Renew Organization Subscription";
+
+
+                pageDescription.textContent =
+                    "Your organization subscription has expired. Complete payment to restore access.";
+
+
+                planStatus.textContent =
+                    "Expired";
+
+
+                planStatus.style.background =
+                    "#fee2e2";
+
+
+                planStatus.style.color =
+                    "#dc2626";
+
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               ACTIVE
+            --------------------------------------------- */
+
+            if (
+                currentSubscription.status ===
+                "active"
+            ) {
+
+                pageTitle.textContent =
+                    "Organization Subscription";
+
+
+                pageDescription.textContent =
+                    "Your organization subscription is currently active.";
+
+
+                planStatus.textContent =
+                    "Active";
+
+
+                planStatus.style.background =
+                    "#dcfce7";
+
+
+                planStatus.style.color =
+                    "#15803d";
+
+
+                paymentContent.innerHTML = `
+
+                    <div
+                        class="notice"
+                        style="
+                            background:#f0fdf4;
+                            border-color:#bbf7d0;
+                            color:#166534;
+                        "
+                    >
+
+                        <strong>
+                            Subscription Active
+                        </strong>
+
+                        <br>
+
+                        Your organization's subscription is already
+                        active. No payment is required at this time.
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CHECK PENDING PAYMENT
+        ====================================================== */
+
+        async function checkPendingPayment() {
+
+
+            const {
+                data: pendingPayment,
+                error
+            } =
+                await supabaseClient
+                    .from("payments")
+                    .select(`
+                        id,
+                        payment_reference,
+                        amount,
+                        status,
+                        created_at
+                    `)
+                    .eq(
+                        "organization_id",
+                        currentProfile.organization_id
+                    )
+                    .eq(
+                        "subscription_id",
+                        currentSubscription.id
+                    )
+                    .eq(
+                        "status",
+                        "pending"
+                    )
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    )
+                    .limit(1)
+                    .maybeSingle();
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            if (pendingPayment) {
+
+                pendingBox.classList.add(
+                    "show"
+                );
+
+
+                paymentForm.style.display =
+                    "none";
+
+
+                const reference =
+                    pendingPayment.payment_reference;
+
+
+                pendingBox.innerHTML = `
+
+                    <strong>
+                        Payment already submitted.
+                    </strong>
+
+                    <br>
+
+                    Reference:
+                    <strong>
+                        ${escapeHtml(reference)}
+                    </strong>
+
+                    <br>
+
+                    Your payment is currently awaiting
+                    Owner verification. Please do not submit
+                    another payment reference for this
+                    subscription.
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SUBMIT PAYMENT
+        ====================================================== */
+
+        paymentForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                clearMessage();
+
+
+                const reference =
+                    paymentReference.value
+                        .trim();
+
+
+                if (!reference) {
+
+                    showMessage(
+                        "Please enter your bank transaction reference.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (reference.length < 3) {
+
+                    showMessage(
+                        "Please enter a valid transaction reference.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    !currentProfile ||
+                    !currentSubscription ||
+                    !currentPlan
+                ) {
+
+                    showMessage(
+                        "Payment information is not ready. Please refresh the page.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                submitBtn.disabled =
+                    true;
+
+
+                submitBtn.innerHTML = `
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    &nbsp;
+
+                    Submitting...
+
+                `;
+
+
+                try {
+
+
+                    /* -----------------------------------------
+                       CHECK DUPLICATE REFERENCE
+                    ----------------------------------------- */
+
+                    const {
+                        data: duplicate,
+                        error: duplicateError
+                    } =
+                        await supabaseClient
+                            .from("payments")
+                            .select("id")
+                            .eq(
+                                "payment_reference",
+                                reference
+                            )
+                            .maybeSingle();
+
+
+                    if (duplicateError) {
+
+                        throw duplicateError;
+
+                    }
+
+
+                    if (duplicate) {
+
+                        throw new Error(
+                            "This payment reference has already been submitted."
+                        );
+
+                    }
+
+
+                    /* -----------------------------------------
+                       INSERT PAYMENT
+                    ----------------------------------------- */
+
+                    const {
+                        error: insertError
+                    } =
+                        await supabaseClient
+                            .from("payments")
+                            .insert({
+                                organization_id:
+                                    currentProfile.organization_id,
+
+                                user_id:
+                                    null,
+
+                                subscription_id:
+                                    currentSubscription.id,
+
+                                plan_id:
+                                    currentPlan.id,
+
+                                amount:
+                                    Number(
+                                        currentPlan.price
+                                    ),
+
+                                currency:
+                                    currentPlan.currency ||
+                                    "NGN",
+
+                                payment_method:
+                                    "bank_transfer",
+
+                                payment_reference:
+                                    reference,
+
+                                status:
+                                    "pending"
+                            });
+
+
+                    if (insertError) {
+
+                        throw insertError;
+
+                    }
+
+
+                    /* -----------------------------------------
+                       SUCCESS
+                    ----------------------------------------- */
+
+                    paymentContent.classList.add(
+                        "hidden"
+                    );
+
+
+                    pendingBox.classList.remove(
+                        "show"
+                    );
+
+
+                    successPanel.classList.add(
+                        "show"
+                    );
+
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Payment submission error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        error.message ||
+                        "Unable to submit payment.",
+                        "error"
+                    );
+
+
+                    submitBtn.disabled =
+                        false;
+
+
+                    submitBtn.innerHTML = `
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                        &nbsp;
+
+                        Submit Payment
+
+                    `;
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           FORMAT CURRENCY
+        ====================================================== */
+
+        function formatCurrency(
+            amount
+        ) {
+
+            return new Intl.NumberFormat(
+                "en-NG",
+                {
+                    style: "currency",
+                    currency: "NGN",
+                    maximumFractionDigits: 0
+                }
+            ).format(
+                amount
+            );
+
+        }
+
+
+        /* =====================================================
+           SHOW MESSAGE
+        ====================================================== */
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            message.textContent =
+                text;
+
+            message.className =
+                `message ${type}`;
+
+        }
+
+
+        /* =====================================================
+           CLEAR MESSAGE
+        ====================================================== */
+
+        function clearMessage() {
+
+            message.textContent =
+                "";
+
+            message.className =
+                "message";
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ====================================================== */
+
+        function escapeHtml(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.textContent =
+                value;
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =====================================================
+           START
+        ====================================================== */
+
+        loadPaymentPage();
+
+    </script>
+
+
+</body>
+
+</html>

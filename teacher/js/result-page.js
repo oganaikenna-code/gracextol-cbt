@@ -97,6 +97,8 @@ document.addEventListener(
     "DOMContentLoaded",
     async function () {
 
+        if (!(await window.teacherAccessReady)) return;
+
         console.log(
             "Gracextol Teacher Results Loaded."
         );

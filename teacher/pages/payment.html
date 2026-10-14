@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Subscription Payment | Gracextol CBT</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/teacher.css"
+    >
+
+    <style>
+
+        .payment-page {
+
+            min-height: 100vh;
+
+            padding: 40px;
+
+        }
+
+
+        .payment-container {
+
+            max-width: 900px;
+
+            margin: 0 auto;
+
+        }
+
+
+        .payment-header {
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .payment-header .page-label {
+
+            display: inline-block;
+
+            margin-bottom: 8px;
+
+            color: #7c3aed;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.08em;
+
+        }
+
+
+        .payment-header h1 {
+
+            margin: 0 0 8px;
+
+            font-size: 30px;
+
+            color: #111827;
+
+        }
+
+
+        .payment-header p {
+
+            margin: 0;
+
+            color: #6b7280;
+
+        }
+
+
+        .payment-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 24px;
+
+        }
+
+
+        .payment-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.05);
+
+        }
+
+
+        .payment-card h2 {
+
+            margin: 0 0 18px;
+
+            font-size: 20px;
+
+            color: #111827;
+
+        }
+
+
+        .plan-summary {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 24px;
+
+        }
+
+
+        .plan-icon {
+
+            width: 50px;
+
+            height: 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: #f3e8ff;
+
+            color: #7c3aed;
+
+            font-size: 20px;
+
+        }
+
+
+        .plan-summary h3 {
+
+            margin: 0 0 4px;
+
+            font-size: 18px;
+
+            color: #111827;
+
+        }
+
+
+        .plan-summary p {
+
+            margin: 0;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+        }
+
+
+        .amount-box {
+
+            padding: 18px;
+
+            margin-bottom: 24px;
+
+            border-radius: 14px;
+
+            background: #f9fafb;
+
+        }
+
+
+        .amount-box span {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+        }
+
+
+        .amount-box strong {
+
+            font-size: 28px;
+
+            color: #111827;
+
+        }
+
+
+        .bank-detail {
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #f0f0f0;
+
+        }
+
+
+        .bank-detail:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .bank-detail span {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #6b7280;
+
+            font-size: 12px;
+
+        }
+
+
+        .bank-detail strong {
+
+            color: #111827;
+
+            font-size: 15px;
+
+        }
+
+
+        .notice {
+
+            margin-top: 20px;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            background: #fff7ed;
+
+            color: #9a3412;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 13px 14px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #7c3aed;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(124, 58, 237, 0.1);
+
+        }
+
+
+        .submit-btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #7c3aed;
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .submit-btn:hover {
+
+            background: #6d28d9;
+
+        }
+
+
+        .submit-btn:disabled {
+
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .back-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 24px;
+
+            color: #6b7280;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .back-link:hover {
+
+            color: #7c3aed;
+
+        }
+
+
+        .payment-message {
+
+            display: none;
+
+            margin-top: 16px;
+
+            padding: 13px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+        }
+
+
+        .payment-message.success {
+
+            display: block;
+
+            background: #ecfdf5;
+
+            color: #047857;
+
+        }
+
+
+        .payment-message.error {
+
+            display: block;
+
+            background: #fef2f2;
+
+            color: #b91c1c;
+
+        }
+
+
+        .payment-message.info {
+
+            display: block;
+
+            background: #eff6ff;
+
+            color: #1d4ed8;
+
+        }
+
+
+        .renewal-status {
+
+            display: none;
+
+            margin-bottom: 20px;
+
+            padding: 13px 15px;
+
+            border-radius: 12px;
+
+            background: #f3e8ff;
+
+            color: #6d28d9;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .renewal-status.show {
+
+            display: block;
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .payment-page {
+
+                padding: 20px;
+
+            }
+
+
+            .payment-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="payment-page">
+
+        <div class="payment-container">
+
+            <header class="payment-header">
+
+                <span class="page-label">
+
+                    SUBSCRIPTION PAYMENT
+
+                </span>
+
+
+                <h1 id="paymentPageTitle">
+
+                    Renew your Gracextol subscription
+
+                </h1>
+
+
+                <p id="paymentPageDescription">
+
+                    Make a bank transfer and submit your payment reference
+                    for verification.
+
+                </p>
+
+            </header>
+
+
+            <div
+                id="renewalStatus"
+                class="renewal-status"
+            ></div>
+
+
+            <div class="payment-grid">
+
+
+                <!-- =========================================
+                     BANK TRANSFER DETAILS
+                ========================================== -->
+
+                <section class="payment-card">
+
+                    <h2>
+
+                        Bank Transfer
+
+                    </h2>
+
+
+                    <div class="plan-summary">
+
+                        <div class="plan-icon">
+
+                            <i class="fa-solid fa-crown"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3 id="planName">
+
+                                Individual Teacher
+
+                            </h3>
+
+
+                            <p id="planDescription">
+
+                                Monthly subscription
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="amount-box">
+
+                        <span>
+
+                            Amount to pay
+
+                        </span>
+
+
+                        <strong id="planAmount">
+
+                            ₦2,000
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bank-detail">
+
+                        <span>
+
+                            Bank Name
+
+                        </span>
+
+
+                        <strong>
+
+                            [FIRST BANK OF NIGERIA]
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bank-detail">
+
+                        <span>
+
+                            Account Name
+
+                        </span>
+
+
+                        <strong>
+
+                            [OGANA IKENNA GODSPOWER]
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bank-detail">
+
+                        <span>
+
+                            Account Number
+
+                        </span>
+
+
+                        <strong>
+
+                            [3036182928]
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="notice">
+
+                        <strong>
+
+                            Important:
+
+                        </strong>
+
+                        After making the transfer, enter your
+                        transaction/payment reference in the form
+                        on this page.
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================================
+                     PAYMENT SUBMISSION
+                ========================================== -->
+
+                <section class="payment-card">
+
+                    <h2 id="paymentFormTitle">
+
+                        Submit Payment
+
+                    </h2>
+
+
+                    <form
+                        id="paymentForm"
+                    >
+
+                        <div class="form-group">
+
+                            <label
+                                for="paymentReference"
+                            >
+
+                                Payment Reference
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="paymentReference"
+                                name="paymentReference"
+                                placeholder="Enter your transfer reference"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label
+                                for="paymentNote"
+                            >
+
+                                Note
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="paymentNote"
+                                name="paymentNote"
+                                placeholder="Optional"
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="submit-btn"
+                            id="submitPaymentButton"
+                        >
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                            Submit Payment
+
+                        </button>
+
+
+                        <div
+                            id="paymentMessage"
+                            class="payment-message"
+                        ></div>
+
+                    </form>
+
+
+                    <a
+                        href="teacher.html"
+                        class="back-link"
+                    >
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Back to Dashboard
+
+                    </a>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../../assets/js/supabase-client.js"></script>
+
+
+
+    <script>
+
+    /* =========================================================
+       GRACEXTOL CBT
+       TEACHER PAYMENT / RENEWAL
+    ========================================================= */
+
+
+    const paymentForm =
+        document.getElementById(
+            "paymentForm"
+        );
+
+
+    const paymentMessage =
+        document.getElementById(
+            "paymentMessage"
+        );
+
+
+    const submitPaymentButton =
+        document.getElementById(
+            "submitPaymentButton"
+        );
+
+
+    const renewalStatus =
+        document.getElementById(
+            "renewalStatus"
+        );
+
+
+    const paymentPageTitle =
+        document.getElementById(
+            "paymentPageTitle"
+        );
+
+
+    const paymentPageDescription =
+        document.getElementById(
+            "paymentPageDescription"
+        );
+
+
+    const paymentFormTitle =
+        document.getElementById(
+            "paymentFormTitle"
+        );
+
+
+    const planNameElement =
+        document.getElementById(
+            "planName"
+        );
+
+
+    const planAmountElement =
+        document.getElementById(
+            "planAmount"
+        );
+
+
+    let currentTeacherProfile =
+        null;
+
+
+    let currentSubscription =
+        null;
+
+
+    let currentPlan =
+        null;
+
+
+
+    /* =========================================================
+       SHOW PAYMENT MESSAGE
+    ========================================================= */
+
+    function showPaymentMessage(
+        message,
+        type
+    ) {
+
+        paymentMessage.className =
+            `payment-message ${type}`;
+
+        paymentMessage.textContent =
+            message;
+
+    }
+
+
+
+    /* =========================================================
+       FORMAT CURRENCY
+    ========================================================= */
+
+    function formatCurrency(
+        amount,
+        currency
+    ) {
+
+        return new Intl.NumberFormat(
+            "en-NG",
+            {
+                style: "currency",
+                currency:
+                    currency || "NGN",
+                maximumFractionDigits: 0
+            }
+        ).format(
+            Number(amount) || 0
+        );
+
+    }
+
+
+
+    /* =========================================================
+       SET BUTTON STATE
+    ========================================================= */
+
+    function setSubmitButton(
+        disabled,
+        text,
+        icon
+    ) {
+
+        if (!submitPaymentButton) {
+
+            return;
+
+        }
+
+
+        submitPaymentButton.disabled =
+            disabled;
+
+
+        submitPaymentButton.innerHTML = `
+
+            <i class="fa-solid ${icon}"></i>
+
+            ${text}
+
+        `;
+
+    }
+
+
+
+    /* =========================================================
+       LOAD TEACHER PAYMENT CONTEXT
+    ========================================================= */
+
+    async function loadPaymentContext() {
+
+        try {
+
+            /* =================================================
+               CHECK SUPABASE
+            ================================================= */
+
+            if (
+                typeof supabaseClient ===
+                "undefined"
+            ) {
+
+                showPaymentMessage(
+                    "Supabase is not available. Please refresh the page and try again.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            /* =================================================
+               GET AUTHENTICATED TEACHER
+            ================================================= */
+
+            const {
+                data: {
+                    user
+                },
+                error: authError
+            } =
+                await supabaseClient
+                    .auth
+                    .getUser();
+
+
+            if (
+                authError ||
+                !user
+            ) {
+
+                showPaymentMessage(
+                    "Your session could not be verified. Please sign in again.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            /* =================================================
+               GET TEACHER PROFILE
+            ================================================= */
+
+            const {
+                data: teacherProfile,
+                error: teacherError
+            } =
+                await supabaseClient
+                    .from("users")
+                    .select(`
+                        id,
+                        email,
+                        role,
+                        is_active
+                    `)
+                    .eq(
+                        "auth_id",
+                        user.id
+                    )
+                    .eq(
+                        "role",
+                        "teacher"
+                    )
+                    .maybeSingle();
+
+
+            if (teacherError) {
+
+                console.error(
+                    "Teacher profile error:",
+                    teacherError
+                );
+
+                showPaymentMessage(
+                    "Unable to load your teacher account.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            if (
+                !teacherProfile ||
+                teacherProfile.is_active !== true
+            ) {
+
+                showPaymentMessage(
+                    "Your teacher account is not active.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            currentTeacherProfile =
+                teacherProfile;
+
+
+
+            /* =================================================
+               GET CURRENT SUBSCRIPTION
+
+               IMPORTANT:
+               We deliberately include "expired".
+
+               This allows a teacher whose subscription
+               has expired to renew the SAME subscription.
+            ================================================= */
+
+            const {
+                data: subscription,
+                error: subscriptionError
+            } =
+                await supabaseClient
+                    .from("subscriptions")
+                    .select(`
+                        id,
+                        plan_id,
+                        status,
+                        user_id,
+                        trial_start_date,
+                        trial_end_date,
+                        start_date,
+                        end_date,
+                        grace_period_start_date,
+                        grace_period_end_date
+                    `)
+                    .eq(
+                        "user_id",
+                        teacherProfile.id
+                    )
+                    .in(
+                        "status",
+                        [
+                            "trial",
+                            "active",
+                            "grace_period",
+                            "expired"
+                        ]
+                    )
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    )
+                    .limit(1)
+                    .maybeSingle();
+
+
+            if (subscriptionError) {
+
+                console.error(
+                    "Subscription error:",
+                    subscriptionError
+                );
+
+                showPaymentMessage(
+                    "Unable to load your current subscription.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            if (!subscription) {
+
+                showPaymentMessage(
+                    "No subscription record was found for your account. Please contact the platform administrator.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            currentSubscription =
+                subscription;
+
+
+
+            /* =================================================
+               GET PLAN
+            ================================================= */
+
+            const {
+                data: plan,
+                error: planError
+            } =
+                await supabaseClient
+                    .from("plans")
+                    .select(`
+                        id,
+                        name,
+                        plan_type,
+                        price,
+                        currency,
+                        duration_days,
+                        trial_days,
+                        grace_period_days
+                    `)
+                    .eq(
+                        "id",
+                        subscription.plan_id
+                    )
+                    .maybeSingle();
+
+
+            if (planError) {
+
+                console.error(
+                    "Plan error:",
+                    planError
+                );
+
+                showPaymentMessage(
+                    "Unable to load your subscription plan.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            if (!plan) {
+
+                showPaymentMessage(
+                    "Your subscription plan could not be found.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            /* =================================================
+               PREVENT ORGANIZATION PLAN
+            ================================================= */
+
+            if (
+                plan.plan_type !==
+                "individual"
+            ) {
+
+                showPaymentMessage(
+                    "This payment page is only available for individual teacher subscriptions.",
+                    "error"
+                );
+
+                return false;
+
+            }
+
+
+            currentPlan =
+                plan;
+
+
+
+            /* =================================================
+               UPDATE PAGE INFORMATION
+            ================================================= */
+
+            const formattedPrice =
+                formatCurrency(
+                    plan.price,
+                    plan.currency
+                );
+
+
+            if (planNameElement) {
+
+                planNameElement.textContent =
+                    plan.name ||
+                    "Individual Teacher";
+
+            }
+
+
+            if (planAmountElement) {
+
+                planAmountElement.textContent =
+                    formattedPrice;
+
+            }
+
+
+
+            /* =================================================
+               HANDLE SUBSCRIPTION STATUS
+            ================================================= */
+
+            if (
+                subscription.status ===
+                "expired"
+            ) {
+
+                paymentPageTitle.textContent =
+                    "Renew your Gracextol subscription";
+
+
+                paymentPageDescription.textContent =
+                    "Your previous subscription has expired. Make a bank transfer and submit your payment reference to renew your access.";
+
+
+                paymentFormTitle.textContent =
+                    "Submit Renewal Payment";
+
+
+                renewalStatus.textContent =
+                    "Your subscription has expired. Once your renewal payment is confirmed by the Owner, your subscription will automatically become active for a new 30-day period.";
+
+
+                renewalStatus.classList.add(
+                    "show"
+                );
+
+
+                submitPaymentButton.innerHTML = `
+
+                    <i class="fa-solid fa-rotate"></i>
+
+                    Renew Subscription — ${formattedPrice}
+
+                `;
+
+            }
+
+            else if (
+                subscription.status ===
+                "grace_period"
+            ) {
+
+                paymentPageTitle.textContent =
+                    "Renew your Gracextol subscription";
+
+
+                paymentPageDescription.textContent =
+                    "Your subscription is currently in its grace period. Make a bank transfer to keep your account active.";
+
+
+                paymentFormTitle.textContent =
+                    "Submit Renewal Payment";
+
+
+                renewalStatus.textContent =
+                    "Your subscription is in its grace period. Once your payment is confirmed by the Owner, your subscription will automatically become active for a new 30-day period.";
+
+
+                renewalStatus.classList.add(
+                    "show"
+                );
+
+
+                submitPaymentButton.innerHTML = `
+
+                    <i class="fa-solid fa-rotate"></i>
+
+                    Renew Subscription — ${formattedPrice}
+
+                `;
+
+            }
+
+            else if (
+                subscription.status ===
+                "active"
+            ) {
+
+                paymentPageTitle.textContent =
+                    "Renew your Gracextol subscription";
+
+
+                paymentPageDescription.textContent =
+                    "Submit a renewal payment if you need to extend your subscription.";
+
+
+                paymentFormTitle.textContent =
+                    "Submit Payment";
+
+            }
+
+            else if (
+                subscription.status ===
+                "trial"
+            ) {
+
+                paymentPageTitle.textContent =
+                    "Subscribe to Gracextol";
+
+
+                paymentPageDescription.textContent =
+                    "Make a bank transfer and submit your payment reference to activate your subscription.";
+
+
+                paymentFormTitle.textContent =
+                    "Submit Payment";
+
+            }
+
+
+            console.log(
+                "Teacher payment context loaded:",
+                {
+                    teacher:
+                        teacherProfile.email,
+
+                    subscription:
+                        subscription,
+
+                    plan:
+                        plan
+                }
+            );
+
+
+            return true;
+
+
+        } catch (error) {
+
+            console.error(
+                "Unexpected payment context error:",
+                error
+            );
+
+            showPaymentMessage(
+                "Something went wrong while loading your subscription.",
+                "error"
+            );
+
+            return false;
+
+        }
+
+    }
+
+
+
+    /* =========================================================
+       SUBMIT PAYMENT
+    ========================================================= */
+
+    paymentForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            /* =================================================
+               GET FORM VALUES
+            ================================================= */
+
+            const paymentReference =
+                document
+                    .getElementById(
+                        "paymentReference"
+                    )
+                    .value
+                    .trim();
+
+
+            const paymentNote =
+                document
+                    .getElementById(
+                        "paymentNote"
+                    )
+                    .value
+                    .trim();
+
+
+            if (!paymentReference) {
+
+                showPaymentMessage(
+                    "Please enter your payment reference.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* =================================================
+               CHECK CONTEXT
+            ================================================= */
+
+            if (
+                !currentTeacherProfile ||
+                !currentSubscription ||
+                !currentPlan
+            ) {
+
+                showPaymentMessage(
+                    "Your subscription information has not finished loading. Please refresh the page and try again.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* =================================================
+               PREVENT DUPLICATE PENDING PAYMENT
+
+               Same teacher + same subscription.
+            ================================================= */
+
+            try {
+
+                const {
+                    data: existingPayment,
+                    error: existingPaymentError
+                } =
+                    await supabaseClient
+                        .from("payments")
+                        .select(`
+                            id,
+                            payment_reference,
+                            status
+                        `)
+                        .eq(
+                            "user_id",
+                            currentTeacherProfile.id
+                        )
+                        .eq(
+                            "subscription_id",
+                            currentSubscription.id
+                        )
+                        .eq(
+                            "status",
+                            "pending"
+                        )
+                        .maybeSingle();
+
+
+                if (existingPaymentError) {
+
+                    console.error(
+                        "Existing payment check error:",
+                        existingPaymentError
+                    );
+
+                    showPaymentMessage(
+                        "Unable to check for an existing payment. Please try again.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (existingPayment) {
+
+                    showPaymentMessage(
+                        "You already have a payment awaiting Owner verification.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* =================================================
+                   DISABLE BUTTON
+                ================================================= */
+
+                setSubmitButton(
+                    true,
+                    "Submitting...",
+                    "fa-spinner fa-spin"
+                );
+
+
+
+                /* =================================================
+                   CREATE PAYMENT
+
+                   IMPORTANT:
+                   We use the EXISTING subscription ID.
+
+                   This means:
+
+                   Expired
+                      ↓
+                   Payment
+                      ↓
+                   Owner confirms
+                      ↓
+                   SAME subscription → Active
+
+                   No duplicate subscription is created.
+                ================================================= */
+
+                const {
+                    data: payment,
+                    error: paymentError
+                } =
+                    await supabaseClient
+                        .from("payments")
+                        .insert({
+
+                            user_id:
+                                currentTeacherProfile.id,
+
+                            organization_id:
+                                null,
+
+                            subscription_id:
+                                currentSubscription.id,
+
+                            plan_id:
+                                currentPlan.id,
+
+                            amount:
+                                Number(
+                                    currentPlan.price
+                                ),
+
+                            currency:
+                                currentPlan.currency ||
+                                "NGN",
+
+                            payment_method:
+                                "bank_transfer",
+
+                            payment_reference:
+                                paymentReference,
+
+                            status:
+                                "pending"
+
+                        })
+                        .select(`
+                            id,
+                            payment_reference,
+                            status,
+                            amount,
+                            currency,
+                            created_at
+                        `)
+                        .single();
+
+
+                if (paymentError) {
+
+                    console.error(
+                        "Payment submission error:",
+                        paymentError
+                    );
+
+
+                    setSubmitButton(
+                        false,
+                        currentSubscription.status ===
+                        "expired" ||
+                        currentSubscription.status ===
+                        "grace_period"
+                            ? "Renew Subscription"
+                            : "Submit Payment",
+                        "fa-paper-plane"
+                    );
+
+
+                    if (
+                        paymentError.code ===
+                        "23505"
+                    ) {
+
+                        showPaymentMessage(
+                            "This payment reference has already been submitted.",
+                            "error"
+                        );
+
+                    } else {
+
+                        showPaymentMessage(
+                            "Payment submission failed. Please try again.",
+                            "error"
+                        );
+
+                    }
+
+
+                    return;
+
+                }
+
+
+
+                /* =================================================
+                   SUCCESS
+                ================================================= */
+
+                console.log(
+                    "Payment submitted successfully:",
+                    payment
+                );
+
+
+                paymentForm.reset();
+
+
+                setSubmitButton(
+                    false,
+                    "Payment Submitted",
+                    "fa-check"
+                );
+
+
+                showPaymentMessage(
+                    "Payment submitted successfully. Your payment is now awaiting Owner verification.",
+                    "success"
+                );
+
+
+                /*
+                    Keep the button disabled after success
+                    so the teacher cannot accidentally submit
+                    another payment before verification.
+                */
+
+                submitPaymentButton.disabled =
+                    true;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unexpected payment error:",
+                    error
+                );
+
+
+                setSubmitButton(
+                    false,
+                    "Submit Payment",
+                    "fa-paper-plane"
+                );
+
+
+                showPaymentMessage(
+                    "Something went wrong while submitting your payment.",
+                    "error"
+                );
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================================================
+       INITIALIZE PAYMENT PAGE
+    ========================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        async function () {
+
+            console.log(
+                "Gracextol Teacher Payment Page Loaded."
+            );
+
+
+            setSubmitButton(
+                true,
+                "Loading Subscription...",
+                "fa-spinner fa-spin"
+            );
+
+
+            const loaded =
+                await loadPaymentContext();
+
+
+            if (loaded) {
+
+                /*
+                    Re-enable only after subscription
+                    information has loaded.
+                */
+
+                setSubmitButton(
+                    false,
+                    "Submit Payment",
+                    "fa-paper-plane"
+                );
+
+            } else {
+
+                setSubmitButton(
+                    true,
+                    "Unable to Load Subscription",
+                    "fa-circle-exclamation"
+                );
+
+            }
+
+        }
+    );
+
+    </script>
+
+</body>
+
+</html>

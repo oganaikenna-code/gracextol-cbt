@@ -1112,7 +1112,9 @@ function escapeHTML(
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    async function () {
+
+        if (!(await window.teacherAccessReady)) return;
 
         console.log(
             "Gracextol Students Page Loaded."

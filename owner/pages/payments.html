@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Payments | Gracextol CBT
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/owner.css"
+    >
+
+    <style>
+
+        .payments-page {
+            padding: 30px;
+        }
+
+        .payments-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 26px;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border-radius: 9px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            color: #475569;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .back-btn:hover {
+            border-color: #c4b5fd;
+            color: #7c3aed;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .summary-card span {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .summary-card strong {
+            font-size: 24px;
+            color: #111827;
+        }
+
+        .payments-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        thead {
+            background: #f8fafc;
+        }
+
+        th {
+            padding: 13px 16px;
+            text-align: left;
+            font-size: 10px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 15px 16px;
+            font-size: 12px;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .account-name {
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 3px;
+        }
+
+        .account-email {
+            font-size: 10px;
+            color: #94a3b8;
+        }
+
+        .account-type {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 4px 7px;
+            border-radius: 999px;
+            background: #f3e8ff;
+            color: #7c3aed;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .organization-account {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .amount {
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .reference {
+            font-family: monospace;
+            font-size: 11px;
+            color: #475569;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .status-confirmed {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .action-btn {
+            border: 0;
+            border-radius: 7px;
+            padding: 7px 10px;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .confirm-btn {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .confirm-btn:hover {
+            background: #bbf7d0;
+        }
+
+        .reject-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .reject-btn:hover {
+            background: #fecaca;
+        }
+
+        .action-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        .empty-state {
+            padding: 50px 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .empty-state i {
+            display: block;
+            font-size: 30px;
+            margin-bottom: 12px;
+            color: #cbd5e1;
+        }
+
+        .loading-state {
+            padding: 50px 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .error-message {
+            margin-bottom: 20px;
+            padding: 13px 15px;
+            border-radius: 9px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            font-size: 12px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            margin-bottom: 20px;
+            padding: 13px 15px;
+            border-radius: 9px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            font-size: 12px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @media (max-width: 900px) {
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payments-page {
+                padding: 20px;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .page-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PAGE
+    ====================================================== -->
+
+    <main class="payments-page">
+
+        <div class="payments-container">
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="page-header">
+
+                <div>
+
+                    <h1>
+                        Payments
+                    </h1>
+
+                    <p>
+                        Review and verify Gracextol subscription payments.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="dashboard.html"
+                    class="back-btn"
+                >
+
+                    <span>
+                        ←
+                    </span>
+
+                    Back to Dashboard
+
+                </a>
+
+            </header>
+
+
+            <!-- =================================================
+                 MESSAGES
+            ================================================== -->
+
+            <div
+                id="errorMessage"
+                class="error-message"
+            ></div>
+
+
+            <div
+                id="successMessage"
+                class="success-message"
+            ></div>
+
+
+            <!-- =================================================
+                 SUMMARY
+            ================================================== -->
+
+            <section class="summary-grid">
+
+
+                <div class="summary-card">
+
+                    <span>
+                        Total Payments
+                    </span>
+
+                    <strong id="totalPayments">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        Pending
+                    </span>
+
+                    <strong id="pendingPayments">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <span>
+                        Confirmed
+                    </span>
+
+                    <strong id="confirmedPayments">
+                        0
+                    </strong>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================================
+                 PAYMENTS TABLE
+            ================================================== -->
+
+            <section class="payments-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Account
+                                </th>
+
+                                <th>
+                                    Plan
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                                <th>
+                                    Reference
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="paymentsTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="7"
+                                    class="loading-state"
+                                >
+                                    Loading payments...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <script
+        src="../../assets/js/supabase-client.js"
+    ></script>
+
+
+    <script>
+
+
+        /* =====================================================
+           ELEMENTS
+        ====================================================== */
+
+        const paymentsTableBody =
+            document.getElementById(
+                "paymentsTableBody"
+            );
+
+
+        const totalPayments =
+            document.getElementById(
+                "totalPayments"
+            );
+
+
+        const pendingPayments =
+            document.getElementById(
+                "pendingPayments"
+            );
+
+
+        const confirmedPayments =
+            document.getElementById(
+                "confirmedPayments"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "errorMessage"
+            );
+
+
+        const successMessage =
+            document.getElementById(
+                "successMessage"
+            );
+
+
+        /* =====================================================
+           SHOW ERROR
+        ====================================================== */
+
+        function showError(
+            message
+        ) {
+
+            errorMessage.textContent =
+                message;
+
+            errorMessage.classList.add(
+                "show"
+            );
+
+            successMessage.classList.remove(
+                "show"
+            );
+
+        }
+
+
+        /* =====================================================
+           SHOW SUCCESS
+        ====================================================== */
+
+        function showSuccess(
+            message
+        ) {
+
+            successMessage.textContent =
+                message;
+
+            successMessage.classList.add(
+                "show"
+            );
+
+            errorMessage.classList.remove(
+                "show"
+            );
+
+        }
+
+
+        /* =====================================================
+           CLEAR MESSAGES
+        ====================================================== */
+
+        function clearMessages() {
+
+            errorMessage.classList.remove(
+                "show"
+            );
+
+            successMessage.classList.remove(
+                "show"
+            );
+
+        }
+
+
+        /* =====================================================
+           OWNER AUTHENTICATION
+        ====================================================== */
+
+        async function verifyOwner() {
+
+            if (
+                typeof supabaseClient ===
+                "undefined"
+            ) {
+
+                throw new Error(
+                    "Supabase client is not available."
+                );
+
+            }
+
+
+            const {
+                data: {
+                    user
+                },
+                error: authError
+            } =
+                await supabaseClient
+                    .auth
+                    .getUser();
+
+
+            if (
+                authError ||
+                !user
+            ) {
+
+                window.location.href =
+                    "login.html";
+
+                return null;
+
+            }
+
+
+            const {
+                data: profile,
+                error: profileError
+            } =
+                await supabaseClient
+                    .from("users")
+                    .select(`
+                        id,
+                        auth_id,
+                        username,
+                        email,
+                        role,
+                        is_active
+                    `)
+                    .eq(
+                        "auth_id",
+                        user.id
+                    )
+                    .maybeSingle();
+
+
+            if (profileError) {
+
+                throw profileError;
+
+            }
+
+
+            if (!profile) {
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+                window.location.href =
+                    "login.html";
+
+                return null;
+
+            }
+
+
+            if (
+                profile.role !==
+                "owner"
+            ) {
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+                alert(
+                    "You do not have permission to access Owner Payments."
+                );
+
+                window.location.href =
+                    "login.html";
+
+                return null;
+
+            }
+
+
+            if (
+                profile.is_active !== true
+            ) {
+
+                await supabaseClient
+                    .auth
+                    .signOut();
+
+                alert(
+                    "Your Owner account is inactive."
+                );
+
+                window.location.href =
+                    "login.html";
+
+                return null;
+
+            }
+
+
+            return {
+                authUser: user,
+                profile: profile
+            };
+
+        }
+
+
+        /* =====================================================
+           LOAD PAYMENTS
+        ====================================================== */
+
+        async function loadPayments() {
+
+            clearMessages();
+
+
+            try {
+
+
+                const owner =
+                    await verifyOwner();
+
+
+                if (!owner) {
+
+                    return;
+
+                }
+
+
+                /* ---------------------------------------------
+                   GET PAYMENTS
+                --------------------------------------------- */
+
+                const {
+                    data: payments,
+                    error: paymentsError
+                } =
+                    await supabaseClient
+                        .from("payments")
+                        .select(`
+                            id,
+                            organization_id,
+                            user_id,
+                            subscription_id,
+                            plan_id,
+                            amount,
+                            currency,
+                            payment_method,
+                            payment_reference,
+                            status,
+                            verified_by,
+                            verified_at,
+                            created_at
+                        `)
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+
+                if (paymentsError) {
+
+                    throw paymentsError;
+
+                }
+
+
+                const paymentRows =
+                    payments || [];
+
+
+                /* ---------------------------------------------
+                   GET USERS
+                --------------------------------------------- */
+
+                const userIds =
+                    [
+                        ...new Set(
+                            paymentRows
+                                .map(
+                                    payment =>
+                                        payment.user_id
+                                )
+                                .filter(Boolean)
+                        )
+                    ];
+
+
+                let users = [];
+
+
+                if (
+                    userIds.length > 0
+                ) {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient
+                            .from("users")
+                            .select(`
+                                id,
+                                username,
+                                email,
+                                teacher,
+                                role
+                            `)
+                            .in(
+                                "id",
+                                userIds
+                            );
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    users =
+                        data || [];
+
+                }
+
+
+                /* ---------------------------------------------
+                   GET ORGANIZATIONS
+                --------------------------------------------- */
+
+                const organizationIds =
+                    [
+                        ...new Set(
+                            paymentRows
+                                .map(
+                                    payment =>
+                                        payment.organization_id
+                                )
+                                .filter(Boolean)
+                        )
+                    ];
+
+
+                let organizations = [];
+
+
+                if (
+                    organizationIds.length > 0
+                ) {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient
+                            .from("organizations")
+                            .select(`
+                                id,
+                                name
+                            `)
+                            .in(
+                                "id",
+                                organizationIds
+                            );
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    organizations =
+                        data || [];
+
+                }
+
+
+                /* ---------------------------------------------
+                   GET PLANS
+                --------------------------------------------- */
+
+                const planIds =
+                    [
+                        ...new Set(
+                            paymentRows
+                                .map(
+                                    payment =>
+                                        payment.plan_id
+                                )
+                                .filter(Boolean)
+                        )
+                    ];
+
+
+                let plans = [];
+
+
+                if (
+                    planIds.length > 0
+                ) {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient
+                            .from("plans")
+                            .select(`
+                                id,
+                                name,
+                                plan_type,
+                                price,
+                                currency
+                            `)
+                            .in(
+                                "id",
+                                planIds
+                            );
+
+
+                    if (error) {
+
+                        throw error;
+
+                    }
+
+
+                    plans =
+                        data || [];
+
+                }
+
+
+                /* ---------------------------------------------
+                   CREATE LOOKUP MAPS
+                --------------------------------------------- */
+
+                const userMap =
+                    new Map(
+                        users.map(
+                            user => [
+                                user.id,
+                                user
+                            ]
+                        )
+                    );
+
+
+                const organizationMap =
+                    new Map(
+                        organizations.map(
+                            organization => [
+                                organization.id,
+                                organization
+                            ]
+                        )
+                    );
+
+
+                const planMap =
+                    new Map(
+                        plans.map(
+                            plan => [
+                                plan.id,
+                                plan
+                            ]
+                        )
+                    );
+
+
+                /* ---------------------------------------------
+                   SUMMARY
+                --------------------------------------------- */
+
+                const pendingCount =
+                    paymentRows.filter(
+                        payment =>
+                            payment.status ===
+                            "pending"
+                    ).length;
+
+
+                const confirmedCount =
+                    paymentRows.filter(
+                        payment =>
+                            payment.status ===
+                            "confirmed"
+                    ).length;
+
+
+                totalPayments.textContent =
+                    paymentRows.length;
+
+
+                pendingPayments.textContent =
+                    pendingCount;
+
+
+                confirmedPayments.textContent =
+                    confirmedCount;
+
+
+                /* ---------------------------------------------
+                   EMPTY STATE
+                --------------------------------------------- */
+
+                if (
+                    paymentRows.length === 0
+                ) {
+
+                    paymentsTableBody.innerHTML = `
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty-state"
+                            >
+
+                                <i class="fa-solid fa-receipt"></i>
+
+                                No payments found.
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                /* ---------------------------------------------
+                   RENDER PAYMENTS
+                --------------------------------------------- */
+
+                paymentsTableBody.innerHTML =
+                    paymentRows
+                        .map(
+                            payment => {
+
+                                const user =
+                                    payment.user_id
+                                        ? userMap.get(
+                                            payment.user_id
+                                        )
+                                        : null;
+
+
+                                const organization =
+                                    payment.organization_id
+                                        ? organizationMap.get(
+                                            payment.organization_id
+                                        )
+                                        : null;
+
+
+                                const plan =
+                                    payment.plan_id
+                                        ? planMap.get(
+                                            payment.plan_id
+                                        )
+                                        : null;
+
+
+                                const isOrganizationPayment =
+                                    !!payment.organization_id;
+
+
+                                /* ---------------------------------
+                                   ACCOUNT DISPLAY
+                                --------------------------------- */
+
+                                let accountName =
+                                    "Unknown account";
+
+
+                                let accountEmail =
+                                    "";
+
+
+                                let accountType =
+                                    "Account";
+
+
+                                let accountTypeClass =
+                                    "";
+
+
+                                if (
+                                    isOrganizationPayment
+                                ) {
+
+                                    accountName =
+                                        organization?.name ||
+                                        "Unknown organization";
+
+
+                                    accountEmail =
+                                        "Organization subscription";
+
+
+                                    accountType =
+                                        "Organization";
+
+
+                                    accountTypeClass =
+                                        "organization-account";
+
+                                }
+
+                                else if (
+                                    user
+                                ) {
+
+                                    accountName =
+                                        user.username ||
+                                        user.teacher ||
+                                        user.email ||
+                                        "Unknown teacher";
+
+
+                                    accountEmail =
+                                        user.email ||
+                                        "No email";
+
+
+                                    accountType =
+                                        "Individual Teacher";
+
+                                }
+
+
+                                /* ---------------------------------
+                                   PLAN
+                                --------------------------------- */
+
+                                const planName =
+                                    plan?.name ||
+                                    (
+                                        isOrganizationPayment
+                                            ? "Organization"
+                                            : "Unknown plan"
+                                    );
+
+
+                                /* ---------------------------------
+                                   AMOUNT
+                                --------------------------------- */
+
+                                const formattedAmount =
+                                    formatCurrency(
+                                        payment.amount,
+                                        payment.currency
+                                    );
+
+
+                                /* ---------------------------------
+                                   DATE
+                                --------------------------------- */
+
+                                const paymentDate =
+                                    formatDate(
+                                        payment.created_at
+                                    );
+
+
+                                /* ---------------------------------
+                                   STATUS
+                                --------------------------------- */
+
+                                const status =
+                                    payment.status ||
+                                    "unknown";
+
+
+                                const statusClass =
+                                    `status-${status}`;
+
+
+                                /* ---------------------------------
+                                   ACTIONS
+                                --------------------------------- */
+
+                                let actionHtml =
+                                    "—";
+
+
+                                if (
+                                    status ===
+                                    "pending"
+                                ) {
+
+                                    actionHtml = `
+
+                                        <div
+                                            class="actions"
+                                        >
+
+                                            <button
+                                                type="button"
+                                                class="action-btn confirm-btn"
+                                                onclick="confirmPayment('${payment.id}')"
+                                            >
+                                                Confirm
+                                            </button>
+
+
+                                            <button
+                                                type="button"
+                                                class="action-btn reject-btn"
+                                                onclick="rejectPayment('${payment.id}')"
+                                            >
+                                                Reject
+                                            </button>
+
+                                        </div>
+
+                                    `;
+
+                                }
+
+
+                                return `
+
+                                    <tr>
+
+                                        <td>
+
+                                            <div
+                                                class="account-name"
+                                            >
+                                                ${escapeHtml(
+                                                    accountName
+                                                )}
+                                            </div>
+
+                                            <div
+                                                class="account-email"
+                                            >
+                                                ${escapeHtml(
+                                                    accountEmail
+                                                )}
+                                            </div>
+
+                                            <span
+                                                class="
+                                                    account-type
+                                                    ${accountTypeClass}
+                                                "
+                                            >
+                                                ${escapeHtml(
+                                                    accountType
+                                                )}
+                                            </span>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            ${escapeHtml(
+                                                planName
+                                            )}
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <span
+                                                class="amount"
+                                            >
+                                                ${formattedAmount}
+                                            </span>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <span
+                                                class="reference"
+                                            >
+                                                ${escapeHtml(
+                                                    payment.payment_reference
+                                                )}
+                                            </span>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            ${paymentDate}
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <span
+                                                class="
+                                                    status
+                                                    ${statusClass}
+                                                "
+                                            >
+                                                ${escapeHtml(
+                                                    capitalize(status)
+                                                )}
+                                            </span>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            ${actionHtml}
+
+                                        </td>
+
+                                    </tr>
+
+                                `;
+
+                            }
+                        )
+                        .join("");
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Payments page error:",
+                    error
+                );
+
+
+                paymentsTableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="empty-state"
+                        >
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                            Unable to load payments.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                showError(
+                    error.message ||
+                    "Unable to load payments."
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CONFIRM PAYMENT
+        ====================================================== */
+
+        async function confirmPayment(
+            paymentId
+        ) {
+
+
+            const confirmed =
+                window.confirm(
+                    "Are you sure you want to confirm this payment?"
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            clearMessages();
+
+
+            try {
+
+
+                /* ---------------------------------------------
+                   DISABLE BUTTONS FOR THIS ROW
+                --------------------------------------------- */
+
+                const buttons =
+                    document.querySelectorAll(
+                        ".action-btn"
+                    );
+
+
+                buttons.forEach(
+                    button => {
+                        button.disabled = true;
+                    }
+                );
+
+
+                /* ---------------------------------------------
+                   CALL VERIFY PAYMENT FUNCTION
+                --------------------------------------------- */
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .rpc(
+                            "verify_payment",
+                            {
+                                p_payment_id:
+                                    paymentId
+                            }
+                        );
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                console.log(
+                    "Payment verification result:",
+                    data
+                );
+
+
+                showSuccess(
+                    "Payment confirmed successfully and the subscription has been activated."
+                );
+
+
+                await loadPayments();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Payment confirmation error:",
+                    error
+                );
+
+
+                showError(
+                    error.message ||
+                    "Unable to confirm payment."
+                );
+
+
+                await loadPayments();
+
+            }
+
+        }
+
+
+        /* =====================================================
+           REJECT PAYMENT
+        ====================================================== */
+
+        async function rejectPayment(
+            paymentId
+        ) {
+
+
+            const confirmed =
+                window.confirm(
+                    "Are you sure you want to reject this payment?"
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            clearMessages();
+
+
+            try {
+
+
+                const buttons =
+                    document.querySelectorAll(
+                        ".action-btn"
+                    );
+
+
+                buttons.forEach(
+                    button => {
+                        button.disabled = true;
+                    }
+                );
+
+
+                /* ---------------------------------------------
+                   CALL REJECT PAYMENT FUNCTION
+                --------------------------------------------- */
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .rpc(
+                            "reject_payment",
+                            {
+                                p_payment_id:
+                                    paymentId
+                            }
+                        );
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                console.log(
+                    "Payment rejection result:",
+                    data
+                );
+
+
+                showSuccess(
+                    "Payment rejected successfully."
+                );
+
+
+                await loadPayments();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Payment rejection error:",
+                    error
+                );
+
+
+                showError(
+                    error.message ||
+                    "Unable to reject payment."
+                );
+
+
+                await loadPayments();
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FORMAT CURRENCY
+        ====================================================== */
+
+        function formatCurrency(
+            amount,
+            currency
+        ) {
+
+            return new Intl.NumberFormat(
+                "en-NG",
+                {
+                    style: "currency",
+                    currency:
+                        currency ||
+                        "NGN",
+                    maximumFractionDigits: 0
+                }
+            ).format(
+                Number(amount || 0)
+            );
+
+        }
+
+
+        /* =====================================================
+           FORMAT DATE
+        ====================================================== */
+
+        function formatDate(
+            value
+        ) {
+
+            if (!value) {
+
+                return "—";
+
+            }
+
+
+            const date =
+                new Date(value);
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return "—";
+
+            }
+
+
+            return date.toLocaleDateString(
+                "en-NG",
+                {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           CAPITALIZE
+        ====================================================== */
+
+        function capitalize(
+            value
+        ) {
+
+            if (!value) {
+
+                return "";
+
+            }
+
+
+            return value
+                .charAt(0)
+                .toUpperCase() +
+                value.slice(1);
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+        ====================================================== */
+
+        function escapeHtml(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =====================================================
+           START
+        ====================================================== */
+
+        loadPayments();
+
+
+    </script>
+
+
+</body>
+
+</html>

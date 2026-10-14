@@ -352,6 +352,147 @@
 
 
         /* =====================================================
+           ORGANIZATION SUBSCRIPTION
+        ====================================================== */
+
+        .subscription-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 25px;
+            box-shadow:
+                0 8px 24px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    .04
+                );
+        }
+
+
+        .subscription-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+
+        .subscription-title {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+
+        .subscription-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: #f3e8ff;
+            color: #7c3aed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+
+        .subscription-title h3 {
+            font-size: 17px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+
+        .subscription-title p {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 3px;
+        }
+
+
+        .subscription-status {
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: #f3e8ff;
+            color: #7c3aed;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+
+        .subscription-body {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+
+        .subscription-detail {
+            background: #f8fafc;
+            border-radius: 11px;
+            padding: 14px;
+        }
+
+
+        .subscription-detail span {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+
+        .subscription-detail strong {
+            display: block;
+            font-size: 14px;
+            color: #111827;
+        }
+
+
+        .subscription-message {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+
+        .subscription-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border: 0;
+            border-radius: 9px;
+            background: #7c3aed;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s ease;
+        }
+
+
+        .subscription-action:hover {
+            background: #6d28d9;
+        }
+
+
+        .subscription-action.hidden {
+            display: none;
+        }
+
+
+        /* =====================================================
            STATISTICS
         ====================================================== */
 
@@ -563,9 +704,7 @@
            RESPONSIVE
         ====================================================== */
 
-        @media (
-            max-width: 900px
-        ) {
+        @media (max-width: 900px) {
 
             .sidebar {
                 width: 210px;
@@ -585,6 +724,12 @@
             }
 
 
+            .subscription-body {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
             .quick-grid {
                 grid-template-columns: 1fr;
             }
@@ -592,9 +737,7 @@
         }
 
 
-        @media (
-            max-width: 650px
-        ) {
+        @media (max-width: 650px) {
 
             .sidebar {
                 display: none;
@@ -627,6 +770,17 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 18px;
+            }
+
+
+            .subscription-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+
+            .subscription-body {
+                grid-template-columns: 1fr;
             }
 
         }
@@ -716,7 +870,9 @@
                 >
 
                     <span class="nav-icon">
+
                         <i class="fa-solid fa-chart-pie"></i>
+
                     </span>
 
                     Dashboard
@@ -732,7 +888,9 @@
                 >
 
                     <span class="nav-icon">
+
                         <i class="fa-solid fa-chalkboard-user"></i>
+
                     </span>
 
                     Teachers
@@ -748,7 +906,9 @@
                 >
 
                     <span class="nav-icon">
+
                         <i class="fa-solid fa-user-graduate"></i>
+
                     </span>
 
                     Students
@@ -764,7 +924,9 @@
                 >
 
                     <span class="nav-icon">
+
                         <i class="fa-solid fa-file-lines"></i>
+
                     </span>
 
                     Examinations
@@ -780,7 +942,9 @@
                 >
 
                     <span class="nav-icon">
+
                         <i class="fa-solid fa-chart-column"></i>
+
                     </span>
 
                     Results
@@ -895,8 +1059,122 @@
                     class="organization-badge"
                     id="organizationStatus"
                 >
+
                     Active
+
                 </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ORGANIZATION SUBSCRIPTION
+            ================================================== -->
+
+            <section class="subscription-card">
+
+                <div class="subscription-header">
+
+                    <div class="subscription-title">
+
+                        <div class="subscription-icon">
+
+                            <i class="fa-solid fa-credit-card"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Organization Subscription
+                            </h3>
+
+                            <p>
+                                Manage your organization's Gracextol access.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="subscriptionStatus"
+                        class="subscription-status"
+                    >
+                        Loading...
+                    </div>
+
+                </div>
+
+
+                <div class="subscription-body">
+
+
+                    <div class="subscription-detail">
+
+                        <span>
+                            Plan
+                        </span>
+
+                        <strong id="subscriptionPlan">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="subscription-detail">
+
+                        <span>
+                            Price
+                        </span>
+
+                        <strong id="subscriptionPrice">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="subscription-detail">
+
+                        <span>
+                            Validity
+                        </span>
+
+                        <strong id="subscriptionValidity">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <p
+                    id="subscriptionMessage"
+                    class="subscription-message"
+                >
+                    Loading subscription information...
+                </p>
+
+
+                <button
+                    id="subscriptionAction"
+                    class="subscription-action hidden"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                    <span>
+                        Subscribe Now
+                    </span>
+
+                </button>
 
             </section>
 
@@ -1024,6 +1302,7 @@
 
             <section>
 
+
                 <div class="section-title">
 
                     <h3>
@@ -1117,6 +1396,7 @@
 
                 </div>
 
+
             </section>
 
 
@@ -1141,6 +1421,7 @@
 
 
     <script>
+
 
         /* =====================================================
            ORGANIZATION DASHBOARD
@@ -1207,6 +1488,46 @@
 
 
         /* =====================================================
+           SUBSCRIPTION ELEMENTS
+        ====================================================== */
+
+        const subscriptionStatus =
+            document.getElementById(
+                "subscriptionStatus"
+            );
+
+
+        const subscriptionPlan =
+            document.getElementById(
+                "subscriptionPlan"
+            );
+
+
+        const subscriptionPrice =
+            document.getElementById(
+                "subscriptionPrice"
+            );
+
+
+        const subscriptionValidity =
+            document.getElementById(
+                "subscriptionValidity"
+            );
+
+
+        const subscriptionMessage =
+            document.getElementById(
+                "subscriptionMessage"
+            );
+
+
+        const subscriptionAction =
+            document.getElementById(
+                "subscriptionAction"
+            );
+
+
+        /* =====================================================
            LOAD DASHBOARD
         ====================================================== */
 
@@ -1247,7 +1568,9 @@
 
 
                 if (authError) {
+
                     throw authError;
+
                 }
 
 
@@ -1406,6 +1729,7 @@
 
                 if (!organizationId) {
 
+
                     console.warn(
                         "Organization admin has no organization_id."
                     );
@@ -1414,11 +1738,29 @@
                     organizationName.textContent =
                         "Organization not linked yet.";
 
+
                 } else {
+
 
                     await loadOrganization(
                         organizationId
                     );
+
+
+                    const subscriptionAccessAllowed =
+                        await loadOrganizationSubscription(
+                            organizationId
+                        );
+
+
+                    if (
+                        subscriptionAccessAllowed ===
+                        false
+                    ) {
+
+                        return;
+
+                    }
 
 
                     await loadStatistics(
@@ -1445,6 +1787,7 @@
             }
 
             catch (error) {
+
 
                 console.error(
                     "Dashboard error:",
@@ -1504,6 +1847,7 @@
                             Return to Login
                         </button>
 
+
                     </div>
 
                 `;
@@ -1521,6 +1865,7 @@
             organizationId
         ) {
 
+
             const {
                 data: organization,
                 error
@@ -1536,7 +1881,9 @@
 
 
             if (error) {
+
                 throw error;
+
             }
 
 
@@ -1568,6 +1915,480 @@
 
 
         /* =====================================================
+           LOAD ORGANIZATION SUBSCRIPTION
+        ====================================================== */
+
+        async function loadOrganizationSubscription(
+            organizationId
+        ) {
+
+            try {
+
+
+                console.log(
+                    "DASHBOARD: Loading organization subscription..."
+                );
+
+
+                /* ---------------------------------------------
+                   GET CURRENT SUBSCRIPTION
+                --------------------------------------------- */
+
+                const {
+                    data: subscription,
+                    error: subscriptionError
+                } =
+                    await supabaseClient
+                        .from("subscriptions")
+                        .select(`
+                            id,
+                            plan_id,
+                            status,
+                            trial_start_date,
+                            trial_end_date,
+                            start_date,
+                            end_date,
+                            grace_period_start_date,
+                            grace_period_end_date,
+                            created_at
+                        `)
+                        .eq(
+                            "organization_id",
+                            organizationId
+                        )
+                        .in(
+                            "status",
+                            [
+                                "trial",
+                                "active",
+                                "grace_period",
+                                "expired"
+                            ]
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        )
+                        .limit(1)
+                        .maybeSingle();
+
+
+                if (subscriptionError) {
+
+                    throw subscriptionError;
+
+                }
+
+
+                if (!subscription) {
+
+                    subscriptionStatus.textContent =
+                        "No Subscription";
+
+                    subscriptionPlan.textContent =
+                        "Organization";
+
+                    subscriptionPrice.textContent =
+                        "₦10,000 / month";
+
+                    subscriptionValidity.textContent =
+                        "Not available";
+
+                    subscriptionMessage.textContent =
+                        "No organization subscription was found.";
+
+                    subscriptionAction.classList.add(
+                        "hidden"
+                    );
+
+                    return true;
+
+                }
+
+
+                /* ---------------------------------------------
+                   GET PLAN
+                --------------------------------------------- */
+
+                const {
+                    data: plan,
+                    error: planError
+                } =
+                    await supabaseClient
+                        .from("plans")
+                        .select(`
+                            id,
+                            name,
+                            plan_type,
+                            price,
+                            currency,
+                            duration_days,
+                            trial_days,
+                            grace_period_days
+                        `)
+                        .eq(
+                            "id",
+                            subscription.plan_id
+                        )
+                        .maybeSingle();
+
+
+                if (planError) {
+
+                    throw planError;
+
+                }
+
+
+                if (!plan) {
+
+                    throw new Error(
+                        "Subscription plan could not be found."
+                    );
+
+                }
+
+
+                /* ---------------------------------------------
+                   BASIC PLAN INFORMATION
+                --------------------------------------------- */
+
+                subscriptionPlan.textContent =
+                    plan.name ||
+                    "Organization";
+
+
+                const formattedPrice =
+                    new Intl.NumberFormat(
+                        "en-NG",
+                        {
+                            style: "currency",
+                            currency:
+                                plan.currency ||
+                                "NGN",
+                            maximumFractionDigits: 0
+                        }
+                    ).format(
+                        Number(plan.price || 0)
+                    );
+
+
+                subscriptionPrice.textContent =
+                    `${formattedPrice} / month`;
+
+
+                /* ---------------------------------------------
+                   STATUS: TRIAL
+                --------------------------------------------- */
+
+                if (
+                    subscription.status ===
+                    "trial"
+                ) {
+
+
+                    subscriptionStatus.textContent =
+                        "Free Trial";
+
+
+                    subscriptionStatus.style.background =
+                        "#f3e8ff";
+
+                    subscriptionStatus.style.color =
+                        "#7c3aed";
+
+
+                    const trialEnd =
+                        subscription.trial_end_date
+                            ? new Date(
+                                subscription.trial_end_date
+                            )
+                            : null;
+
+
+                    let remainingDays =
+                        0;
+
+
+                    if (trialEnd) {
+
+                        remainingDays =
+                            Math.max(
+                                0,
+                                Math.ceil(
+                                    (
+                                        trialEnd.getTime() -
+                                        Date.now()
+                                    ) /
+                                    (
+                                        1000 *
+                                        60 *
+                                        60 *
+                                        24
+                                    )
+                                )
+                            );
+
+                    }
+
+
+                    subscriptionValidity.textContent =
+                        trialEnd
+                            ? `Ends ${formatDate(trialEnd)}`
+                            : "14-day trial";
+
+
+                    subscriptionMessage.textContent =
+                        remainingDays > 0
+                            ? `${remainingDays} day${remainingDays === 1 ? "" : "s"} remaining in your free trial.`
+                            : "Your free trial ends today.";
+
+
+                    subscriptionAction.classList.remove(
+                        "hidden"
+                    );
+
+
+                    subscriptionAction.innerHTML = `
+
+                        <i class="fa-solid fa-credit-card"></i>
+
+                        <span>
+                            Subscribe Now — ₦10,000
+                        </span>
+
+                    `;
+
+
+                    subscriptionAction.onclick =
+                        function () {
+
+                            window.location.href =
+                                "payment.html";
+
+                        };
+
+
+                    return true;
+
+                }
+
+
+                /* ---------------------------------------------
+                   STATUS: ACTIVE
+                --------------------------------------------- */
+
+                if (
+                    subscription.status ===
+                    "active"
+                ) {
+
+
+                    subscriptionStatus.textContent =
+                        "Active";
+
+
+                    subscriptionStatus.style.background =
+                        "#dcfce7";
+
+                    subscriptionStatus.style.color =
+                        "#15803d";
+
+
+                    const endDate =
+                        subscription.end_date
+                            ? new Date(
+                                subscription.end_date
+                            )
+                            : null;
+
+
+                    subscriptionValidity.textContent =
+                        endDate
+                            ? `Valid until ${formatDate(endDate)}`
+                            : "Active";
+
+
+                    subscriptionMessage.textContent =
+                        "Your organization subscription is active and your organization has full access.";
+
+
+                    subscriptionAction.classList.add(
+                        "hidden"
+                    );
+
+
+                    return true;
+
+                }
+
+
+                /* ---------------------------------------------
+                   STATUS: GRACE PERIOD
+                --------------------------------------------- */
+
+                if (
+                    subscription.status ===
+                    "grace_period"
+                ) {
+
+
+                    subscriptionStatus.textContent =
+                        "Grace Period";
+
+
+                    subscriptionStatus.style.background =
+                        "#fef3c7";
+
+                    subscriptionStatus.style.color =
+                        "#b45309";
+
+
+                    const graceEnd =
+                        subscription.grace_period_end_date
+                            ? new Date(
+                                subscription.grace_period_end_date
+                            )
+                            : null;
+
+
+                    let remainingDays =
+                        0;
+
+
+                    if (graceEnd) {
+
+                        remainingDays =
+                            Math.max(
+                                0,
+                                Math.ceil(
+                                    (
+                                        graceEnd.getTime() -
+                                        Date.now()
+                                    ) /
+                                    (
+                                        1000 *
+                                        60 *
+                                        60 *
+                                        24
+                                    )
+                                )
+                            );
+
+                    }
+
+
+                    subscriptionValidity.textContent =
+                        graceEnd
+                            ? `Ends ${formatDate(graceEnd)}`
+                            : "Grace period";
+
+
+                    subscriptionMessage.textContent =
+                        remainingDays > 0
+                            ? `Your subscription is in its grace period. ${remainingDays} day${remainingDays === 1 ? "" : "s"} remaining. Renew to maintain uninterrupted access.`
+                            : "Your grace period ends today. Please renew your subscription.";
+
+
+                    subscriptionAction.classList.remove(
+                        "hidden"
+                    );
+
+
+                    subscriptionAction.innerHTML = `
+
+                        <i class="fa-solid fa-rotate"></i>
+
+                        <span>
+                            Renew Subscription — ₦10,000
+                        </span>
+
+                    `;
+
+
+                    subscriptionAction.onclick =
+                        function () {
+
+                            window.location.href =
+                                "payment.html";
+
+                        };
+
+
+                    return true;
+
+                }
+
+
+                /* ---------------------------------------------
+                   STATUS: EXPIRED
+                --------------------------------------------- */
+
+                if (
+                    subscription.status ===
+                    "expired"
+                ) {
+
+                    console.warn(
+                        "Organization subscription has expired. Redirecting to payment page."
+                    );
+
+
+                    window.location.replace(
+                        "payment.html"
+                    );
+
+
+                    return false;
+
+                }
+
+
+                return true;
+
+            }
+
+            catch (error) {
+
+
+                console.error(
+                    "DASHBOARD: Subscription error:",
+                    error
+                );
+
+
+                subscriptionStatus.textContent =
+                    "Unavailable";
+
+
+                subscriptionPlan.textContent =
+                    "Organization";
+
+
+                subscriptionPrice.textContent =
+                    "₦10,000 / month";
+
+
+                subscriptionValidity.textContent =
+                    "Unable to load";
+
+
+                subscriptionMessage.textContent =
+                    "We could not load your subscription information. Please refresh the page.";
+
+
+                subscriptionAction.classList.add(
+                    "hidden"
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
            LOAD ORGANIZATION STATISTICS
         ====================================================== */
 
@@ -1575,7 +2396,9 @@
             organizationId
         ) {
 
+
             try {
+
 
                 console.log(
                     "DASHBOARD: Loading organization statistics..."
@@ -1610,7 +2433,9 @@
 
 
                 if (teachersError) {
+
                     throw teachersError;
+
                 }
 
 
@@ -1642,7 +2467,9 @@
 
 
                 if (teacherQueryError) {
+
                     throw teacherQueryError;
+
                 }
 
 
@@ -1674,14 +2501,18 @@
                     teacherAuthIds.length === 0
                 ) {
 
+
                     studentCount.textContent =
                         "0";
+
 
                     examCount.textContent =
                         "0";
 
+
                     resultCount.textContent =
                         "0";
+
 
                     return;
 
@@ -1711,7 +2542,9 @@
 
 
                 if (examError) {
+
                     throw examError;
+
                 }
 
 
@@ -1732,11 +2565,14 @@
                     organizationExams.length === 0
                 ) {
 
+
                     studentCount.textContent =
                         "0";
 
+
                     resultCount.textContent =
                         "0";
+
 
                     return;
 
@@ -1773,7 +2609,9 @@
 
 
                 if (submissionError) {
+
                     throw submissionError;
+
                 }
 
 
@@ -1852,6 +2690,7 @@
 
             catch (error) {
 
+
                 console.error(
                     "DASHBOARD: Statistics error:",
                     error
@@ -1866,16 +2705,39 @@
                 teacherCount.textContent =
                     "0";
 
+
                 studentCount.textContent =
                     "0";
 
+
                 examCount.textContent =
                     "0";
+
 
                 resultCount.textContent =
                     "0";
 
             }
+
+        }
+
+
+        /* =====================================================
+           FORMAT DATE
+        ====================================================== */
+
+        function formatDate(
+            date
+        ) {
+
+            return date.toLocaleDateString(
+                "en-NG",
+                {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
 
         }
 
@@ -1891,6 +2753,7 @@
             .addEventListener(
                 "click",
                 async function () {
+
 
                     await supabaseClient
                         .auth
@@ -1912,6 +2775,7 @@
             value
         ) {
 
+
             const div =
                 document.createElement(
                     "div"
@@ -1932,6 +2796,7 @@
         ====================================================== */
 
         loadDashboard();
+
 
     </script>
 

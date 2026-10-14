@@ -507,8 +507,8 @@ loginForm.addEventListener(
                         auth_id,
                         username,
                         email,
-                        teacher,
                         role,
+                        organization_id,
                         is_active
                         `
                     )
@@ -562,10 +562,7 @@ loginForm.addEventListener(
                CHECK TEACHER ROLE
             ================================= */
 
-            if (
-                profile.teacher !==
-                "teacher"
-            ) {
+            if (profile.role !== "teacher") {
 
                 console.warn(
                     "Authenticated account is not a teacher."
@@ -601,6 +598,36 @@ loginForm.addEventListener(
                 );
 
                 return;
+
+            }
+
+
+            if (profile.organization_id) {
+
+                const {
+                    data: organization,
+                    error: organizationError
+                } = await supabaseClient
+                    .from("organizations")
+                    .select("id, status")
+                    .eq("id", profile.organization_id)
+                    .maybeSingle();
+
+                if (
+                    organizationError ||
+                    !organization ||
+                    organization.status !== "active"
+                ) {
+
+                    await supabaseClient.auth.signOut();
+
+                    showMessage(
+                        "Your organization is inactive or could not be verified. Please contact your Organization Admin."
+                    );
+
+                    return;
+
+                }
 
             }
 

@@ -5663,6 +5663,8 @@ document.addEventListener(
     "DOMContentLoaded",
     async () => {
 
+        if (!(await window.teacherAccessReady)) return;
+
         console.log(
             "Gracextol Question Builder Loaded."
         );

@@ -25,6 +25,8 @@ if (examDetailsForm) {
 
             event.preventDefault();
 
+            if (!(await window.teacherAccessReady)) return;
+
 
             /* =====================================
                CHECK TEACHER
